@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.iostar.beverageshop.fragment.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.iostar.beverageshop.fragment.FavoriteFragment"
+        android:label="@string/title_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/navigation_menu"
+        android:name="com.iostar.beverageshop.fragment.MenuFragment"
+        android:label="@string/title_menu"
+        tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/navigation_account"
+        android:name="com.iostar.beverageshop.fragment.AccountFragment"
+        android:label="@string/title_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/navigation_seach"
+        android:name="com.iostar.beverageshop.fragment.SeachFragment"
+        android:label="@string/title_seach"
+        tools:layout="@layout/fragment_seach" />
+    <!--        <fragment-->
+    <!--            android:id="@+id/navigation_productmanage"-->
+    <!--            android:name="com.example.coffeeapp.fragment.ProductmanageFragment"-->
+    <!--            android:label="@string/title_productmanage"-->
+    <!--            tools:layout="@layout/fragment_productmanage" />-->
+    <!--        <fragment-->
+    <!--            android:id="@+id/navigation_doanhthu"-->
+    <!--            android:name="com.example.coffeeapp.fragment.DoanhthuFragment"-->
+    <!--            android:label="@string/title_doanhthu"-->
+    <!--            tools:layout="@layout/fragment_doanhthu" />-->
+    <!--        <fragment-->
+    <!--            android:id="@+id/navigation_billmanage"-->
+    <!--            android:name="com.example.coffeeapp.fragment.BillmanageFragment"-->
+    <!--            android:label="@string/title_billmanage"-->
+    <!--            tools:layout="@layout/fragment_billmanage" />-->
+    <!--        <fragment-->
+    <!--            android:id="@+id/navigation_changepass"-->
+    <!--            android:name="com.example.coffeeapp.fragment.ChangepassFragment"-->
+    <!--            android:label="@string/title_changepass"-->
+    <!--            tools:layout="@layout/fragment_changepass" />-->
+</navigation>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/ic_baseline_favorite_24"
+        android:title="@string/title_favorite" />
+
+    <item
+        android:id="@+id/navigation_menu"
+        android:icon="@drawable/cart"
+        android:title="@string/title_menu" />
+    <item
+        android:id="@+id/navigation_seach"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="@string/title_seach" />
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/title_account" />
+    <!--        <item-->
+    <!--            android:id="@+id/navigation_productmanage"-->
+    <!--            android:icon="@drawable/ic_baseline_person_24"-->
+    <!--            android:visible="false"-->
+    <!--            android:title="@string/title_productmanage" />-->
+    <!--        <item-->
+    <!--            android:id="@+id/navigation_doanhthu"-->
+    <!--            android:icon="@drawable/ic_baseline_person_24"-->
+    <!--            android:visible="false"-->
+    <!--            android:title="@string/title_doanhthu" />-->
+    <!--        <item-->
+    <!--            android:id="@+id/navigation_changepass"-->
+    <!--            android:icon="@drawable/ic_baseline_lock_24"-->
+    <!--            android:title="@string/title_changepass" />-->
+    <!--        <item-->
+    <!--            android:id="@+id/navigation_billmanage"-->
+    <!--            android:visible="false"-->
+    <!--            android:icon="@drawable/ic_baseline_person_24"-->
+    <!--            android:title="@string/title_billmanage" />-->
+    <!--        <item android:id="@+id/nav_logout"-->
+    <!--            android:icon="@drawable/ic_baseline_lock_24"-->
+    <!--            android:title="@string/title_logout" />-->
+</menu>
