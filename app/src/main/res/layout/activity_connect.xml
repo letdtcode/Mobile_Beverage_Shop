@@ -68,14 +68,15 @@
             android:layout_marginTop="16dp"
             app:cardCornerRadius="15dp">
 
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                style="@style/loginFacebook"
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/loginInWithFacebook"
                 android:layout_width="match_parent"
-                android:paddingTop="13dp"
-                android:paddingBottom="13dp"
-                android:textSize="18sp"
-                tools:ignore="MissingClass"/>
+                android:layout_height="@dimen/_50sdp"
+                android:text="Login With Facebook"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13ssp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/_8sdp"/>
 
 
         </androidx.cardview.widget.CardView>

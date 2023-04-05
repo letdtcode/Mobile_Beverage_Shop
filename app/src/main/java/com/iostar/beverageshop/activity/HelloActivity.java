@@ -1,13 +1,12 @@
 package com.iostar.beverageshop.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
-import com.iostar.beverageshop.R;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.iostar.beverageshop.databinding.ActivityHelloBinding;
 
 public class HelloActivity extends AppCompatActivity {
