@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     tools:context=".activity.LoginActivity">
     <LinearLayout
-        android:id="@+id/manhLoading1"
+        android:id="@+id/layoutLoading"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -18,7 +18,7 @@
         tools:context=".ui.activity.HelloActivity">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/txtTitle"
             android:layout_width="277dp"
             android:layout_height="97dp"
             android:layout_marginBottom="20dp"
@@ -57,7 +57,7 @@
                     app:layout_constraintVertical_bias="0.414">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtemail"
+                        android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email"
@@ -91,7 +91,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                        android:id="@+id/edtpass"
+                        android:id="@+id/edtPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password"
@@ -134,7 +134,7 @@
 
 
             <ImageButton
-                android:id="@+id/Imglogin"
+                android:id="@+id/imgLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -156,7 +156,7 @@
                 android:text="Don’t have an account?"/>
 
             <TextView
-                android:id="@+id/tvregister"
+                android:id="@+id/tvRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  Register."
