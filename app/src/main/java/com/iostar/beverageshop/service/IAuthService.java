@@ -1,6 +1,7 @@
 package com.iostar.beverageshop.service;
 
 import com.google.gson.JsonObject;
+import com.iostar.beverageshop.model.request.LoginRequest;
 import com.iostar.beverageshop.model.response.AuthResponse;
 
 import retrofit2.Call;

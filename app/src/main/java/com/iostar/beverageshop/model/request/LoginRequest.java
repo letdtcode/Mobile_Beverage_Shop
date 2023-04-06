@@ -1,5 +1,9 @@
 package com.iostar.beverageshop.model.request;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class LoginRequest {
 
     private String email;

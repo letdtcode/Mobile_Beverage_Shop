@@ -11,7 +11,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public class BaseAPIService {
-    private static final String BASE_URL = "localhost/api/v1/";
+    private static final String BASE_URL = "http://10.0.2.2:8080/api/v1/";
     private static final OkHttpClient httpClient
             = new OkHttpClient
             .Builder()

@@ -1,5 +1,7 @@
 package com.iostar.beverageshop.model.request;
 
+import com.google.gson.Gson;
+
 public class RefreshRequest {
     private String tokenRefresh;
 

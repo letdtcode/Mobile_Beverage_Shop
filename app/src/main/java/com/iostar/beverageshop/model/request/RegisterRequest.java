@@ -1,5 +1,7 @@
 package com.iostar.beverageshop.model.request;
 
+import com.google.gson.Gson;
+
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -102,4 +104,5 @@ public class RegisterRequest {
     public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
+
 }

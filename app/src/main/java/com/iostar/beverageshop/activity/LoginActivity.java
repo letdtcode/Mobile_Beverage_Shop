@@ -3,10 +3,21 @@ package com.iostar.beverageshop.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.databinding.ActivityLoginBinding;
 import com.iostar.beverageshop.model.request.LoginRequest;
+import com.iostar.beverageshop.model.response.AuthResponse;
+import com.iostar.beverageshop.service.BaseAPIService;
+import com.iostar.beverageshop.service.IAuthService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
@@ -16,7 +27,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        login();
+        binding.imgLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login();
+            }
+        });
     }
 
     private void login() {
@@ -24,6 +40,18 @@ public class LoginActivity extends AppCompatActivity {
         String password = binding.edtPassword.getText().toString();
 
         LoginRequest loginRequest = new LoginRequest(email, password);
+        JsonObject jsonReq = new Gson().toJsonTree(loginRequest).getAsJsonObject();
+        BaseAPIService.createService(IAuthService.class).login(jsonReq).enqueue(new Callback<AuthResponse>() {
+            @Override
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                Toast.makeText(LoginActivity.this, "call thanh cong", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "Call that bai", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
