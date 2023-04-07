@@ -48,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialView() {
-        fragments.add(new AccountFragment());
-        fragments.add(new FavoriteFragment());
         fragments.add(new HomeFragment());
+        fragments.add(new FavoriteFragment());
         fragments.add(new MenuFragment());
         fragments.add(new SeachFragment());
+        fragments.add(new AccountFragment());
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,fragments);
         binding.pagerMain.setAdapter(viewPagerAdapter);
         binding.pagerMain.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -84,14 +84,19 @@ public class MainActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.navigation_home:
                         binding.pagerMain.setCurrentItem(0);
+                        break;
                     case R.id.navigation_favorite:
                         binding.pagerMain.setCurrentItem(1);
+                        break;
                     case R.id.navigation_menu:
                         binding.pagerMain.setCurrentItem(2);
+                        break;
                     case R.id.navigation_seach:
                         binding.pagerMain.setCurrentItem(3);
+                        break;
                     case R.id.navigation_account:
                         binding.pagerMain.setCurrentItem(4);
+                        break;
                 }
                 return true;
             }

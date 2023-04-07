@@ -1,5 +1,25 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.CoffeeApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    <style name="Theme.BeverageShop." parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
+    <!--        <item name="colorPrimary">@color/purple_500</item>-->
+    <!--        <item name="colorPrimaryVariant">@color/purple_700</item>-->
+    <!--        <item name="colorOnPrimary">@color/white</item>-->
+    <!--        &lt;!&ndash; Secondary brand color. &ndash;&gt;-->
+    <!--        <item name="colorSecondary">@color/teal_200</item>-->
+    <!--        <item name="colorSecondaryVariant">@color/teal_700</item>-->
+    <!--        <item name="colorOnSecondary">@color/black</item>-->
+    <!--        &lt;!&ndash; Status bar color. &ndash;&gt;-->
+    <!--        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
+    <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--    </style>-->
+    <!--    <style name="loginFacebook">-->
+    <!--        <item name="android:background">@drawable/btn_facebook</item>-->
+    <!--        <item name="android:layout_width">265dp</item>-->
+    <!--        <item name="android:layout_height">100dp</item>-->
+    <!--        <item name="android:gravity">center_horizontal</item>-->
+    <!--    </style>-->
+    <!-- Base application theme. -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -12,6 +32,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="loginFacebook">
         <item name="android:background">@drawable/btn_facebook</item>
         <item name="android:layout_width">265dp</item>

@@ -26,7 +26,7 @@
                 android:layout_margin="5dp"
                 app:cardCornerRadius="20dp">
                 <ImageView
-                    android:id="@+id/imginfor"
+                    android:id="@+id/imgInfo"
                     android:layout_width="35dp"
                     android:layout_height="35dp"/>
             </androidx.cardview.widget.CardView>
@@ -46,35 +46,39 @@
         android:id="@+id/pagerMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"/>
-    
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_20sdp"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:elevation="@dimen/_5sdp"
-        android:translationZ="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="@dimen/_8sdp">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        android:background="@color/white" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:elevation="@dimen/_5sdp"
+        android:translationZ="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_20sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp"
 
             app:itemBackground="@color/white"
-            app:itemIconTint="@color/custom_color_bottom_nav"
-            app:itemTextColor="@color/custom_color_bottom_nav"
-            app:menu="@menu/bottom_nav_menu" />
+            app:itemIconTint="@color/custom_color_icon_bottom_nav"
+            app:itemTextColor="@color/custom_color_text_bottom_nav"
+            app:menu="@menu/bottom_nav_menu"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="672dp" />
     </androidx.cardview.widget.CardView>
 
-
-
-<!--    <fragment-->
+    <!--    <fragment-->
 <!--        android:id="@+id/nav_host_fragment_activity_main"-->
 <!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
 <!--        android:layout_width="411dp"-->
