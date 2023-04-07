@@ -16,23 +16,17 @@ public class RegisterRequest {
 
     private String password;
 
-    private Integer gender;
-
-    private LocalDate dateOfBirth;
-
     private String address;
 
     private String phone;
 
-    private Set<String> roles = new HashSet<>(Arrays.asList("USER"));
+    private Set<String> roles = new HashSet<>(Arrays.asList("Client"));
 
-    public RegisterRequest(String firstName, String lastName, String mail, String password, Integer gender, LocalDate dateOfBirth, String address, String phone) {
+    public RegisterRequest(String firstName, String lastName, String mail, String password, String address, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mail = mail;
         this.password = password;
-        this.gender = gender;
-        this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.phone = phone;
     }
@@ -69,22 +63,6 @@ public class RegisterRequest {
         this.password = password;
     }
 
-    public Integer getGender() {
-        return gender;
-    }
-
-    public void setGender(Integer gender) {
-        this.gender = gender;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -100,9 +78,4 @@ public class RegisterRequest {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
-
 }

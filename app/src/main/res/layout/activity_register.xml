@@ -70,11 +70,11 @@
                     app:layout_constraintVertical_bias="0.414">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtnameDK"
+                        android:id="@+id/edtFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="First Name"
-                        android:inputType="textEmailSubject" />
+                        android:inputType="textPersonName" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--            last name -->
@@ -94,7 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Last Name"
-                        android:inputType="textEmailSubject" />
+                        android:inputType="textPersonName" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
@@ -122,7 +122,7 @@
                     app:layout_constraintVertical_bias="0.414">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtgmailDK"
+                        android:id="@+id/edtEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Email Address"
@@ -156,10 +156,11 @@
                     app:layout_constraintVertical_bias="0.414">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edtsdtDK"
+                        android:id="@+id/edtPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Mobile Number" />
+                        android:hint="Mobile Number"
+                        android:inputType="phone"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
             <LinearLayout
@@ -190,7 +191,8 @@
                         android:id="@+id/edtAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Address" />
+                        android:hint="Address"
+                        android:inputType="textPostalAddress"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -224,7 +226,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
 
-                        android:id="@+id/edtmatkhauDK"
+                        android:id="@+id/edtPasswordRegister"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password"
@@ -289,14 +291,14 @@
                 android:textSize="16dp" />
 
             <ImageButton
-                android:id="@+id/Imgregister"
+                android:id="@+id/imgRegister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_weight="1"
                 android:background="@color/white"
                 app:srcCompat="@drawable/btnregis"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="SpeakableTextPresentCheck"/>
         </LinearLayout>
 
         <LinearLayout
