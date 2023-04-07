@@ -1,14 +1,14 @@
 package com.iostar.beverageshop.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.databinding.ActivityLoginBinding;
 import com.iostar.beverageshop.model.request.LoginRequest;
 import com.iostar.beverageshop.model.response.AuthResponse;
@@ -27,10 +27,20 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        setEvent();
+    }
+
+    private void setEvent() {
         binding.imgLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+        binding.tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +18,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.iostar.beverageshop.R;
+import com.iostar.beverageshop.adapter.ViewPagerAdapter;
+import com.iostar.beverageshop.databinding.ActivityMainBinding;
+import com.iostar.beverageshop.fragment.AccountFragment;
+import com.iostar.beverageshop.fragment.FavoriteFragment;
+import com.iostar.beverageshop.fragment.HomeFragment;
+import com.iostar.beverageshop.fragment.MenuFragment;
+import com.iostar.beverageshop.fragment.SeachFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,117 +37,65 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    public static ImageView imginfor;
-    private ImageView imgGioHang;
-    ArrayList<TaiKhoan> TaiKhoanArrayList;
-    ConstraintLayout constraintLayout;
+    private ActivityMainBinding binding;
+    private ArrayList<Fragment> fragments = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        imginfor = findViewById(R.id.imginfor);
-        imgGioHang = findViewById(R.id.imgGioHang);
-        Toolbar toolbar = findViewById(R.id.toolBar);
-        setSupportActionBar(toolbar);
-        imgGioHang.setOnClickListener(new View.OnClickListener() {
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        initialView();
+    }
+
+    private void initialView() {
+        fragments.add(new AccountFragment());
+        fragments.add(new FavoriteFragment());
+        fragments.add(new HomeFragment());
+        fragments.add(new MenuFragment());
+        fragments.add(new SeachFragment());
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,fragments);
+        binding.pagerMain.setAdapter(viewPagerAdapter);
+        binding.pagerMain.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, GioHangActivity.class);
-                startActivity(intent);
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        binding.navView.setSelectedItemId(R.id.navigation_home);
+                        break;
+                    case 1:
+                        binding.navView.setSelectedItemId(R.id.navigation_favorite);
+                        break;
+                    case 2:
+                        binding.navView.setSelectedItemId(R.id.navigation_menu);
+                        break;
+                    case 3:
+                        binding.navView.setSelectedItemId(R.id.navigation_seach);
+                        break;
+                    case 4:
+                        binding.navView.setSelectedItemId(R.id.navigation_account);
+                        break;
+                }
+                super.onPageSelected(position);
             }
         });
-        imginfor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PersonalActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-        setTenKH();
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        binding.navView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectfrag=null;
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
                     case R.id.navigation_home:
-                        selectfrag=new HomeFragment();
-                        break;
-                    case R.id.navigation_account:
-                        selectfrag=new AccountFragment();
-                        break;
-                    case R.id.navigation_seach:
-                        selectfrag=new SeachFragment();
-                        break;
+                        binding.pagerMain.setCurrentItem(0);
                     case R.id.navigation_favorite:
-                        selectfrag=new FavoriteFragment();
-                        break;
+                        binding.pagerMain.setCurrentItem(1);
                     case R.id.navigation_menu:
-                        selectfrag=new MenuFragment();
-                        break;
+                        binding.pagerMain.setCurrentItem(2);
+                    case R.id.navigation_seach:
+                        binding.pagerMain.setCurrentItem(3);
+                    case R.id.navigation_account:
+                        binding.pagerMain.setCurrentItem(4);
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_activity_main,selectfrag).commit();
                 return true;
             }
-
         });
-    }
-    private void setTenKH(){
-        SharedPreferences preferences = getApplicationContext().getSharedPreferences("user_file", Context.MODE_PRIVATE);
-        String user = preferences.getString("gmail", "");
-        String matkhau = preferences.getString("matkhau", "");
-        StringRequest request = new StringRequest(Request.Method.POST, "https://website1812.000webhostapp.com/Coffee/gettaikhoan.php", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    TaiKhoanArrayList = new ArrayList<>();
-                    JSONObject jsonObject = new JSONObject(response);
-                    String result = jsonObject.getString("status");
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
-                    if(result.equals("thanh cong")){
-                        for(int i=0;i<jsonArray.length();i++){
-                            JSONObject object=jsonArray.getJSONObject(i);
-                            TaiKhoanArrayList.add(new TaiKhoan(
-                                    object.getString("MaKH"),
-                                    object.getString("TenKH"),
-                                    object.getString("HinhAnhKH"),
-                                    object.getString("DiaChi"),
-                                    object.getString("NamSinh"),
-                                    object.getString("SDT"),
-                                    object.getString("Gmail"),
-                                    object.getString("MatKhau")
-                            ));
-                            TaiKhoan kh=TaiKhoanArrayList.get(0);
-                            Log.e("ssssssssss",kh.getGmail());
-                            Picasso.get().load(kh.getHinhAnhKH())
-                                    .into(imginfor);
-                        }
-                    } else {
-                        Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), "xảy ra lỗi!", Toast.LENGTH_SHORT).show();
-            }
-        }
-        ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Gmail", user);
-                params.put("MatKhau", matkhau);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        requestQueue.add(request);
     }
 
 }
