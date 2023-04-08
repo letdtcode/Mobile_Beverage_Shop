@@ -1,26 +1,29 @@
 package com.iostar.beverageshop.service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 public class BaseAPIService {
     private static final String BASE_URL = "http://10.0.2.2:8080/api/v1/";
-    private static final OkHttpClient httpClient
-            = new OkHttpClient
-            .Builder()
-            .build();
+
+//    private static final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+
+    static Interceptor interceptor = new RequestInterceptor();
+    private static final OkHttpClient.Builder httpClient =
+            new OkHttpClient.Builder()
+                    .addInterceptor(interceptor);
+//                    .addInterceptor(loggingInterceptor);
+
     private static final Retrofit.Builder builder
             = new Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(httpClient)
+            .client(httpClient.build())
             .addConverterFactory(GsonConverterFactory.create());
+
+//    Show request
 
     private static final Retrofit retrofit = builder.build();
 

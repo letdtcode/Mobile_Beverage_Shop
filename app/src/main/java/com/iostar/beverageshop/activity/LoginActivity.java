@@ -2,6 +2,7 @@ package com.iostar.beverageshop.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -14,6 +15,8 @@ import com.iostar.beverageshop.model.request.LoginRequest;
 import com.iostar.beverageshop.model.response.AuthResponse;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IAuthService;
+import com.iostar.beverageshop.storage.DataLocalManager;
+import com.iostar.beverageshop.utils.Utilities;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,13 +57,25 @@ public class LoginActivity extends AppCompatActivity {
         BaseAPIService.createService(IAuthService.class).login(jsonReq).enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                Toast.makeText(LoginActivity.this, "call thanh cong", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                if (response.body() == null) {
+                    Utilities.showToast(LoginActivity.this, "Email or password is incorrect");
+                    return;
+                }
+                if (!response.body().getAccessToken().equals("")) {
+                    AuthResponse authResponse = response.body();
+
+                    DataLocalManager.saveAuthToken(authResponse);
+                    Log.d("token",authResponse.toString());
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    Utilities.showToast(LoginActivity.this, "Đăng nhập thành công");
+                } else {
+                    Utilities.showToast(LoginActivity.this, "Email or password is incorrect");
+                }
             }
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "Call that bai", Toast.LENGTH_SHORT).show();
+                Log.d("error", t.getMessage());
             }
         });
     }
