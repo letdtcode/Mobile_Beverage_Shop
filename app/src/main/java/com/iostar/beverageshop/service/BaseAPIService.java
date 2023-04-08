@@ -1,5 +1,6 @@
 package com.iostar.beverageshop.service;
 
+import okhttp3.Authenticator;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -11,10 +12,10 @@ public class BaseAPIService {
 
 //    private static final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
 
-    static Interceptor interceptor = new RequestInterceptor();
+    static Authenticator interceptor = new TokenAuthenticator();
     private static final OkHttpClient.Builder httpClient =
             new OkHttpClient.Builder()
-                    .addInterceptor(interceptor);
+                    .authenticator(interceptor);
 //                    .addInterceptor(loggingInterceptor);
 
     private static final Retrofit.Builder builder

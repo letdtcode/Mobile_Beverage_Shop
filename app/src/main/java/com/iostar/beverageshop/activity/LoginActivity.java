@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Log.d("error", t.getMessage());
+                Utilities.showToast(LoginActivity.this,"Email or password is incorrect");
             }
         });
     }
