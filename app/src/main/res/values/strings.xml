@@ -16,4 +16,5 @@
     <string name="facebook_app_id">1143565013258952</string>
     <string name="fb_login_protocol_scheme">fb1143565013258952</string>
     <string name="facebook_client_token">fd75d609f0de3abd859d3a174776faa6</string>
+    <string name="imageview">ImageView</string>
 </resources>

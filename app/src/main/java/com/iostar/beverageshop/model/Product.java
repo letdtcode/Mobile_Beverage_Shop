@@ -9,16 +9,14 @@ public class Product {
     private String description;
     private Integer quantity;
     private Long categoryId;
-    private String urlImgProduct;
 
-    public Product(Long id, String productName, BigDecimal priceDefault, String description, Integer quantity, Long categoryId, String urlImgProduct) {
+    public Product(Long id, String productName, BigDecimal priceDefault, String description, Integer quantity, Long categoryId) {
         this.id = id;
         this.productName = productName;
         this.priceDefault = priceDefault;
         this.description = description;
         this.quantity = quantity;
         this.categoryId = categoryId;
-        this.urlImgProduct = urlImgProduct;
     }
 
     public Long getId() {
@@ -67,13 +65,5 @@ public class Product {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public String getUrlImgProduct() {
-        return urlImgProduct;
-    }
-
-    public void setUrlImgProduct(String urlImgProduct) {
-        this.urlImgProduct = urlImgProduct;
     }
 }
