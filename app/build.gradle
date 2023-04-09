@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
     implementation 'com.intuit.ssp:ssp-android:1.1.0'
 
+//    Image
+    implementation 'com.github.bumptech.glide:glide:4.15.1'
+
     //    UI
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.navigation:navigation-ui:2.4.2'
@@ -56,6 +59,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.8.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.0'
 
+//    Request
     implementation 'com.squareup.okhttp3:logging-interceptor:3.12.0'
     implementation 'com.squareup.okhttp3:okhttp:3.14.0'
 }

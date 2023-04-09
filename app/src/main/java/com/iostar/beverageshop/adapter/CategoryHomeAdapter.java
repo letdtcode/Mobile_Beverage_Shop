@@ -34,7 +34,7 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
     @Override
     public void onBindViewHolder(@NonNull CategoryHomeViewHolder holder, int position) {
         Category category = categoryList.get(position);
-        if(category==null){
+        if (category == null) {
             return;
         }
         holder.binding.tvCategory.setText(category.getCategoryName());

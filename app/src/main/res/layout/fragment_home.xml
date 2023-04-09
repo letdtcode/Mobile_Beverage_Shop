@@ -67,7 +67,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginRight="@dimen/_18sdp"
+            android:layout_marginLeft="@dimen/_18sdp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvCategory"
@@ -94,7 +96,7 @@
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rclviewSPselle"
+                android:id="@+id/rcvProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
