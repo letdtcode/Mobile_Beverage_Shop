@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.databinding.ItemCategoryHomeBinding;
 import com.iostar.beverageshop.databinding.ItemProductHomeBinding;
+import com.iostar.beverageshop.inteface.IClickItemProductListener;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.service.BaseAPIService;
@@ -31,10 +33,12 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
 
     private final List<Product> productList;
     private Context mContext;
+    private IClickItemProductListener iClickItemProductListener;
 
-    public ProductHomeAdapter(List<Product> productList, Context context) {
+    public ProductHomeAdapter(List<Product> productList, Context context, IClickItemProductListener listener) {
         this.productList = productList;
         this.mContext = context;
+        this.iClickItemProductListener = listener;
     }
 
     @NonNull
@@ -50,7 +54,7 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ProductHomeViewHolder holder, int position) {
-        Product product = productList.get(position);
+        final Product product = productList.get(position);
         if (product == null) {
             return;
         }
@@ -58,7 +62,7 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
         BaseAPIService.createService(IProductService.class).getImageProduct(product.getId()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful() && response.body()!=null) {
+                if (response.isSuccessful() && response.body() != null) {
                     InputStream inputStream = response.body().byteStream();
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                     if (bitmap != null) {
@@ -66,12 +70,18 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
                     }
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Utilities.showToast(mContext,"show anh that bai");
+                Utilities.showToast(mContext, "show anh that bai");
             }
         });
-
+        holder.binding.cardViewProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iClickItemProductListener.onClickItemProduct(product);
+            }
+        });
     }
 
     @Override

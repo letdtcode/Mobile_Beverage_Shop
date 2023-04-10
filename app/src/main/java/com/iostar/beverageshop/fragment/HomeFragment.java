@@ -1,5 +1,6 @@
 package com.iostar.beverageshop.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iostar.beverageshop.activity.DetailProductActivity;
 import com.iostar.beverageshop.adapter.CategoryHomeAdapter;
 import com.iostar.beverageshop.adapter.ProductHomeAdapter;
 import com.iostar.beverageshop.databinding.FragmentHomeBinding;
+import com.iostar.beverageshop.inteface.IClickItemProductListener;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.service.BaseAPIService;
@@ -47,14 +50,15 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         categoryList = new ArrayList<>();
         binding.rcvCategory.setHasFixedSize(true);
-        binding.rcvCategory.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
+        binding.rcvCategory.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false));
 
         binding.rcvProduct.setHasFixedSize(true);
-        binding.rcvProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
-//        binding.rcvCategory.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.HORIZONTAL));
+        binding.rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+//        binding.rcvCategory.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
 
         getAllCategories();
         getAllProduct();
+//        setEvent();
     }
 
     private void getAllProduct() {
@@ -62,14 +66,19 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productList = response.body();
-                ProductHomeAdapter productHomeAdapter = new ProductHomeAdapter(productList,getContext());
+                ProductHomeAdapter productHomeAdapter = new ProductHomeAdapter(productList, getActivity(), new IClickItemProductListener() {
+                    @Override
+                    public void onClickItemProduct(Product product) {
+                        onClickToDetailProduct(product);
+                    }
+                });
                 binding.rcvProduct.setAdapter(productHomeAdapter);
-                Utilities.showToast(getContext(),"Thanh cong");
+                Utilities.showToast(getActivity(),"Thanh cong");
             }
 
             @Override
             public void onFailure(Call<List<Product>> call, Throwable t) {
-                Toast.makeText(getContext(), "Call API that bai", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Call API that bai", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -85,8 +94,16 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                Toast.makeText(getContext(), "Call API that bai", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Call API that bai", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void onClickToDetailProduct(Product product) {
+        Intent intent = new Intent(getActivity(), DetailProductActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_product",product);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

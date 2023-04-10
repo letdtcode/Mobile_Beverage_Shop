@@ -1,8 +1,9 @@
 package com.iostar.beverageshop.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Product {
+public class Product implements Serializable {
     private Long id;
     private String productName;
     private BigDecimal priceDefault;
