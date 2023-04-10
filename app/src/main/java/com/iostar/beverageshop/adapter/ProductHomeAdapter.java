@@ -92,6 +92,11 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
         return 0;
     }
 
+    //    Release environment variable
+    public void release() {
+        this.mContext = null;
+    }
+
     public static class ProductHomeViewHolder extends RecyclerView.ViewHolder {
         private final ItemProductHomeBinding binding;
 
