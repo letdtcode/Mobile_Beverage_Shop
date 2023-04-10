@@ -37,6 +37,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private List<Category> categoryList;
     private List<Product> productList;
+    private ProductHomeAdapter productHomeAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,14 +67,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productList = response.body();
-                ProductHomeAdapter productHomeAdapter = new ProductHomeAdapter(productList, getActivity(), new IClickItemProductListener() {
-                    @Override
-                    public void onClickItemProduct(Product product) {
-                        onClickToDetailProduct(product);
-                    }
-                });
+                productHomeAdapter = new ProductHomeAdapter(productList, getActivity(), product -> onClickToDetailProduct(product));
                 binding.rcvProduct.setAdapter(productHomeAdapter);
-                Utilities.showToast(getActivity(),"Thanh cong");
+                Utilities.showToast(getActivity(), "Thanh cong");
             }
 
             @Override
@@ -102,8 +98,16 @@ public class HomeFragment extends Fragment {
     private void onClickToDetailProduct(Product product) {
         Intent intent = new Intent(getActivity(), DetailProductActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("object_product",product);
+        bundle.putSerializable("object_product", product);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (productHomeAdapter != null) {
+            productHomeAdapter.release();
+        }
     }
 }
