@@ -24,7 +24,7 @@ import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.ICategoryService;
 import com.iostar.beverageshop.service.IProductService;
-import com.iostar.beverageshop.utils.Utilities;
+import com.iostar.beverageshop.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
                 productList = response.body();
                 productHomeAdapter = new ProductHomeAdapter(productList, getActivity(), product -> onClickToDetailProduct(product));
                 binding.rcvProduct.setAdapter(productHomeAdapter);
-                Utilities.showToast(getActivity(), "Thanh cong");
+//                ToastUtils.showToast(getActivity(), "Thanh cong");
             }
 
             @Override
@@ -97,9 +97,9 @@ public class HomeFragment extends Fragment {
 
     private void onClickToDetailProduct(Product product) {
         Intent intent = new Intent(getActivity(), DetailProductActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("object_product", product);
-        intent.putExtras(bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("object_product", product);
+        intent.putExtra("PRODUCT",product);
         startActivity(intent);
     }
 

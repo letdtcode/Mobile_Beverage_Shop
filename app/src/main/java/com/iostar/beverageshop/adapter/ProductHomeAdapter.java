@@ -19,7 +19,8 @@ import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IProductService;
-import com.iostar.beverageshop.utils.Utilities;
+import com.iostar.beverageshop.utils.FileConvertUtils;
+import com.iostar.beverageshop.utils.ToastUtils;
 
 import java.io.InputStream;
 import java.util.List;
@@ -34,11 +35,13 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
     private final List<Product> productList;
     private Context mContext;
     private IClickItemProductListener iClickItemProductListener;
+//    private FileConvertUtils fileConvertUtils;
 
     public ProductHomeAdapter(List<Product> productList, Context context, IClickItemProductListener listener) {
         this.productList = productList;
         this.mContext = context;
         this.iClickItemProductListener = listener;
+//        fileConvertUtils= new FileConvertUtils(this.mContext);
     }
 
     @NonNull
@@ -67,13 +70,18 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
                     Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                     if (bitmap != null) {
                         Glide.with(mContext).load(bitmap).into(holder.binding.imgProduct);
+                        product.setImageProduct(bitmap);
+
+                        //                        Set Image for Product
+//                        FileConvertUtils fileConvertUtils = new FileConvertUtils(mContext);
+//                        product.setImageProduct(fileConvertUtils.covertToUri(bitmap));
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Utilities.showToast(mContext, "show anh that bai");
+                ToastUtils.showToast(mContext, "show anh that bai");
             }
         });
         holder.binding.cardViewProduct.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +103,7 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
     //    Release environment variable
     public void release() {
         this.mContext = null;
+//        this.fileConvertUtils.release();
     }
 
     public static class ProductHomeViewHolder extends RecyclerView.ViewHolder {

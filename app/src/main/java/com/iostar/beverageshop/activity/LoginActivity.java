@@ -16,7 +16,7 @@ import com.iostar.beverageshop.model.response.AuthResponse;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IAuthService;
 import com.iostar.beverageshop.storage.DataLocalManager;
-import com.iostar.beverageshop.utils.Utilities;
+import com.iostar.beverageshop.utils.ToastUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.body() == null) {
-                    Utilities.showToast(LoginActivity.this, "Email or password is incorrect");
+                    ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
                     return;
                 }
                 if (!response.body().getAccessToken().equals("")) {
@@ -67,15 +67,15 @@ public class LoginActivity extends AppCompatActivity {
                     DataLocalManager.saveAuthToken(authResponse);
                     Log.d("token",authResponse.toString());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    Utilities.showToast(LoginActivity.this, "Đăng nhập thành công");
+                    ToastUtils.showToast(LoginActivity.this, "Đăng nhập thành công");
                 } else {
-                    Utilities.showToast(LoginActivity.this, "Email or password is incorrect");
+                    ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
                 }
             }
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                Utilities.showToast(LoginActivity.this,"Email or password is incorrect");
+                ToastUtils.showToast(LoginActivity.this,"Email or password is incorrect");
             }
         });
     }
