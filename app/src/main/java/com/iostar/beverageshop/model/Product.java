@@ -12,16 +12,16 @@ public class Product implements Serializable {
     private BigDecimal priceDefault;
     private String description;
     private Integer quantity;
-    private Bitmap imageProduct;
+    private String pathImage;
     private Long categoryId;
 
-    public Product(Long id, String productName, BigDecimal priceDefault, String description, Integer quantity, Bitmap imageProduct, Long categoryId) {
+    public Product(Long id, String productName, BigDecimal priceDefault, String description, Integer quantity, String pathImage, Long categoryId) {
         this.id = id;
         this.productName = productName;
         this.priceDefault = priceDefault;
         this.description = description;
         this.quantity = quantity;
-        this.imageProduct = imageProduct;
+        this.pathImage = pathImage;
         this.categoryId = categoryId;
     }
 
@@ -65,12 +65,12 @@ public class Product implements Serializable {
         this.quantity = quantity;
     }
 
-    public Bitmap getImageProduct() {
-        return imageProduct;
+    public String getPathImage() {
+        return pathImage;
     }
 
-    public void setImageProduct(Bitmap imageProduct) {
-        this.imageProduct = imageProduct;
+    public void setPathImage(String pathImage) {
+        this.pathImage = pathImage;
     }
 
     public Long getCategoryId() {

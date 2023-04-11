@@ -42,6 +42,6 @@ public class DetailProductActivity extends AppCompatActivity {
         binding.tvNameProduct.setText(product.getProductName());
         binding.tvPrice.setText(product.getPriceDefault().toString()+"K");
         binding.tvDescription.setText(product.getDescription());
-//        Glide.with(this).load(product.getImageProduct()).into(binding.imgProduct);
+        Glide.with(DetailProductActivity.this).load(product.getPathImage()).into(binding.imgProduct);
     }
 }

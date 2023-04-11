@@ -97,17 +97,17 @@ public class HomeFragment extends Fragment {
 
     private void onClickToDetailProduct(Product product) {
         Intent intent = new Intent(getActivity(), DetailProductActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("object_product", product);
-        intent.putExtra("PRODUCT",product);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_product", product);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (productHomeAdapter != null) {
-            productHomeAdapter.release();
-        }
-    }
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+//        if (productHomeAdapter != null) {
+//            productHomeAdapter.release();
+//        }
+//    }
 }
