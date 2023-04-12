@@ -11,10 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.iostar.beverageshop.databinding.ActivityLoginBinding;
+import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.model.request.LoginRequest;
 import com.iostar.beverageshop.model.response.AuthResponse;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IAuthService;
+import com.iostar.beverageshop.service.IUserService;
 import com.iostar.beverageshop.storage.DataLocalManager;
 import com.iostar.beverageshop.utils.ToastUtils;
 
@@ -65,7 +67,20 @@ public class LoginActivity extends AppCompatActivity {
                     AuthResponse authResponse = response.body();
 
                     DataLocalManager.saveAuthToken(authResponse);
-                    Log.d("token",authResponse.toString());
+                    Log.d("token", authResponse.toString());
+//                    Call API get UserInfo
+                    BaseAPIService.createService(IUserService.class).getInfoUserByMail(email).enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            User user = response.body();
+                            DataLocalManager.saveUser(user);
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Log.d("error", t.toString());
+                        }
+                    });
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     ToastUtils.showToast(LoginActivity.this, "Đăng nhập thành công");
                 } else {
@@ -75,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                ToastUtils.showToast(LoginActivity.this,"Email or password is incorrect");
+                ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
             }
         });
     }
