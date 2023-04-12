@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     DataLocalManager.saveAuthToken(authResponse);
                     Log.d("token", authResponse.toString());
 //                    Call API get UserInfo
-                    saveInfoUser(email);
+                    saveInfoUser(authResponse.getUserId());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     ToastUtils.showToast(LoginActivity.this, "Đăng nhập thành công");
                 } else {
@@ -85,8 +85,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void saveInfoUser(String mail) {
-        BaseAPIService.createService(IUserService.class).getInfoUserByMail(mail).enqueue(new Callback<User>() {
+    private void saveInfoUser(Long id) {
+        BaseAPIService.createService(IUserService.class).getInfoUserById(id).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
