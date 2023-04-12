@@ -2,22 +2,14 @@ package com.iostar.beverageshop.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.adapter.ViewPagerAdapter;
@@ -27,14 +19,10 @@ import com.iostar.beverageshop.fragment.FavoriteFragment;
 import com.iostar.beverageshop.fragment.HomeFragment;
 import com.iostar.beverageshop.fragment.MenuFragment;
 import com.iostar.beverageshop.fragment.SeachFragment;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.iostar.beverageshop.model.User;
+import com.iostar.beverageshop.storage.DataLocalManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -45,9 +33,25 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         initialView();
+        setEvent();
+    }
+
+    private void setEvent() {
+        binding.cardViewImgInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User user = DataLocalManager.getUser();
+                Intent intent = new Intent(MainActivity.this, PersonalActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("object_user", user);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initialView() {
+        setSupportActionBar(binding.toolBar);
         fragments.add(new HomeFragment());
         fragments.add(new FavoriteFragment());
         fragments.add(new MenuFragment());

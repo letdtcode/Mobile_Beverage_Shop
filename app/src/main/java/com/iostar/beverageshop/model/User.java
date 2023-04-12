@@ -1,8 +1,9 @@
 package com.iostar.beverageshop.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class User {
+public class User implements Serializable {
     private Long id;
 
     private String userName;
