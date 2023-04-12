@@ -10,13 +10,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BaseAPIService {
     private static final String BASE_URL = "http://10.0.2.2:8080/api/v1/";
 
-//    private static final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+    private static final HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
 
     static Authenticator interceptor = new TokenAuthenticator();
     private static final OkHttpClient.Builder httpClient =
             new OkHttpClient.Builder()
-                    .authenticator(interceptor);
-//                    .addInterceptor(loggingInterceptor);
+                    .authenticator(interceptor)
+                    .addInterceptor(loggingInterceptor);
 
     private static final Retrofit.Builder builder
             = new Retrofit.Builder()

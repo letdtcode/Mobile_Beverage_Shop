@@ -3,7 +3,7 @@ package com.iostar.beverageshop.model;
 import java.time.LocalDate;
 
 public class User {
-    private Long Id;
+    private Long id;
 
     private String userName;
 
@@ -13,7 +13,7 @@ public class User {
 
     private Integer gender;
 
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     private String mail;
 
@@ -23,12 +23,25 @@ public class User {
 
     private String avatar;
 
+    public User(Long id, String userName, String firstName, String lastName, Integer gender, String dateOfBirth, String mail, String address, String phone, String avatar) {
+        this.id = id;
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.mail = mail;
+        this.address = address;
+        this.phone = phone;
+        this.avatar = avatar;
+    }
+
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getUserName() {
@@ -63,11 +76,11 @@ public class User {
         this.gender = gender;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

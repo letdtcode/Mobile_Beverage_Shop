@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
+//                saveInfoUser("admin@gmail.com");
             }
         });
         binding.tvRegister.setOnClickListener(new View.OnClickListener() {
@@ -51,8 +52,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void login() {
-        String email = binding.edtEmail.getText().toString();
-        String password = binding.edtPassword.getText().toString();
+        String email = binding.edtEmail.getText().toString().trim();
+        String password = binding.edtPassword.getText().toString().trim();
 
         LoginRequest loginRequest = new LoginRequest(email, password);
         JsonObject jsonReq = new Gson().toJsonTree(loginRequest).getAsJsonObject();
@@ -69,18 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     DataLocalManager.saveAuthToken(authResponse);
                     Log.d("token", authResponse.toString());
 //                    Call API get UserInfo
-                    BaseAPIService.createService(IUserService.class).getInfoUserByMail(email).enqueue(new Callback<User>() {
-                        @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
-                            User user = response.body();
-                            DataLocalManager.saveUser(user);
-                        }
-
-                        @Override
-                        public void onFailure(Call<User> call, Throwable t) {
-                            Log.d("error", t.toString());
-                        }
-                    });
+                    saveInfoUser(email);
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     ToastUtils.showToast(LoginActivity.this, "Đăng nhập thành công");
                 } else {
@@ -91,6 +81,23 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
                 ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
+            }
+        });
+    }
+
+    private void saveInfoUser(String mail) {
+        BaseAPIService.createService(IUserService.class).getInfoUserByMail(mail).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User user = response.body();
+                if (user != null)
+                    DataLocalManager.saveUser(user);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                ToastUtils.showToast(LoginActivity.this,t.getMessage());
+                Log.d("error",t.getMessage());
             }
         });
     }
