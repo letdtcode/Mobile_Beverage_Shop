@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 User user = response.body();
                 if (user != null)
                     DataLocalManager.saveUser(user);
+                Log.e("img",DataLocalManager.getUser().getId().toString());
             }
 
             @Override

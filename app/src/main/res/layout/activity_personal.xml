@@ -36,14 +36,15 @@
                 android:id="@+id/tvBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="84dp"
                 android:fontFamily="@font/manrope_semibold"
-                android:text="Quay lại"
+                android:text="Cập nhật thông tin"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/imgBack"
                 app:layout_constraintStart_toEndOf="@+id/imgBack"
-                app:layout_constraintTop_toTopOf="@+id/imgBack" />
+                app:layout_constraintTop_toTopOf="@+id/imgBack"
+                app:layout_constraintVertical_bias="1.0" />
 
             <Button
                 android:id="@+id/btnSave"

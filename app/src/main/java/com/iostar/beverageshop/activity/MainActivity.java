@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationBarView;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.adapter.ViewPagerAdapter;
@@ -105,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+        Glide.with(MainActivity.this).load(DataLocalManager.getUser().getAvatar()).into(binding.imgInfo);
     }
 
 }
