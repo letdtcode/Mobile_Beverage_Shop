@@ -1,5 +1,9 @@
 package com.iostar.beverageshop.activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -28,6 +32,22 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ArrayList<Fragment> fragments = new ArrayList<>();
+    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent intent = result.getData();
+                        String imgAvatarCallBack = intent.getStringExtra("data_result");
+                        Glide.with(MainActivity.this)
+                                .load(imgAvatarCallBack)
+                                .into(binding.imgInfo);
+                    }
+                }
+            }
+    );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("object_user", user);
                 intent.putExtras(bundle);
-                startActivity(intent);
+//                startActivity(intent);
+                mActivityResultLauncher.launch(intent);
             }
         });
     }
@@ -58,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new MenuFragment());
         fragments.add(new SeachFragment());
         fragments.add(new AccountFragment());
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this,fragments);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this, fragments);
         binding.pagerMain.setAdapter(viewPagerAdapter);
         binding.pagerMain.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

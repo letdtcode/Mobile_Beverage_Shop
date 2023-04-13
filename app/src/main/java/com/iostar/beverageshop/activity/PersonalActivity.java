@@ -126,7 +126,11 @@ public class PersonalActivity extends AppCompatActivity {
         binding.imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(PersonalActivity.this, MainActivity.class));
+//                startActivity(new Intent(PersonalActivity.this, MainActivity.class));
+                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+                intent.putExtra("data_result",DataLocalManager.getUser().getAvatar());
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
         binding.tvChangeImage.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +188,7 @@ public class PersonalActivity extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
                 if (user != null) {
-                    DataLocalManager.getUser().setAvatar(user.getAvatar());
+                    DataLocalManager.saveUser(user);
                 }
                 mProgressDialog.dismiss();
                 ToastUtils.showToastCustom(PersonalActivity.this, "Cập nhật thành công");
