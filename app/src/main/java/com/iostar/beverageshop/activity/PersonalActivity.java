@@ -16,6 +16,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -53,6 +54,26 @@ public class PersonalActivity extends AppCompatActivity {
                 }
             }
     );
+
+    public static  String[] storge_permissions = {
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+    @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
+    public  static String [] getStorge_permissions_33 = {
+            android.Manifest.permission.READ_MEDIA_IMAGES,
+            android.Manifest.permission.READ_MEDIA_AUDIO,
+            android.Manifest.permission.READ_MEDIA_VIDEO
+    };
+    public  static  String [] permissions() {
+        String[] p;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            p = getStorge_permissions_33;
+        } else {
+            p = storge_permissions;
+        }
+        return p;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,8 +122,9 @@ public class PersonalActivity extends AppCompatActivity {
         if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             openGallery();
         } else {
-            String[] permission = {Manifest.permission.READ_EXTERNAL_STORAGE};
-            ActivityCompat.requestPermissions(this, permission, MY_REQUEST_CODE);
+//            String[] permission = {Manifest.permission.READ_EXTERNAL_STORAGE};
+//            ActivityCompat.requestPermissions(this, permission, MY_REQUEST_CODE);
+            requestPermissions(permissions(), MY_REQUEST_CODE);
         }
     }
 
@@ -110,7 +132,7 @@ public class PersonalActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED - 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 openGallery();
             }
         }
