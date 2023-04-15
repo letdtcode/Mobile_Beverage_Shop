@@ -11,6 +11,4 @@ public interface IProductService {
     @GET("client/products")
     Call<List<Product>> getInfoAllProduct();
 
-//    @GET("client/images/products/{Id}")
-//    Call<ResponseBody> getImageProduct(@Path("Id") Long id);
 }

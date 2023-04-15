@@ -8,12 +8,18 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.R;
+import com.iostar.beverageshop.adapter.SizeDetailAdapter;
 import com.iostar.beverageshop.databinding.ActivityDetailProductBinding;
 import com.iostar.beverageshop.databinding.ActivityHelloBinding;
 import com.iostar.beverageshop.model.Product;
+import com.iostar.beverageshop.model.Size;
+
+import java.util.List;
 
 public class DetailProductActivity extends AppCompatActivity {
     private ActivityDetailProductBinding binding;
+    private SizeDetailAdapter sizeDetailAdapter;
+    private List<Size> sizeList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +27,17 @@ public class DetailProductActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         getInfoDetailProduct();
+        getInfoSizeOfProduct();
+        getInfoTopping();
         setEvent();
+    }
+
+    private void getInfoTopping() {
+
+    }
+
+    private void getInfoSizeOfProduct() {
+
     }
 
     private void setEvent() {
@@ -44,4 +60,5 @@ public class DetailProductActivity extends AppCompatActivity {
         binding.tvDescription.setText(product.getDescription());
         Glide.with(DetailProductActivity.this).load(product.getPathImage()).into(binding.imgProduct);
     }
+
 }

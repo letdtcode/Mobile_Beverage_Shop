@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/manrope_semibold"
-        android:text="Detail"
+        android:text="Chi tiết sản phẩm"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/imgBack"
@@ -62,213 +62,311 @@
         app:shape_roundRect_topLeftRadius="30dp"
         app:shape_roundRect_topRightRadius="30dp">
 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFF" />
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/frPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvPrice">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/rounded_bg"
-                    android:contentDescription="@string/imageview" />
-
-                <ImageView
-                    android:id="@+id/imgPlus"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:contentDescription="@string/imageview"
-                    android:src="@drawable/plus_icon" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tvCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="1"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/frPlus"
-                app:layout_constraintEnd_toStartOf="@+id/frPlus"
-                app:layout_constraintTop_toTopOf="@+id/frPlus" />
-
-            <FrameLayout
-                android:id="@+id/frMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
-                app:layout_constraintEnd_toStartOf="@+id/tvCount"
-                app:layout_constraintTop_toTopOf="@+id/tvPrice">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/rounded_bg"
-                    android:contentDescription="@string/imageview" />
-
-                <ImageView
-                    android:id="@+id/imgMinus"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:contentDescription="@string/imageview"
-                    android:src="@drawable/minus_icon" />
-            </FrameLayout>
-
-
-            <TextView
-                android:id="@+id/tvRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:fontFamily="@font/manrope_regular"
-                android:textColor="@color/black"
-                android:text=""
-                android:textSize="16sp"
-                app:layout_constraintEnd_toStartOf="@+id/imgRating"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="@+id/tvPrice"
-                app:layout_constraintTop_toBottomOf="@+id/frMinus" />
-
-            <ImageView
-                android:id="@+id/imgRating"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="32dp"
-                android:contentDescription="@string/imageview"
-                android:src="@drawable/star_icon"
-                app:layout_constraintBottom_toBottomOf="@+id/tvRating"
-                app:layout_constraintEnd_toStartOf="@+id/tvWeight"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/tvRating"
-                app:layout_constraintTop_toTopOf="@+id/tvRating" />
-
-            <TextView
-                android:id="@+id/tvWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:fontFamily="@font/manrope_regular"
-                android:text="350 gram"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/imgRating"
-                app:layout_constraintEnd_toEndOf="@+id/frPlus"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imgRating"
-                app:layout_constraintTop_toTopOf="@+id/imgRating" />
-
-            <TextView
-                android:id="@+id/tvNameProduct"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="Lorem Ipsum"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/manrope_extrabold"
-                android:text="120K"
-                android:textColor="@color/primaryColor"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="@+id/tvNameProduct"
-                app:layout_constraintTop_toBottomOf="@+id/tvNameProduct" />
-
             <androidx.core.widget.NestedScrollView
-                android:id="@+id/nestedScrollView"
-                android:layout_width="0dp"
+                android:id="@+id/scrollInfo"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="16dp"
                 android:overScrollMode="never"
-                app:layout_constraintBottom_toTopOf="@+id/btnOrder"
-                app:layout_constraintEnd_toEndOf="@+id/frPlus"
-                app:layout_constraintStart_toStartOf="@+id/tvNameProduct"
-                app:layout_constraintTop_toBottomOf="@+id/imgRating">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/layoutCheckout"
+                app:layout_constraintStart_toStartOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <me.thekusch.view.ReadMoreTextView
-                        android:id="@+id/tvDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <FrameLayout
+                        android:id="@+id/frPlus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/manrope_regular"
-                        android:textColor="#AAAAAA"
+                        android:layout_marginEnd="24dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tvPrice">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/rounded_bg"
+                            android:contentDescription="@string/imageview" />
+
+                        <ImageView
+                            android:id="@+id/imgPlus"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:contentDescription="@string/imageview"
+                            android:src="@drawable/plus_icon" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tvCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:fontFamily="@font/manrope_semibold"
+                        android:text="1"
+                        android:textColor="@color/black"
                         android:textSize="16sp"
-                        app:anchorPoint="150"
-                        app:anchorTextColor="@color/primaryColor"
+                        app:layout_constraintBottom_toBottomOf="@+id/frPlus"
+                        app:layout_constraintEnd_toStartOf="@+id/frPlus"
+                        app:layout_constraintTop_toTopOf="@+id/frPlus" />
+
+                    <FrameLayout
+                        android:id="@+id/frMinus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+                        app:layout_constraintEnd_toStartOf="@+id/tvCount"
+                        app:layout_constraintTop_toTopOf="@+id/tvPrice">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/rounded_bg"
+                            android:contentDescription="@string/imageview" />
+
+                        <ImageView
+                            android:id="@+id/imgMinus"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:contentDescription="@string/imageview"
+                            android:src="@drawable/minus_icon" />
+                    </FrameLayout>
+
+
+                    <TextView
+                        android:id="@+id/tvRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:fontFamily="@font/manrope_regular"
+                        android:textColor="@color/black"
+                        android:text="abcd"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toStartOf="@+id/imgRating"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="@+id/tvPrice"
+                        app:layout_constraintTop_toBottomOf="@+id/frMinus" />
+
+                    <ImageView
+                        android:id="@+id/imgRating"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="32dp"
+                        android:contentDescription="@string/imageview"
+                        android:src="@drawable/star_icon"
+                        app:layout_constraintBottom_toBottomOf="@+id/tvRating"
+                        app:layout_constraintEnd_toStartOf="@+id/tvWeight"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvRating"
+                        app:layout_constraintTop_toTopOf="@+id/tvRating" />
+
+                    <TextView
+                        android:id="@+id/tvWeight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:fontFamily="@font/manrope_regular"
+                        android:text="350 gram"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imgRating"
+                        app:layout_constraintEnd_toEndOf="@+id/frPlus"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/imgRating"
+                        app:layout_constraintTop_toTopOf="@+id/imgRating" />
+
+                    <TextView
+                        android:id="@+id/tvNameProduct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/manrope_semibold"
+                        android:text="Cà phê sữa đá"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:readLessText=" Sembunyikan"
-                        app:readMoreText=" Baca selengkapnya" />
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/manrope_extrabold"
+                        android:text="120K"
+                        android:textColor="@color/primaryColor"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="@+id/tvNameProduct"
+                        app:layout_constraintTop_toBottomOf="@+id/tvNameProduct" />
+
+                    <androidx.core.widget.NestedScrollView
+                        android:id="@+id/nestedScrollView"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="16dp"
+                        android:overScrollMode="never"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/frPlus"
+                        app:layout_constraintStart_toStartOf="@+id/tvNameProduct"
+                        app:layout_constraintTop_toBottomOf="@+id/imgRating">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <me.thekusch.view.ReadMoreTextView
+                                android:id="@+id/tvDescription"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/manrope_regular"
+                                android:textColor="#AAAAAA"
+                                android:textSize="16sp"
+                                app:anchorPoint="150"
+                                app:anchorTextColor="@color/primaryColor"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:readLessText="Thu gọn"
+                                app:readMoreText=" Xem thêm" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.core.widget.NestedScrollView>
+                    <LinearLayout
+                        android:id="@+id/layoutSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/nestedScrollView"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/manrope_semibold"
+                            android:text="Size"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14ssp" />
+                        <ListView
+                            android:id="@+id/listViewSize"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </ListView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layoutTopping"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/layoutSize"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Topping"
+                            android:fontFamily="@font/manrope_semibold"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_14ssp"/>
+                        <ListView
+                            android:id="@+id/listViewTopping"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </ListView>
+
+                    </LinearLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.core.widget.NestedScrollView>
 
-            <FrameLayout
-                android:id="@+id/frBasket"
-                android:layout_width="wrap_content"
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutCheckout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/tvNameProduct">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardElevation="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/rounded_bg"
-                    android:contentDescription="@string/imageview" />
+                        <FrameLayout
+                            android:id="@+id/frBasket"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="@dimen/_25sdp"
+                            app:layout_constraintStart_toStartOf="parent">
 
-                <ImageView
-                    android:id="@+id/imgBasket"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center_vertical|center_horizontal"
-                    android:contentDescription="@string/imageview"
-                    android:src="@drawable/basket_icon" />
-            </FrameLayout>
+                            <ImageView
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:background="@drawable/rounded_bg"
+                                android:contentDescription="@string/imageview" />
 
-            <Button
-                android:id="@+id/btnOrder"
-                style="@style/ButtonEnabled"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="32dp"
-                android:text="Pesan sekarang"
-                app:layout_constraintBottom_toBottomOf="@+id/frBasket"
-                app:layout_constraintEnd_toEndOf="@+id/nestedScrollView"
-                app:layout_constraintStart_toEndOf="@+id/frBasket"
-                app:layout_constraintTop_toTopOf="@+id/frBasket" />
+                            <ImageView
+                                android:id="@+id/imgBasket"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:contentDescription="@string/imageview"
+                                android:src="@drawable/basket_icon" />
+                        </FrameLayout>
+
+                        <Button
+                            android:id="@+id/btnOrder"
+                            style="@style/ButtonEnabled"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_marginStart="32dp"
+                            android:text="Mua luôn"
+                            app:layout_constraintBottom_toBottomOf="@+id/frBasket"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/frBasket"
+                            app:layout_constraintTop_toTopOf="@+id/frBasket"
+                            android:layout_marginEnd="@dimen/_30sdp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </io.github.florent37.shapeofview.shapes.RoundRectView>
