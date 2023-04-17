@@ -51,14 +51,16 @@ public class SizeDetailAdapter extends BaseAdapter {
         TextView txtSizeName = convertView.findViewById(R.id.txtSizeName);
         TextView txtPricePlusSize = convertView.findViewById(R.id.txtPricePlusSize);
 
+
         txtSizeName.setText(currentItem.getSizeName());
         txtPricePlusSize.setText(currentItem.getPricePlus().toString());
 
         radioItemSize.setChecked(position == mCheckedPosition);
+        radioItemSize.setTag(position);
         radioItemSize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCheckedPosition = position;
+                mCheckedPosition = (Integer) v.getTag();
                 notifyDataSetChanged();
             }
         });
