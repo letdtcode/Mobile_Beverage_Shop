@@ -42,12 +42,12 @@ public class SizeDetailAdapter extends RecyclerView.Adapter<SizeDetailAdapter.Si
             return;
         }
 
-        holder.binding.layoutClickItem.setTag(position);
+        holder.binding.layoutClickItemSize.setTag(position);
         holder.binding.txtSizeName.setText(size.getSizeName());
         holder.binding.txtPricePlusSize.setText(size.getPricePlus().toString());
         holder.binding.radioSize.setChecked(position == mCheckedPosition);
 
-        holder.binding.layoutClickItem.setOnClickListener(new View.OnClickListener() {
+        holder.binding.layoutClickItemSize.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCheckedPosition = (int) v.getTag();

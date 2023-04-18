@@ -23,10 +23,12 @@ import com.iostar.beverageshop.databinding.FragmentHomeBinding;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
+import com.iostar.beverageshop.model.Topping;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.ICategoryService;
 import com.iostar.beverageshop.service.IProductService;
 import com.iostar.beverageshop.service.ISizeService;
+import com.iostar.beverageshop.service.IToppingService;
 import com.iostar.beverageshop.utils.ToastUtils;
 
 import java.io.Serializable;
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment {
     private List<Product> productList;
     private ProductHomeAdapter productHomeAdapter;
     private List<Size> sizeList;
+    private List<Topping> toppingList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,12 +63,11 @@ public class HomeFragment extends Fragment {
 
         binding.rcvProduct.setHasFixedSize(true);
         binding.rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-//        binding.rcvCategory.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
 
         getAllCategories();
         getAllProduct();
         getInfoSizeOfProduct();
-//        setEvent();
+        getInfoTopping();
     }
 
     private void getAllProduct() {
@@ -75,7 +77,6 @@ public class HomeFragment extends Fragment {
                 productList = response.body();
                 productHomeAdapter = new ProductHomeAdapter(productList, getActivity(), product -> onClickToDetailProduct(product));
                 binding.rcvProduct.setAdapter(productHomeAdapter);
-//                ToastUtils.showToast(getActivity(), "Thanh cong");
             }
 
             @Override
@@ -106,6 +107,7 @@ public class HomeFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putSerializable("object_product", product);
         bundle.putSerializable("size_list", (Serializable) sizeList);
+        bundle.putSerializable("topping_list", (Serializable) toppingList);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -121,6 +123,21 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Size>> call, Throwable t) {
                 Log.e("Error size: ", t.getMessage());
+            }
+        });
+    }
+
+    private void getInfoTopping() {
+        toppingList = new ArrayList<>();
+        BaseAPIService.createService(IToppingService.class).getInfoToppingInfo().enqueue(new Callback<List<Topping>>() {
+            @Override
+            public void onResponse(Call<List<Topping>> call, Response<List<Topping>> response) {
+                toppingList=response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Topping>> call, Throwable t) {
+                Log.e("Error topping: ", t.getMessage());
             }
         });
     }

@@ -4,15 +4,14 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="@dimen/_5sdp"
-    android:id="@+id/layoutClickItemSize">
-    <RadioButton
-        android:id="@+id/radioSize"
+    android:id="@+id/layoutClickItemTopping">
+    <CheckBox
+        android:id="@+id/checkBoxTopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:focusable="false"/>
+        android:layout_marginStart="@dimen/_10sdp"/>
     <TextView
-        android:id="@+id/txtSizeName"
+        android:id="@+id/txtToppingName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="abcd"
@@ -21,12 +20,11 @@
         android:layout_weight="1"
         android:textSize="@dimen/_18sdp"/>
     <TextView
-        android:id="@+id/txtPricePlusSize"
+        android:id="@+id/txtPriceTopping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="40.000"
         android:fontFamily="@font/manrope_regular"
         android:paddingRight="@dimen/_5sdp"
         android:textSize="@dimen/_15sdp"/>
-
 </LinearLayout>

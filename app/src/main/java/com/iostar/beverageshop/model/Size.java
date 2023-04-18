@@ -8,7 +8,7 @@ public class Size implements Serializable {
     private Integer pricePlus;
 
     public Size(Long id, String sizeName, Integer pricePlus) {
-        id = id;
+        this.id = id;
         this.sizeName = sizeName;
         this.pricePlus = pricePlus;
     }
