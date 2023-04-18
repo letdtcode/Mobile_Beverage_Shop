@@ -1,6 +1,7 @@
 package com.iostar.beverageshop.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,12 @@ import java.util.List;
 public class SizeDetailAdapter extends BaseAdapter {
     private Context context;
     private List<Size> sizeList;
-    private int mCheckedPosition = -1;
+    private int mCheckedPosition;
 
-    public SizeDetailAdapter(Context context, List<Size> sizeList) {
+    public SizeDetailAdapter(Context context, List<Size> sizeList, int checkedPosition) {
         this.context = context;
         this.sizeList = sizeList;
+        this.mCheckedPosition = checkedPosition;
     }
 
     @Override
@@ -44,16 +46,17 @@ public class SizeDetailAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).
                     inflate(R.layout.item_size_product, parent, false);
         }
-
+        Log.e("error_size", String.valueOf(position));
         Size currentItem = (Size) getItem(position);
+
 
         RadioButton radioItemSize = convertView.findViewById(R.id.radioSize);
         TextView txtSizeName = convertView.findViewById(R.id.txtSizeName);
         TextView txtPricePlusSize = convertView.findViewById(R.id.txtPricePlusSize);
 
-
         txtSizeName.setText(currentItem.getSizeName());
         txtPricePlusSize.setText(currentItem.getPricePlus().toString());
+
 
         radioItemSize.setChecked(position == mCheckedPosition);
         radioItemSize.setTag(position);
@@ -61,6 +64,7 @@ public class SizeDetailAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 mCheckedPosition = (Integer) v.getTag();
+
                 notifyDataSetChanged();
             }
         });

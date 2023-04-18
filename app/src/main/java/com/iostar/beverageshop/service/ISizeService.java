@@ -10,5 +10,5 @@ import retrofit2.http.GET;
 public interface ISizeService {
 
     @GET("client/sizes")
-    Call<List<Size>> getInfoUserById();
+    Call<List<Size>> getInfoSizeInfo();
 }

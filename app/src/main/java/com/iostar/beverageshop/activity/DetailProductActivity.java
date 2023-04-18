@@ -35,16 +35,20 @@ public class DetailProductActivity extends AppCompatActivity {
 
         getInfoDetailProduct();
         getInfoSizeOfProduct();
-        getInfoTopping();
+//        getInfoTopping();
         setEvent();
     }
 
     private void getInfoTopping() {
-        BaseAPIService.createService(ISizeService.class).getInfoUserById().enqueue(new Callback<List<Size>>() {
+
+    }
+
+    private void getInfoSizeOfProduct() {
+        BaseAPIService.createService(ISizeService.class).getInfoSizeInfo().enqueue(new Callback<List<Size>>() {
             @Override
             public void onResponse(Call<List<Size>> call, Response<List<Size>> response) {
                 sizeList = response.body();
-                sizeDetailAdapter = new SizeDetailAdapter(DetailProductActivity.this, sizeList);
+                sizeDetailAdapter = new SizeDetailAdapter(DetailProductActivity.this, sizeList,1);
                 binding.listViewSize.setAdapter(sizeDetailAdapter);
                 ToastUtils.showToast(DetailProductActivity.this, "Lay size list thanh cong");
             }
@@ -54,10 +58,6 @@ public class DetailProductActivity extends AppCompatActivity {
                 Log.e("Error size: ", t.getMessage());
             }
         });
-    }
-
-    private void getInfoSizeOfProduct() {
-
     }
 
     private void setEvent() {
