@@ -1,74 +1,76 @@
 package com.iostar.beverageshop.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.RadioButton;
-import android.widget.TextView;
 
-import com.iostar.beverageshop.R;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.iostar.beverageshop.databinding.ItemProductHomeBinding;
+import com.iostar.beverageshop.databinding.ItemSizeProductBinding;
+import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
 
 import java.util.List;
 
-public class SizeDetailAdapter extends BaseAdapter {
+public class SizeDetailAdapter extends RecyclerView.Adapter<SizeDetailAdapter.SizeViewHolder> {
     private Context context;
-    private List<Size> sizeList;
-    private int mCheckedPosition;
+    private final List<Size> sizeList;
+    private long mCheckedPosition;
 
-    public SizeDetailAdapter(Context context, List<Size> sizeList, int checkedPosition) {
+    public SizeDetailAdapter(Context context, List<Size> sizeList, long checkedPosition) {
         this.context = context;
         this.sizeList = sizeList;
-        this.mCheckedPosition = checkedPosition;
+        this.mCheckedPosition = mCheckedPosition;
+    }
+
+    @NonNull
+    @Override
+    public SizeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemSizeProductBinding binding = ItemSizeProductBinding.inflate(
+                LayoutInflater.from(parent.getContext()),
+                parent,
+                false
+        );
+        return new SizeDetailAdapter.SizeViewHolder(binding);
     }
 
     @Override
-    public int getCount() {
-        return sizeList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return sizeList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(context).
-                    inflate(R.layout.item_size_product, parent, false);
+    public void onBindViewHolder(@NonNull SizeViewHolder holder, int position) {
+        final Size size = sizeList.get(position);
+        if (size == null) {
+            return;
         }
-        Log.e("error_size", String.valueOf(position));
-        Size currentItem = (Size) getItem(position);
+        holder.binding.txtSizeName.setText(size.getSizeName());
+        holder.binding.txtPricePlusSize.setText(size.getPricePlus().toString());
+//        holder.binding.radioSize.setChecked(size.getSizeName());
+//        Glide.with(mContext).load(product.getPathImage()).into(holder.binding.imgProduct);
+//        holder.binding.cardViewProduct.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                iClickItemProductListener.onClickItemProduct(product);
+//            }
+//        });
+    }
+
+    @Override
+    public int getItemCount() {
+        if (sizeList != null) {
+            return sizeList.size();
+        }
+        return 0;
+    }
 
 
-        RadioButton radioItemSize = convertView.findViewById(R.id.radioSize);
-        TextView txtSizeName = convertView.findViewById(R.id.txtSizeName);
-        TextView txtPricePlusSize = convertView.findViewById(R.id.txtPricePlusSize);
+    public static class SizeViewHolder extends RecyclerView.ViewHolder {
+        private final ItemSizeProductBinding binding;
 
-        txtSizeName.setText(currentItem.getSizeName());
-        txtPricePlusSize.setText(currentItem.getPricePlus().toString());
-
-
-        radioItemSize.setChecked(position == mCheckedPosition);
-        radioItemSize.setTag(position);
-        radioItemSize.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mCheckedPosition = (Integer) v.getTag();
-
-                notifyDataSetChanged();
-            }
-        });
-
-        return convertView;
+        public SizeViewHolder(ItemSizeProductBinding itemSizeProductBinding) {
+            super(itemSizeProductBinding.getRoot());
+            binding = itemSizeProductBinding;
+        }
     }
 }

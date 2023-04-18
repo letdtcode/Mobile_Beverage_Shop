@@ -86,7 +86,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
                     <FrameLayout
                         android:id="@+id/frPlus"
                         android:layout_width="wrap_content"
@@ -221,11 +221,11 @@
                     <androidx.core.widget.NestedScrollView
                         android:id="@+id/nestedScrollView"
                         android:layout_width="0dp"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="16dp"
                         android:overScrollMode="never"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:fillViewport="true"
                         app:layout_constraintEnd_toEndOf="@+id/frPlus"
                         app:layout_constraintStart_toStartOf="@+id/tvNameProduct"
                         app:layout_constraintTop_toBottomOf="@+id/imgRating">
@@ -233,16 +233,16 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/constraintLayout6"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
 
                             <me.thekusch.view.ReadMoreTextView
                                 android:id="@+id/tvDescription"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/manrope_regular"
                                 android:textColor="#AAAAAA"
                                 android:textSize="16sp"
-                                app:anchorPoint="150"
+                                app:anchorPoint="10"
                                 app:anchorTextColor="@color/primaryColor"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -268,11 +268,16 @@
                             android:text="Size"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14ssp" />
-                        <ListView
+<!--                        <ListView-->
+<!--                            android:id="@+id/listViewSize"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:nestedScrollingEnabled="true">-->
+<!--                        </ListView>-->
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/listViewSize"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                        </ListView>
+                            android:layout_height="wrap_content" />
 
                     </LinearLayout>
 
@@ -293,11 +298,17 @@
                             android:fontFamily="@font/manrope_semibold"
                             android:textColor="@color/black"
                             android:textSize="@dimen/_14ssp"/>
-                        <ListView
+<!--                        <ListView-->
+<!--                            android:id="@+id/listViewTopping"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:nestedScrollingEnabled="true">-->
+<!--                        </ListView>-->
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/listViewTopping"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                        </ListView>
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="true"/>
 
                     </LinearLayout>
 

@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.adapter.SizeDetailAdapter;
@@ -44,11 +46,13 @@ public class DetailProductActivity extends AppCompatActivity {
     }
 
     private void getInfoSizeOfProduct() {
+        binding.listViewSize.setHasFixedSize(true);
+        binding.listViewSize.setLayoutManager(new LinearLayoutManager(DetailProductActivity.this, RecyclerView.VERTICAL, false));
         BaseAPIService.createService(ISizeService.class).getInfoSizeInfo().enqueue(new Callback<List<Size>>() {
             @Override
             public void onResponse(Call<List<Size>> call, Response<List<Size>> response) {
                 sizeList = response.body();
-                sizeDetailAdapter = new SizeDetailAdapter(DetailProductActivity.this, sizeList,1);
+                sizeDetailAdapter = new SizeDetailAdapter(DetailProductActivity.this, sizeList, 1);
                 binding.listViewSize.setAdapter(sizeDetailAdapter);
                 ToastUtils.showToast(DetailProductActivity.this, "Lay size list thanh cong");
             }

@@ -63,28 +63,6 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
         }
         holder.binding.tvProductName.setText(product.getProductName());
         Glide.with(mContext).load(product.getPathImage()).into(holder.binding.imgProduct);
-//        BaseAPIService.createService(IProductService.class).getImageProduct(product.getId()).enqueue(new Callback<ResponseBody>() {
-//            @Override
-//            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    InputStream inputStream = response.body().byteStream();
-//                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-//                    if (bitmap != null) {
-//                        Glide.with(mContext).load(bitmap).into(holder.binding.imgProduct);
-//                        product.setImageProduct(bitmap);
-//
-//                        //                        Set Image for Product
-////                        FileConvertUtils fileConvertUtils = new FileConvertUtils(mContext);
-////                        product.setImageProduct(fileConvertUtils.covertToUri(bitmap));
-//                    }
-//                }
-//            }
-
-//            @Override
-//            public void onFailure(Call<ResponseBody> call, Throwable t) {
-//                ToastUtils.showToast(mContext, "show anh that bai");
-//            }
-//        });
         holder.binding.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
