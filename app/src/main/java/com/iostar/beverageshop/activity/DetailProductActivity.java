@@ -36,33 +36,14 @@ public class DetailProductActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         getInfoDetailProduct();
-        getInfoSizeOfProduct();
+//        getInfoSizeOfProduct();
 //        getInfoTopping();
         setEvent();
     }
 
-    private void getInfoTopping() {
-
-    }
-
-    private void getInfoSizeOfProduct() {
-        binding.listViewSize.setHasFixedSize(true);
-        binding.listViewSize.setLayoutManager(new LinearLayoutManager(DetailProductActivity.this, RecyclerView.VERTICAL, false));
-        BaseAPIService.createService(ISizeService.class).getInfoSizeInfo().enqueue(new Callback<List<Size>>() {
-            @Override
-            public void onResponse(Call<List<Size>> call, Response<List<Size>> response) {
-                sizeList = response.body();
-                sizeDetailAdapter = new SizeDetailAdapter(DetailProductActivity.this, sizeList, 1);
-                binding.listViewSize.setAdapter(sizeDetailAdapter);
-                ToastUtils.showToast(DetailProductActivity.this, "Lay size list thanh cong");
-            }
-
-            @Override
-            public void onFailure(Call<List<Size>> call, Throwable t) {
-                Log.e("Error size: ", t.getMessage());
-            }
-        });
-    }
+//    private void getInfoTopping() {
+//
+//    }
 
     private void setEvent() {
         binding.imgBack.setOnClickListener(new View.OnClickListener() {
@@ -79,10 +60,17 @@ public class DetailProductActivity extends AppCompatActivity {
             return;
         }
         Product product = (Product) bundle.get("object_product");
+        sizeList = (List<Size>) bundle.get("size_list");
         binding.tvNameProduct.setText(product.getProductName());
         binding.tvPrice.setText(product.getPriceDefault().toString() + "K");
         binding.tvDescription.setText(product.getDescription());
         Glide.with(DetailProductActivity.this).load(product.getPathImage()).into(binding.imgProduct);
+
+        binding.rcvSizeProduct.setHasFixedSize(true);
+        binding.rcvSizeProduct.setLayoutManager(new LinearLayoutManager(DetailProductActivity.this, RecyclerView.VERTICAL, false));
+
+        sizeDetailAdapter = new SizeDetailAdapter(DetailProductActivity.this, sizeList, 1);
+        binding.rcvSizeProduct.setAdapter(sizeDetailAdapter);
     }
 
 }

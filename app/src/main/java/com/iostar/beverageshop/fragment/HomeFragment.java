@@ -2,6 +2,7 @@ package com.iostar.beverageshop.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +18,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.iostar.beverageshop.activity.DetailProductActivity;
 import com.iostar.beverageshop.adapter.CategoryHomeAdapter;
 import com.iostar.beverageshop.adapter.ProductHomeAdapter;
+import com.iostar.beverageshop.adapter.SizeDetailAdapter;
 import com.iostar.beverageshop.databinding.FragmentHomeBinding;
-import com.iostar.beverageshop.inteface.IClickItemProductListener;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
+import com.iostar.beverageshop.model.Size;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.ICategoryService;
 import com.iostar.beverageshop.service.IProductService;
+import com.iostar.beverageshop.service.ISizeService;
 import com.iostar.beverageshop.utils.ToastUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +42,7 @@ public class HomeFragment extends Fragment {
     private List<Category> categoryList;
     private List<Product> productList;
     private ProductHomeAdapter productHomeAdapter;
+    private List<Size> sizeList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,6 +64,7 @@ public class HomeFragment extends Fragment {
 
         getAllCategories();
         getAllProduct();
+        getInfoSizeOfProduct();
 //        setEvent();
     }
 
@@ -99,8 +105,24 @@ public class HomeFragment extends Fragment {
         Intent intent = new Intent(getActivity(), DetailProductActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("object_product", product);
+        bundle.putSerializable("size_list", (Serializable) sizeList);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    private void getInfoSizeOfProduct() {
+        sizeList = new ArrayList<>();
+        BaseAPIService.createService(ISizeService.class).getInfoSizeInfo().enqueue(new Callback<List<Size>>() {
+            @Override
+            public void onResponse(Call<List<Size>> call, Response<List<Size>> response) {
+                sizeList = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<Size>> call, Throwable t) {
+                Log.e("Error size: ", t.getMessage());
+            }
+        });
     }
 
 //    @Override

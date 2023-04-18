@@ -3,12 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="@dimen/_5sdp">
+    android:padding="@dimen/_5sdp"
+    android:id="@+id/layoutClickItem">
     <RadioButton
         android:id="@+id/radioSize"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"/>
+        android:layout_marginStart="@dimen/_10sdp"
+        android:focusable="false"/>
     <TextView
         android:id="@+id/txtSizeName"
         android:layout_width="0dp"

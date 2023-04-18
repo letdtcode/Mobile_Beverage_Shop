@@ -1,8 +1,6 @@
 package com.iostar.beverageshop.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,24 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.iostar.beverageshop.R;
-import com.iostar.beverageshop.databinding.ItemCategoryHomeBinding;
 import com.iostar.beverageshop.databinding.ItemProductHomeBinding;
 import com.iostar.beverageshop.inteface.IClickItemProductListener;
-import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
-import com.iostar.beverageshop.service.BaseAPIService;
-import com.iostar.beverageshop.service.IProductService;
-import com.iostar.beverageshop.utils.FileConvertUtils;
-import com.iostar.beverageshop.utils.ToastUtils;
 
-import java.io.InputStream;
 import java.util.List;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.ProductHomeViewHolder> {
 
@@ -78,12 +63,6 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
         }
         return 0;
     }
-
-//    //    Release environment variable
-//    public void release() {
-//        this.mContext = null;
-////        this.fileConvertUtils.release();
-//    }
 
     public static class ProductHomeViewHolder extends RecyclerView.ViewHolder {
         private final ItemProductHomeBinding binding;

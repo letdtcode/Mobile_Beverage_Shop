@@ -8,10 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.iostar.beverageshop.databinding.ItemProductHomeBinding;
 import com.iostar.beverageshop.databinding.ItemSizeProductBinding;
-import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
 
 import java.util.List;
@@ -19,12 +16,12 @@ import java.util.List;
 public class SizeDetailAdapter extends RecyclerView.Adapter<SizeDetailAdapter.SizeViewHolder> {
     private Context context;
     private final List<Size> sizeList;
-    private long mCheckedPosition;
+    private int mCheckedPosition = 1;
 
-    public SizeDetailAdapter(Context context, List<Size> sizeList, long checkedPosition) {
+    public SizeDetailAdapter(Context context, List<Size> sizeList, int checkedPosition) {
         this.context = context;
         this.sizeList = sizeList;
-        this.mCheckedPosition = mCheckedPosition;
+        this.mCheckedPosition = checkedPosition;
     }
 
     @NonNull
@@ -44,16 +41,19 @@ public class SizeDetailAdapter extends RecyclerView.Adapter<SizeDetailAdapter.Si
         if (size == null) {
             return;
         }
+
+        holder.binding.layoutClickItem.setTag(position);
         holder.binding.txtSizeName.setText(size.getSizeName());
         holder.binding.txtPricePlusSize.setText(size.getPricePlus().toString());
-//        holder.binding.radioSize.setChecked(size.getSizeName());
-//        Glide.with(mContext).load(product.getPathImage()).into(holder.binding.imgProduct);
-//        holder.binding.cardViewProduct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                iClickItemProductListener.onClickItemProduct(product);
-//            }
-//        });
+        holder.binding.radioSize.setChecked(position == mCheckedPosition);
+
+        holder.binding.layoutClickItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCheckedPosition = (int) v.getTag();
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -65,7 +65,7 @@ public class SizeDetailAdapter extends RecyclerView.Adapter<SizeDetailAdapter.Si
     }
 
 
-    public static class SizeViewHolder extends RecyclerView.ViewHolder {
+    public class SizeViewHolder extends RecyclerView.ViewHolder {
         private final ItemSizeProductBinding binding;
 
         public SizeViewHolder(ItemSizeProductBinding itemSizeProductBinding) {
