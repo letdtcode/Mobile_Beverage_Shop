@@ -30,6 +30,7 @@ public class CartActivity extends AppCompatActivity {
     private ActivityCartBinding binding;
     private List<CartItem> cartItemList;
     private CartAdapter cartAdapter;
+    private Integer totalPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,10 @@ public class CartActivity extends AppCompatActivity {
             public void onResponse(Call<List<CartItem>> call, Response<List<CartItem>> response) {
                 cartItemList = response.body();
                 if (cartItemList != null) {
+                    for (CartItem item : cartItemList) {
+                        totalPrice = totalPrice + item.getTotalPriceItem().intValue();
+                    }
+                    binding.tvTotalPrice.setText(totalPrice.toString());
                     cartAdapter = new CartAdapter(cartItemList);
                     binding.rvBasket.setAdapter(cartAdapter);
                 }
