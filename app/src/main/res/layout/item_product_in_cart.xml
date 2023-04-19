@@ -57,17 +57,44 @@
                 app:layout_constraintStart_toEndOf="@+id/checkBox"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/tvTitle"
+            <LinearLayout
+                android:id="@+id/layoutCartDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:fontFamily="@font/manrope_semibold"
-                android:text="Cà phê sữa đá"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@+id/imgCoffee"
-                app:layout_constraintTop_toTopOf="@+id/imgCoffee" />
+                app:layout_constraintTop_toTopOf="@+id/imgCoffee">
+                <TextView
+                    android:id="@+id/tvTitleProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:text="Cà phê sữa đá"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tvToppings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Topping"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/tvSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/manrope_regular"
+                    android:text="Size"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/tvTtlPrice"
@@ -78,8 +105,8 @@
                 android:text="100K"
                 android:textColor="@color/primaryColor"
                 android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/tvTitle"
-                app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+                app:layout_constraintStart_toStartOf="@+id/layoutCartDetail"
+                app:layout_constraintTop_toBottomOf="@+id/layoutCartDetail" />
 
             <FrameLayout
                 android:id="@+id/frPlus"

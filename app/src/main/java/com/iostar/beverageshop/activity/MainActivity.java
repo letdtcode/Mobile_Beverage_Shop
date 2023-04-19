@@ -70,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
                 mActivityResultLauncher.launch(intent);
             }
         });
+        binding.imgGioHang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,CartActivity.class));
+            }
+        });
     }
 
     private void initialView() {
