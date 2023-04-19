@@ -2,7 +2,6 @@ package com.iostar.beverageshop.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,25 +12,35 @@ import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.adapter.SizeDetailAdapter;
 import com.iostar.beverageshop.adapter.ToppingDetailAdapter;
 import com.iostar.beverageshop.databinding.ActivityDetailProductBinding;
+import com.iostar.beverageshop.inteface.IOnSizeClickListener;
+import com.iostar.beverageshop.inteface.IOnToppingCheckedListener;
+import com.iostar.beverageshop.model.CartItem;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
 import com.iostar.beverageshop.model.Topping;
+import com.iostar.beverageshop.model.request.AddCartRequest;
 import com.iostar.beverageshop.service.BaseAPIService;
-import com.iostar.beverageshop.service.ISizeService;
+import com.iostar.beverageshop.service.ICartService;
+import com.iostar.beverageshop.storage.DataLocalManager;
 import com.iostar.beverageshop.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailProductActivity extends AppCompatActivity {
+public class DetailProductActivity extends AppCompatActivity implements IOnSizeClickListener, IOnToppingCheckedListener {
     private ActivityDetailProductBinding binding;
     private SizeDetailAdapter sizeDetailAdapter;
     private ToppingDetailAdapter toppingDetailAdapter;
     private List<Size> sizeList;
     private List<Topping> toppingList;
+    private Integer quantityProduct;
+
+    private List<String> toppingNameSelected;
+    private String sizeNameSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +49,60 @@ public class DetailProductActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         getInfoDetailProduct();
-//        getInfoSizeOfProduct();
-//        getInfoTopping();
         setEvent();
     }
 
-//    private void getInfoTopping() {
-//
-//    }
 
     private void setEvent() {
         binding.imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(DetailProductActivity.this, MainActivity.class));
+            }
+        });
+
+        binding.frPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantityProduct = Integer.valueOf(binding.tvCount.getText().toString());
+                binding.tvCount.setText(String.valueOf(quantityProduct + 1));
+            }
+        });
+
+        binding.frMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quantityProduct = Integer.valueOf(binding.tvCount.getText().toString());
+                if (quantityProduct > 1) {
+                    binding.tvCount.setText(String.valueOf(quantityProduct - 1));
+                }
+                return;
+            }
+        });
+
+        binding.frBasket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addProductToBasket();
+            }
+        });
+    }
+
+    private void addProductToBasket() {
+        Long userId = DataLocalManager.getUser().getId();
+        String productName = binding.tvNameProduct.getText().toString();
+        Integer quantity = Integer.valueOf(binding.tvCount.getText().toString());
+
+        AddCartRequest item = new AddCartRequest(userId, productName, quantity, toppingNameSelected, sizeNameSelected);
+        BaseAPIService.createService(ICartService.class).creatNewProductInCart(item).enqueue(new Callback<CartItem>() {
+            @Override
+            public void onResponse(Call<CartItem> call, Response<CartItem> response) {
+                ToastUtils.showToastCustom(DetailProductActivity.this, "Đã thêm sản phẩm vào giỏ hàng");
+            }
+
+            @Override
+            public void onFailure(Call<CartItem> call, Throwable t) {
+
             }
         });
     }
@@ -78,15 +127,30 @@ public class DetailProductActivity extends AppCompatActivity {
         binding.rcvSizeProduct.setHasFixedSize(true);
         binding.rcvSizeProduct.setLayoutManager(new LinearLayoutManager(DetailProductActivity.this, RecyclerView.VERTICAL, false));
 
-        sizeDetailAdapter = new SizeDetailAdapter(DetailProductActivity.this, sizeList, 1);
+        sizeDetailAdapter = new SizeDetailAdapter(DetailProductActivity.this, sizeList, 1, this);
         binding.rcvSizeProduct.setAdapter(sizeDetailAdapter);
 
 //        Show Topping Of Product
+        toppingNameSelected = new ArrayList<>();
         binding.rcvToppingProduct.setHasFixedSize(true);
         binding.rcvToppingProduct.setLayoutManager(new LinearLayoutManager(DetailProductActivity.this, RecyclerView.VERTICAL, false));
 
-        toppingDetailAdapter = new ToppingDetailAdapter(DetailProductActivity.this, toppingList);
+        toppingDetailAdapter = new ToppingDetailAdapter(DetailProductActivity.this, toppingList, this);
         binding.rcvToppingProduct.setAdapter(toppingDetailAdapter);
     }
 
+    @Override
+    public void onSizeClick(String sizeNameChecked) {
+        this.sizeNameSelected = sizeNameChecked;
+    }
+
+    @Override
+    public void onChecked(String toppingName) {
+        this.toppingNameSelected.add(toppingName);
+    }
+
+    @Override
+    public void onUnchecked(String toppingName) {
+        this.toppingNameSelected.remove(toppingName);
+    }
 }

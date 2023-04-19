@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.databinding.ItemToppingProductBinding;
+import com.iostar.beverageshop.inteface.IOnToppingCheckedListener;
 import com.iostar.beverageshop.model.Topping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ToppingDetailAdapter extends RecyclerView.Adapter<ToppingDetailAdapter.ToppingViewHolder> {
@@ -18,9 +20,12 @@ public class ToppingDetailAdapter extends RecyclerView.Adapter<ToppingDetailAdap
     private Context context;
     private final List<Topping> toppingList;
 
-    public ToppingDetailAdapter(Context context, List<Topping> toppingList) {
+    private IOnToppingCheckedListener onToppingCheckedListener;
+
+    public ToppingDetailAdapter(Context context, List<Topping> toppingList, IOnToppingCheckedListener onToppingCheckedListener) {
         this.context = context;
         this.toppingList = toppingList;
+        this.onToppingCheckedListener=onToppingCheckedListener;
     }
 
     @NonNull
@@ -50,9 +55,10 @@ public class ToppingDetailAdapter extends RecyclerView.Adapter<ToppingDetailAdap
             public void onClick(View v) {
                 if (holder.binding.checkBoxTopping.isChecked()) {
                     holder.binding.checkBoxTopping.setChecked(false);
-                }
-                else {
+                    onToppingCheckedListener.onUnchecked(topping.getToppingName());
+                } else {
                     holder.binding.checkBoxTopping.setChecked(true);
+                    onToppingCheckedListener.onChecked(topping.getToppingName());
                 }
                 notifyDataSetChanged();
             }

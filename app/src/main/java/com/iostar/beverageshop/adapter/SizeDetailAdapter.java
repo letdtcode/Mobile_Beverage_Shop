@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.databinding.ItemSizeProductBinding;
+import com.iostar.beverageshop.inteface.IOnSizeClickListener;
 import com.iostar.beverageshop.model.Size;
 
 import java.util.List;
@@ -18,10 +19,13 @@ public class SizeDetailAdapter extends RecyclerView.Adapter<SizeDetailAdapter.Si
     private final List<Size> sizeList;
     private int mCheckedPosition = 1;
 
-    public SizeDetailAdapter(Context context, List<Size> sizeList, int checkedPosition) {
+    private IOnSizeClickListener onSizeClickListener;
+
+    public SizeDetailAdapter(Context context, List<Size> sizeList, int checkedPosition, IOnSizeClickListener onSizeClickListener) {
         this.context = context;
         this.sizeList = sizeList;
         this.mCheckedPosition = checkedPosition;
+        this.onSizeClickListener = onSizeClickListener;
     }
 
     @NonNull
@@ -52,6 +56,7 @@ public class SizeDetailAdapter extends RecyclerView.Adapter<SizeDetailAdapter.Si
             public void onClick(View v) {
                 mCheckedPosition = (int) v.getTag();
                 notifyDataSetChanged();
+                onSizeClickListener.onSizeClick(size.getSizeName());
             }
         });
     }
