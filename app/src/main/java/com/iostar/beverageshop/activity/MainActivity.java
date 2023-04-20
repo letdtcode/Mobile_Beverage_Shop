@@ -133,8 +133,13 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-        Glide.with(MainActivity.this).load(DataLocalManager.getUser().getAvatar()).into(binding.imgInfo);
+        String avatarUrl = DataLocalManager.getUser().getAvatar();
+        if (avatarUrl==null || avatarUrl=="")
+        {
+            Glide.with(MainActivity.this).load(R.drawable.avatar_default).into(binding.imgInfo);
+        }else {
+            Glide.with(MainActivity.this).load(DataLocalManager.getUser().getAvatar()).into(binding.imgInfo);
+        }
     }
 
 }

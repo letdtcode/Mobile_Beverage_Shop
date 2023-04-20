@@ -58,6 +58,8 @@ public class CartActivity extends AppCompatActivity {
                     binding.tvTotalPrice.setText(totalPrice.toString());
                     cartAdapter = new CartAdapter(cartItemList);
                     binding.rvBasket.setAdapter(cartAdapter);
+                } else {
+                    binding.imgEmpty.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -73,6 +75,12 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(CartActivity.this, MainActivity.class));
+            }
+        });
+        binding.btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CartActivity.this, CheckOutActivity.class));
             }
         });
     }
