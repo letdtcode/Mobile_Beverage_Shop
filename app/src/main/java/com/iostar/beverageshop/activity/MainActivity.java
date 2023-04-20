@@ -40,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         Intent intent = result.getData();
                         String imgAvatarCallBack = intent.getStringExtra("data_result");
-                        Glide.with(MainActivity.this)
-                                .load(imgAvatarCallBack)
-                                .into(binding.imgInfo);
+                        loadImgAvatarUser(imgAvatarCallBack);
                     }
                 }
             }
@@ -73,9 +71,17 @@ public class MainActivity extends AppCompatActivity {
         binding.imgGioHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CartActivity.class));
+                startActivity(new Intent(MainActivity.this, CartActivity.class));
             }
         });
+    }
+
+    private void loadImgAvatarUser(String avatarUrl) {
+        if (avatarUrl == null || avatarUrl == "") {
+            Glide.with(MainActivity.this).load(R.drawable.avatar_default).into(binding.imgInfo);
+        } else {
+            Glide.with(MainActivity.this).load(avatarUrl).into(binding.imgInfo);
+        }
     }
 
     private void initialView() {
@@ -133,13 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        String avatarUrl = DataLocalManager.getUser().getAvatar();
-        if (avatarUrl==null || avatarUrl=="")
-        {
-            Glide.with(MainActivity.this).load(R.drawable.avatar_default).into(binding.imgInfo);
-        }else {
-            Glide.with(MainActivity.this).load(DataLocalManager.getUser().getAvatar()).into(binding.imgInfo);
-        }
+        loadImgAvatarUser(DataLocalManager.getUser().getAvatar());
     }
 
 }

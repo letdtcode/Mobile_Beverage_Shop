@@ -24,7 +24,6 @@ public class BaseAPIService {
             .client(httpClient.build())
             .addConverterFactory(GsonConverterFactory.create());
 
-//    Show request
 
     private static final Retrofit retrofit = builder.build();
 

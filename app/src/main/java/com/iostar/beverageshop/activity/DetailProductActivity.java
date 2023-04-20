@@ -86,6 +86,14 @@ public class DetailProductActivity extends AppCompatActivity implements IOnSizeC
                 addProductToBasket();
             }
         });
+
+        binding.imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameProduct = binding.tvNameProduct.getText().toString();
+
+            }
+        });
     }
 
     private void addProductToBasket() {

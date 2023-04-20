@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.databinding.ActivityPersonalBinding;
 import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.service.BaseAPIService;
@@ -113,7 +114,14 @@ public class PersonalActivity extends AppCompatActivity {
             return;
         }
         User user = (User) bundle.get("object_user");
-        Glide.with(PersonalActivity.this).load(user.getAvatar()).into(binding.imgProfile);
+
+        String avatarUrl = user.getAvatar();
+        if (avatarUrl == null || avatarUrl == "")
+        {
+            Glide.with(PersonalActivity.this).load(R.drawable.avatar_default).into(binding.imgProfile);
+        } else {
+            Glide.with(PersonalActivity.this).load(user.getAvatar()).into(binding.imgProfile);
+        }
         binding.edUsername.setText(user.getUserName());
         binding.edtFirstName.setText(user.getFirstName());
         binding.edtLastName.setText(user.getLastName());
@@ -128,7 +136,7 @@ public class PersonalActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                startActivity(new Intent(PersonalActivity.this, MainActivity.class));
                 Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
-                intent.putExtra("data_result",DataLocalManager.getUser().getAvatar());
+                intent.putExtra("data_result", DataLocalManager.getUser().getAvatar());
                 setResult(RESULT_OK, intent);
                 finish();
             }

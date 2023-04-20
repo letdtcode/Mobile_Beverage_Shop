@@ -85,6 +85,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
+
     private void saveInfoUser(Long id) {
         BaseAPIService.createService(IUserService.class).getInfoUserById(id).enqueue(new Callback<User>() {
             @Override
