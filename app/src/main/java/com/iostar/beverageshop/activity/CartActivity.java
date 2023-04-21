@@ -56,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
                         totalPrice = totalPrice + item.getTotalPriceItem().intValue();
                     }
                     binding.tvTotalPrice.setText(totalPrice.toString());
-                    cartAdapter = new CartAdapter(cartItemList);
+                    cartAdapter = new CartAdapter(cartItemList, CartActivity.this);
                     binding.rvBasket.setAdapter(cartAdapter);
                 } else {
                     binding.imgEmpty.setVisibility(View.VISIBLE);

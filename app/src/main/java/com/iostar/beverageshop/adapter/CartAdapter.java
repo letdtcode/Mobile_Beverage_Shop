@@ -1,5 +1,6 @@
 package com.iostar.beverageshop.adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -7,17 +8,28 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.databinding.ItemProductInCartBinding;
 import com.iostar.beverageshop.model.CartItem;
+import com.iostar.beverageshop.service.BaseAPIService;
+import com.iostar.beverageshop.service.IProductService;
 
+import java.io.IOException;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHolder> {
 
     private final List<CartItem> cartItemList;
+    private Context context;
 
-    public CartAdapter(List<CartItem> cartItemList) {
+    public CartAdapter(List<CartItem> cartItemList, Context context) {
         this.cartItemList = cartItemList;
+        this.context = context;
     }
 
     @NonNull
@@ -28,6 +40,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
                 parent,
                 false
         );
+        context = parent.getContext();
         return new CartAdapter.CartItemViewHolder(binding);
     }
 
@@ -41,11 +54,29 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
         for (String topping : cartItem.getToppingName()) {
             toppingList = toppingList + topping + " ";
         }
-        holder.binding.tvTitleProduct.setText(cartItem.getProductName());
+        String productName = cartItem.getProductName();
+        BaseAPIService.createService(IProductService.class).getImgPathProductByProductName(productName).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String pathImg= null;
+                try {
+                    pathImg = response.body().string();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Glide.with(context).load(pathImg).into(holder.binding.imgCoffee);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+        holder.binding.tvTitleProduct.setText(productName);
         holder.binding.tvToppings.setText(toppingList);
         holder.binding.tvSize.setText(cartItem.getSizeName());
         holder.binding.tvCount.setText(String.valueOf(cartItem.getQuantity()));
-        Log.e("tag::",String.valueOf(cartItem.getTotalPriceItem().intValue()));
+        Log.e("tag::", String.valueOf(cartItem.getTotalPriceItem().intValue()));
         holder.binding.tvTtlPrice.setText(String.valueOf(cartItem.getTotalPriceItem().intValue()));
     }
 
