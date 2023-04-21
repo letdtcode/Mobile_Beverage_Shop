@@ -15,22 +15,27 @@ import com.iostar.beverageshop.adapter.ProductHomeAdapter;
 import com.iostar.beverageshop.adapter.ToppingDetailAdapter;
 import com.iostar.beverageshop.databinding.ActivityCartBinding;
 import com.iostar.beverageshop.databinding.ActivityMainBinding;
+import com.iostar.beverageshop.inteface.IOnCartItemCheckedListener;
 import com.iostar.beverageshop.model.CartItem;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.ICartService;
 import com.iostar.beverageshop.storage.DataLocalManager;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements IOnCartItemCheckedListener {
     private ActivityCartBinding binding;
     private List<CartItem> cartItemList;
     private CartAdapter cartAdapter;
-    private Integer totalPrice = 0;
+
+    private BigDecimal totalPrice = BigDecimal.valueOf(0);
+    private List<Long> cartItemIdList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +57,12 @@ public class CartActivity extends AppCompatActivity {
             public void onResponse(Call<List<CartItem>> call, Response<List<CartItem>> response) {
                 cartItemList = response.body();
                 if (cartItemList.size() != 0) {
-                    for (CartItem item : cartItemList) {
-                        totalPrice = totalPrice + item.getTotalPriceItem().intValue();
-                    }
-                    binding.tvTotalPrice.setText(totalPrice.toString());
-                    cartAdapter = new CartAdapter(cartItemList, CartActivity.this);
+//                    for (CartItem item : cartItemList) {
+//                        totalPrice = totalPrice + item.getTotalPriceItem().intValue();
+//                    }
+//                    binding.tvTotalPrice.setText(totalPrice.toString());
+                    IOnCartItemCheckedListener listener = CartActivity.this;
+                    cartAdapter = new CartAdapter(cartItemList, CartActivity.this,listener);
                     binding.rvBasket.setAdapter(cartAdapter);
                 } else {
                     binding.imgEmpty.setVisibility(View.VISIBLE);
@@ -69,6 +75,7 @@ public class CartActivity extends AppCompatActivity {
                 Log.e("error_api", t.getMessage());
             }
         });
+        cartItemIdList = new ArrayList<>();
     }
 
     private void setEvent() {
@@ -84,5 +91,19 @@ public class CartActivity extends AppCompatActivity {
                 startActivity(new Intent(CartActivity.this, CheckOutActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onChecked(Long cardItemId, BigDecimal totalItem) {
+        cartItemIdList.add(cardItemId);
+        totalPrice = totalPrice.add(totalItem);
+        binding.tvTotalPrice.setText(totalPrice.toString());
+    }
+
+    @Override
+    public void onUnchecked(Long cardItemId, BigDecimal totalItem) {
+        cartItemIdList.remove(cardItemId);
+        totalPrice = totalPrice.subtract(totalItem);
+        binding.tvTotalPrice.setText(totalPrice.toString());
     }
 }

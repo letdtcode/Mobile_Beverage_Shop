@@ -3,6 +3,7 @@ package com.iostar.beverageshop.adapter;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.databinding.ItemProductInCartBinding;
+import com.iostar.beverageshop.inteface.IOnCartItemCheckedListener;
+import com.iostar.beverageshop.inteface.IOnToppingCheckedListener;
 import com.iostar.beverageshop.model.CartItem;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IProductService;
@@ -26,10 +29,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
 
     private final List<CartItem> cartItemList;
     private Context context;
+    private IOnCartItemCheckedListener onCartItemCheckedListener;
 
-    public CartAdapter(List<CartItem> cartItemList, Context context) {
+    public CartAdapter(List<CartItem> cartItemList, Context context, IOnCartItemCheckedListener onCartItemCheckedListener) {
         this.cartItemList = cartItemList;
         this.context = context;
+        this.onCartItemCheckedListener = onCartItemCheckedListener;
     }
 
     @NonNull
@@ -58,7 +63,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
         BaseAPIService.createService(IProductService.class).getImgPathProductByProductName(productName).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                String pathImg= null;
+                String pathImg = null;
                 try {
                     pathImg = response.body().string();
                 } catch (IOException e) {
@@ -78,6 +83,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
         holder.binding.tvCount.setText(String.valueOf(cartItem.getQuantity()));
         Log.e("tag::", String.valueOf(cartItem.getTotalPriceItem().intValue()));
         holder.binding.tvTtlPrice.setText(String.valueOf(cartItem.getTotalPriceItem().intValue()));
+
+        holder.binding.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (holder.binding.checkBox.isChecked()) {
+                    holder.binding.checkBox.setChecked(false);
+                    onCartItemCheckedListener.onUnchecked(cartItem.getId(), cartItem.getTotalPriceItem());
+                } else {
+                    holder.binding.checkBox.setChecked(true);
+                    onCartItemCheckedListener.onChecked(cartItem.getId(), cartItem.getTotalPriceItem());
+                }
+            }
+        });
     }
 
     @Override
