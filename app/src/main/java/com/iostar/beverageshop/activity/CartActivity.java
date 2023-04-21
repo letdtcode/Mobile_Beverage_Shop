@@ -51,7 +51,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<CartItem>> call, Response<List<CartItem>> response) {
                 cartItemList = response.body();
-                if (cartItemList != null) {
+                if (cartItemList.size() != 0) {
                     for (CartItem item : cartItemList) {
                         totalPrice = totalPrice + item.getTotalPriceItem().intValue();
                     }
@@ -60,6 +60,7 @@ public class CartActivity extends AppCompatActivity {
                     binding.rvBasket.setAdapter(cartAdapter);
                 } else {
                     binding.imgEmpty.setVisibility(View.VISIBLE);
+                    binding.tvTitle.setVisibility(View.VISIBLE);
                 }
             }
 
