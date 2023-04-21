@@ -30,6 +30,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
     private final List<CartItem> cartItemList;
     private Context context;
     private IOnCartItemCheckedListener onCartItemCheckedListener;
+    private String pathImg;
 
     public CartAdapter(List<CartItem> cartItemList, Context context, IOnCartItemCheckedListener onCartItemCheckedListener) {
         this.cartItemList = cartItemList;
@@ -66,6 +67,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
                 String pathImg = null;
                 try {
                     pathImg = response.body().string();
+                    getPathImageToOutside(pathImg);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -89,10 +91,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
             public void onClick(View v) {
                 if (holder.binding.checkBox.isChecked()) {
                     holder.binding.checkBox.setChecked(false);
-                    onCartItemCheckedListener.onUnchecked(cartItem.getId(), cartItem.getTotalPriceItem());
+                    onCartItemCheckedListener.onUnchecked(cartItem, pathImg);
                 } else {
                     holder.binding.checkBox.setChecked(true);
-                    onCartItemCheckedListener.onChecked(cartItem.getId(), cartItem.getTotalPriceItem());
+                    onCartItemCheckedListener.onChecked(cartItem, pathImg);
                 }
             }
         });
@@ -104,6 +106,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartItemViewHo
             return cartItemList.size();
         }
         return 0;
+    }
+
+    private void getPathImageToOutside(String pathImg) {
+        this.pathImg = pathImg;
     }
 
 

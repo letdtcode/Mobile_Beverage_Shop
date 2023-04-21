@@ -1,9 +1,10 @@
 package com.iostar.beverageshop.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class CartItem {
+public class CartItem implements Serializable {
     private Long Id;
     private String productName;
     private List<String> toppingName;

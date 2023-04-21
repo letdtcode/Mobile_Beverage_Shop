@@ -21,6 +21,7 @@ import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.ICartService;
 import com.iostar.beverageshop.storage.DataLocalManager;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,9 @@ public class CartActivity extends AppCompatActivity implements IOnCartItemChecke
     private CartAdapter cartAdapter;
 
     private BigDecimal totalPrice = BigDecimal.valueOf(0);
-    private List<Long> cartItemIdList;
+
+    private List<CartItem> cartItemsSelected;
+    private List<String> pathImgProductSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +60,6 @@ public class CartActivity extends AppCompatActivity implements IOnCartItemChecke
             public void onResponse(Call<List<CartItem>> call, Response<List<CartItem>> response) {
                 cartItemList = response.body();
                 if (cartItemList.size() != 0) {
-//                    for (CartItem item : cartItemList) {
-//                        totalPrice = totalPrice + item.getTotalPriceItem().intValue();
-//                    }
-//                    binding.tvTotalPrice.setText(totalPrice.toString());
                     IOnCartItemCheckedListener listener = CartActivity.this;
                     cartAdapter = new CartAdapter(cartItemList, CartActivity.this,listener);
                     binding.rvBasket.setAdapter(cartAdapter);
@@ -75,7 +74,8 @@ public class CartActivity extends AppCompatActivity implements IOnCartItemChecke
                 Log.e("error_api", t.getMessage());
             }
         });
-        cartItemIdList = new ArrayList<>();
+        cartItemsSelected = new ArrayList<>();
+        pathImgProductSelected = new ArrayList<>();
     }
 
     private void setEvent() {
@@ -88,22 +88,30 @@ public class CartActivity extends AppCompatActivity implements IOnCartItemChecke
         binding.btnCheckout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(CartActivity.this, CheckOutActivity.class));
+                Intent intent = new Intent(CartActivity.this, CheckOutActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("list_cart_item", (Serializable) cartItemsSelected);
+                bundle.putSerializable("list_path_img", (Serializable) pathImgProductSelected);
+                bundle.putString("total_price", totalPrice.toString());
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
     }
 
     @Override
-    public void onChecked(Long cardItemId, BigDecimal totalItem) {
-        cartItemIdList.add(cardItemId);
-        totalPrice = totalPrice.add(totalItem);
+    public void onChecked(CartItem cartItem, String pathImage) {
+        totalPrice = totalPrice.add(cartItem.getTotalPriceItem());
+        cartItemsSelected.add(cartItem);
+        pathImgProductSelected.add(pathImage);
         binding.tvTotalPrice.setText(totalPrice.toString());
     }
 
     @Override
-    public void onUnchecked(Long cardItemId, BigDecimal totalItem) {
-        cartItemIdList.remove(cardItemId);
-        totalPrice = totalPrice.subtract(totalItem);
+    public void onUnchecked(CartItem cartItem, String pathImage) {
+        totalPrice = totalPrice.subtract(cartItem.getTotalPriceItem());
+        cartItemsSelected.remove(cartItem);
+        pathImgProductSelected.remove(pathImage);
         binding.tvTotalPrice.setText(totalPrice.toString());
     }
 }

@@ -1,6 +1,8 @@
 package com.iostar.beverageshop.model;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     private Long id;
     private String categoryName;
     private String description;

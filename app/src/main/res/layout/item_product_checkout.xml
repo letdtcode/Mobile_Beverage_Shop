@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imgCoffee"
+            android:id="@+id/imgProductCheckout"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="16dp"
@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintStart_toEndOf="@+id/imgCoffee"
-            app:layout_constraintTop_toTopOf="@+id/imgCoffee">
+            app:layout_constraintStart_toEndOf="@+id/imgProductCheckout"
+            app:layout_constraintTop_toTopOf="@+id/imgProductCheckout">
             <TextView
                 android:id="@+id/tvProductCheckout"
                 android:layout_width="wrap_content"
@@ -70,6 +70,7 @@
             android:layout_marginTop="8dp"
             android:fontFamily="@font/manrope_regular"
             android:text="100K"
+            android:paddingLeft="@dimen/_10sdp"
             android:textColor="@color/primaryColor"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/layoutCheckoutDetail"
@@ -85,7 +86,7 @@
             android:text="1"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgCoffee"
+            app:layout_constraintBottom_toBottomOf="@+id/imgProductCheckout"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
@@ -95,7 +96,7 @@
             android:text="x"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgCoffee"
+            app:layout_constraintBottom_toBottomOf="@+id/imgProductCheckout"
             app:layout_constraintEnd_toStartOf="@+id/tvCount" />
 
 
