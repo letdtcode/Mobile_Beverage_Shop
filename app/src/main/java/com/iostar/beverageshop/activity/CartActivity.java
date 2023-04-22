@@ -1,20 +1,16 @@
 package com.iostar.beverageshop.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.iostar.beverageshop.R;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.iostar.beverageshop.adapter.CartAdapter;
-import com.iostar.beverageshop.adapter.ProductHomeAdapter;
-import com.iostar.beverageshop.adapter.ToppingDetailAdapter;
 import com.iostar.beverageshop.databinding.ActivityCartBinding;
-import com.iostar.beverageshop.databinding.ActivityMainBinding;
 import com.iostar.beverageshop.inteface.IOnCartItemCheckedListener;
 import com.iostar.beverageshop.model.CartItem;
 import com.iostar.beverageshop.service.BaseAPIService;
@@ -61,7 +57,7 @@ public class CartActivity extends AppCompatActivity implements IOnCartItemChecke
                 cartItemList = response.body();
                 if (cartItemList.size() != 0) {
                     IOnCartItemCheckedListener listener = CartActivity.this;
-                    cartAdapter = new CartAdapter(cartItemList, CartActivity.this,listener);
+                    cartAdapter = new CartAdapter(cartItemList, CartActivity.this, listener);
                     binding.rvBasket.setAdapter(cartAdapter);
                 } else {
                     binding.imgEmpty.setVisibility(View.VISIBLE);

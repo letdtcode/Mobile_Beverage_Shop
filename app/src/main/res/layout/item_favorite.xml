@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgProductFavorite"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/imageview"
+            android:src="@drawable/shooping_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/manrope_semibold"
+            android:text="Loại sản phẩm"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/imgProductFavorite"
+            app:layout_constraintTop_toTopOf="@+id/imgProductFavorite" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên sản phẩm"
+            app:layout_constraintBottom_toTopOf="@+id/tvPrice"
+            app:layout_constraintStart_toStartOf="@+id/tvCategory"
+            app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+
+        <TextView
+            android:id="@+id/tvRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="4.8"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/imgRating"
+            app:layout_constraintEnd_toStartOf="@+id/imgRating"
+            app:layout_constraintTop_toTopOf="@+id/imgRating" />
+
+        <ImageView
+            android:id="@+id/imgRating"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/imageview"
+            android:src="@drawable/star_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imgProductFavorite" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_extrabold"
+            android:text="Giá tiền"
+            android:textColor="@color/primaryColor"
+            app:layout_constraintBottom_toBottomOf="@+id/imgProductFavorite"
+            app:layout_constraintStart_toStartOf="@+id/tvCategory" />
+
+        <ImageView
+            android:id="@+id/imgFavorite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/imageview"
+            android:src="@drawable/like_selected_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/imgProductFavorite"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
