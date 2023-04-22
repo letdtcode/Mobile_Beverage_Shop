@@ -112,6 +112,116 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tvAddress" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutNameCus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                <TextView
+                    android:id="@+id/tvNameCus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:text="Người nhận"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvEditNameCus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:text="Thay đổi"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvNameCus"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvNameCus" />
+
+                <EditText
+                    android:id="@+id/etNameCus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_edittext_address"
+                    android:fontFamily="@font/manrope_regular"
+                    android:hint="Người nhận"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvNameCus" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutPhoneNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutNameCus">
+
+                <TextView
+                    android:id="@+id/tvPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:text="Số điện thoại"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvEditPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/manrope_semibold"
+                    android:text="Thay đổi"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPhoneNumber"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvPhoneNumber" />
+
+                <EditText
+                    android:id="@+id/etPhoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_edittext_address"
+                    android:fontFamily="@font/manrope_regular"
+                    android:hint="Số điện thoại"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLines="5"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumber" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout3"
@@ -121,7 +231,7 @@
                 android:background="#FFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutPhoneNumber">
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvOrder"

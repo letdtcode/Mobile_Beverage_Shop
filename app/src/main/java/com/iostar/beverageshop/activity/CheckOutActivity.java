@@ -1,5 +1,6 @@
 package com.iostar.beverageshop.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,15 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.iostar.beverageshop.adapter.CheckOutAdapter;
 import com.iostar.beverageshop.databinding.ActivityCheckOutBinding;
 import com.iostar.beverageshop.model.CartItem;
+import com.iostar.beverageshop.model.Order;
+import com.iostar.beverageshop.model.request.CheckOutCartRequest;
+import com.iostar.beverageshop.service.BaseAPIService;
+import com.iostar.beverageshop.service.IOrderService;
 import com.iostar.beverageshop.storage.DataLocalManager;
+import com.iostar.beverageshop.utils.ToastUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CheckOutActivity extends AppCompatActivity {
     private ActivityCheckOutBinding binding;
-    private List<String> payMent;
+    private List<String> namePayMent;
 
     private List<CartItem> cartItemsSelected;
     private List<String> pathImgProductSelected;
@@ -29,6 +39,7 @@ public class CheckOutActivity extends AppCompatActivity {
     private CheckOutAdapter checkOutAdapter;
     private Integer shipping = null;
     private BigDecimal totalPrice = null;
+    private int payMent = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +64,10 @@ public class CheckOutActivity extends AppCompatActivity {
         totalPrice = new BigDecimal(totalPriceStr);
 
 //        Adapter for spinner
-        payMent = new ArrayList<>();
-        payMent.add("Giao hàng nhanh");
-        payMent.add("Nhận lịch giao hàng");
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(CheckOutActivity.this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, payMent);
+        namePayMent = new ArrayList<>();
+        namePayMent.add("Giao hàng nhanh");
+        namePayMent.add("Nhận lịch giao hàng");
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(CheckOutActivity.this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, namePayMent);
         binding.spinnerMethodPayment.setAdapter(spinnerAdapter);
 
 //        Set Adapter for Cart Item Checkout
@@ -87,11 +98,13 @@ public class CheckOutActivity extends AppCompatActivity {
                 switch (position) {
                     case 0:
                         shipping = 20000;
+                        payMent = 0;
                         binding.tvSubTotalDelivery.setText(String.valueOf(shipping));
                         setUpTotalPay();
                         break;
                     case 1:
                         shipping = 15000;
+                        payMent = 1;
                         binding.tvSubTotalDelivery.setText(String.valueOf(shipping));
                         setUpTotalPay();
                         break;
@@ -107,6 +120,43 @@ public class CheckOutActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        binding.btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String address = binding.edAddress.getText().toString();
+                String nameCus = binding.etNameCus.getText().toString();
+                String phoneNumber = binding.etPhoneNumber.getText().toString();
+                List<Long> cartItemId = new ArrayList<>();
+                for (CartItem itemSelected : cartItemsSelected) {
+                    cartItemId.add(itemSelected.getId());
+                }
+                CheckOutCartRequest request = new CheckOutCartRequest(
+                        DataLocalManager.getUser().getId(),
+                        address,
+                        nameCus,
+                        payMent,
+                        phoneNumber,
+                        shipping,
+                        cartItemId);
+
+                BaseAPIService.createService(IOrderService.class).checkOutInCart(request).enqueue(new Callback<Order>() {
+                    @Override
+                    public void onResponse(Call<Order> call, Response<Order> response) {
+                        Order order = response.body();
+                        if (order != null) {
+                            ToastUtils.showToastCustom(CheckOutActivity.this, "Đơn hàng được đặt thành công !");
+                            startActivity(new Intent(CheckOutActivity.this, MainActivity.class));
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Order> call, Throwable t) {
+                        Log.e("api_checkout", t.getMessage());
+                    }
+                });
             }
         });
     }
