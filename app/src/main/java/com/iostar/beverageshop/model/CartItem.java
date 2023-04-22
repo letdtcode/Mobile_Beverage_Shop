@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class CartItem implements Serializable {
-    private Long Id;
+    private Long id;
     private String productName;
     private List<String> toppingName;
     private String sizeName;
@@ -13,7 +13,7 @@ public class CartItem implements Serializable {
     private BigDecimal totalPriceItem;
 
     public CartItem(Long id, String productName, List<String> toppingName, String sizeName, Integer quantity, BigDecimal totalPriceItem) {
-        Id = id;
+        this.id = id;
         this.productName = productName;
         this.toppingName = toppingName;
         this.sizeName = sizeName;
@@ -22,11 +22,11 @@ public class CartItem implements Serializable {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getProductName() {
