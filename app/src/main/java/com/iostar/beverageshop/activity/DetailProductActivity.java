@@ -2,6 +2,7 @@ package com.iostar.beverageshop.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.adapter.SizeDetailAdapter;
 import com.iostar.beverageshop.adapter.ToppingDetailAdapter;
 import com.iostar.beverageshop.databinding.ActivityDetailProductBinding;
@@ -18,9 +20,12 @@ import com.iostar.beverageshop.model.CartItem;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
 import com.iostar.beverageshop.model.Topping;
+import com.iostar.beverageshop.model.WishItem;
 import com.iostar.beverageshop.model.request.AddCartRequest;
+import com.iostar.beverageshop.model.request.AddWishRequest;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.ICartService;
+import com.iostar.beverageshop.service.IWishService;
 import com.iostar.beverageshop.storage.DataLocalManager;
 import com.iostar.beverageshop.utils.ToastUtils;
 
@@ -91,7 +96,26 @@ public class DetailProductActivity extends AppCompatActivity implements IOnSizeC
             @Override
             public void onClick(View v) {
                 String nameProduct = binding.tvNameProduct.getText().toString();
+                Long userId = DataLocalManager.getUser().getId();
+                AddWishRequest addWishRequest = new AddWishRequest(userId, nameProduct);
+                BaseAPIService.createService(IWishService.class).handleWishItem(addWishRequest).enqueue(new Callback<WishItem>() {
+                    @Override
+                    public void onResponse(Call<WishItem> call, Response<WishItem> response) {
+                        WishItem item = response.body();
+                        if (item.getStatus() == 1) {
+                            ToastUtils.showToastCustom(DetailProductActivity.this, "Đã thêm vào danh sách yêu thích");
+                            binding.imgFavorite.setImageResource(R.drawable.like_selected_icon);
+                        } else {
+                            ToastUtils.showToastCustom(DetailProductActivity.this, "Đã loại bỏ khỏi danh sách yêu thích");
+                            binding.imgFavorite.setImageResource(R.drawable.like_unselected_icon);
+                        }
+                    }
 
+                    @Override
+                    public void onFailure(Call<WishItem> call, Throwable t) {
+                        Log.e("errorHandleFavorite", t.getMessage());
+                    }
+                });
             }
         });
     }
@@ -145,6 +169,29 @@ public class DetailProductActivity extends AppCompatActivity implements IOnSizeC
 
         toppingDetailAdapter = new ToppingDetailAdapter(DetailProductActivity.this, toppingList, this);
         binding.rcvToppingProduct.setAdapter(toppingDetailAdapter);
+
+        String productName = product.getProductName();
+        Long userId = DataLocalManager.getUser().getId();
+        checkProductIsWishItemOfUser(productName, userId);
+    }
+
+    private void checkProductIsWishItemOfUser(String productName, Long userId) {
+        BaseAPIService.createService(IWishService.class).checkProductIsWishItem(productName, userId).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                Boolean checkIsWishItem = response.body();
+                if (checkIsWishItem) {
+                    binding.imgFavorite.setImageResource(R.drawable.like_selected_icon);
+                } else {
+                    binding.imgFavorite.setImageResource(R.drawable.like_unselected_icon);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Log.e("error_checkWishItem", t.getMessage());
+            }
+        });
     }
 
     @Override
