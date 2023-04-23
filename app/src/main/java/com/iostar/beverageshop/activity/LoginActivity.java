@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.iostar.beverageshop.activity.user.MainActivity;
 import com.iostar.beverageshop.databinding.ActivityLoginBinding;
 import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.model.request.LoginRequest;

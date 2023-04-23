@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F2F2F2"
-    tools:context=".fragment.AccountFragment">
+    tools:context=".fragment.user.AccountFragment">
 
     <LinearLayout
         android:id="@+id/itemPersonal"

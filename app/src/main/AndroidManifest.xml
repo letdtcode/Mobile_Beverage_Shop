@@ -28,28 +28,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.CheckOutActivity"
+            android:name=".activity.user.CheckOutActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.CartActivity"
+            android:name=".activity.user.CartActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.PersonalActivity"
+            android:name=".activity.user.PersonalActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.DetailProductActivity"
+            android:name=".activity.user.DetailProductActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -90,7 +90,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.user.MainActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"

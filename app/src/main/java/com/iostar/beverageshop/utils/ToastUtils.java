@@ -9,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iostar.beverageshop.R;
-import com.iostar.beverageshop.activity.PersonalActivity;
 
 public class ToastUtils {
     public static void showToast(Context context, String message) {
