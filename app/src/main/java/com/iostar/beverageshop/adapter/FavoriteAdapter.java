@@ -2,6 +2,7 @@ package com.iostar.beverageshop.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
 
     private List<WishItem> wishItemList;
     private Context context;
+    private OnImgHeartClickListener listener;
+
+    //    Interface
+    public interface OnImgHeartClickListener {
+        void onItemClick(int position);
+    }
+
+    //    Method
+    public void setOnItemClickListener(OnImgHeartClickListener clickListener) {
+        listener = clickListener;
+    }
 
     public FavoriteAdapter(List<WishItem> wishItemList, Context context) {
         this.wishItemList = wishItemList;
@@ -32,7 +44,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
                 false
         );
         context = parent.getContext();
-        return new FavoriteAdapter.FavoriteItemViewHolder(binding);
+        return new FavoriteAdapter.FavoriteItemViewHolder(binding,listener);
     }
 
     @Override
@@ -56,9 +68,16 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
     public static class FavoriteItemViewHolder extends RecyclerView.ViewHolder {
         private final ItemFavoriteBinding binding;
 
-        public FavoriteItemViewHolder(ItemFavoriteBinding itemFavoriteBinding) {
+        public FavoriteItemViewHolder(ItemFavoriteBinding itemFavoriteBinding, OnImgHeartClickListener listener) {
             super(itemFavoriteBinding.getRoot());
             binding = itemFavoriteBinding;
+
+            binding.imgFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(getAdapterPosition());
+                }
+            });
         }
     }
 }

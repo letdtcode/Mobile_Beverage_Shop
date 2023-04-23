@@ -1,8 +1,9 @@
 package com.iostar.beverageshop.service;
 
-import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.model.WishItem;
 import com.iostar.beverageshop.model.request.AddWishRequest;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,4 +18,7 @@ public interface IWishService {
 
     @POST("client/wishhandle")
     Call<WishItem> handleWishItem(@Body AddWishRequest wishRequest);
+
+    @GET("client/wishitems/current")
+    Call<List<WishItem>> getCurrentWishItemOfUser(@Query("userId") Long userId);
 }
