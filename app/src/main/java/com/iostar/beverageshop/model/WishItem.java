@@ -9,15 +9,17 @@ public class WishItem {
     private BigDecimal priceProduct;
     private Float rating;
     private Long wishListId;
+    private String pathImg;
     private int status;
 
-    public WishItem(Long id, String productName, String categoryName, BigDecimal priceProduct, Float rating, Long wishListId, int status) {
+    public WishItem(Long id, String productName, String categoryName, BigDecimal priceProduct, Float rating, Long wishListId, String pathImg, int status) {
         this.id = id;
         this.productName = productName;
         this.categoryName = categoryName;
         this.priceProduct = priceProduct;
         this.rating = rating;
         this.wishListId = wishListId;
+        this.pathImg = pathImg;
         this.status = status;
     }
 
@@ -67,6 +69,14 @@ public class WishItem {
 
     public void setWishListId(Long wishListId) {
         this.wishListId = wishListId;
+    }
+
+    public String getPathImg() {
+        return pathImg;
+    }
+
+    public void setPathImg(String pathImg) {
+        this.pathImg = pathImg;
     }
 
     public int getStatus() {
