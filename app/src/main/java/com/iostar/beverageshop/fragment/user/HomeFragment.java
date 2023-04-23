@@ -1,5 +1,7 @@
 package com.iostar.beverageshop.fragment.user;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -15,7 +21,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.activity.user.DetailProductActivity;
+import com.iostar.beverageshop.activity.user.PersonalActivity;
 import com.iostar.beverageshop.adapter.user.CategoryHomeAdapter;
 import com.iostar.beverageshop.adapter.user.ProductHomeAdapter;
 import com.iostar.beverageshop.databinding.FragmentHomeBinding;
@@ -23,11 +32,13 @@ import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
 import com.iostar.beverageshop.model.Topping;
+import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.ICategoryService;
 import com.iostar.beverageshop.service.IProductService;
 import com.iostar.beverageshop.service.ISizeService;
 import com.iostar.beverageshop.service.IToppingService;
+import com.iostar.beverageshop.storage.DataLocalManager;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -44,6 +55,20 @@ public class HomeFragment extends Fragment {
     private ProductHomeAdapter productHomeAdapter;
     private List<Size> sizeList;
     private List<Topping> toppingList;
+
+    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent intent = result.getData();
+                        String imgAvatarCallBack = intent.getStringExtra("data_result");
+                        loadImgAvatarUser(imgAvatarCallBack);
+                    }
+                }
+            }
+    );
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,6 +91,30 @@ public class HomeFragment extends Fragment {
         getAllProduct();
         getInfoSizeOfProduct();
         getInfoTopping();
+        setEvent();
+    }
+
+    private void setEvent() {
+        binding.cardViewImgInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                User user = DataLocalManager.getUser();
+                Intent intent = new Intent(getActivity(), PersonalActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("object_user", user);
+                intent.putExtras(bundle);
+//                startActivity(intent);
+                mActivityResultLauncher.launch(intent);
+            }
+        });
+    }
+
+    private void loadImgAvatarUser(String avatarUrl) {
+        if (avatarUrl == null || avatarUrl == "") {
+            Glide.with(getActivity()).load(R.drawable.avatar_default).into(binding.imgProfile);
+        } else {
+            Glide.with(getActivity()).load(avatarUrl).into(binding.imgProfile);
+        }
     }
 
     private void getAllProduct() {

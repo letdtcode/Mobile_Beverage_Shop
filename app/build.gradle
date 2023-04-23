@@ -50,8 +50,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.15.1'
 
     //    UI
-    implementation 'androidx.navigation:navigation-fragment:2.4.2'
-    implementation 'androidx.navigation:navigation-ui:2.4.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
     //Gson
     implementation 'com.google.code.gson:gson:2.10.1'
@@ -67,4 +67,7 @@ dependencies {
     implementation 'io.github.florent37:shapeofview:1.4.7'
     implementation 'com.github.Muratthekus:ReadMoreText:v1.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    implementation 'com.airbnb.android:lottie:3.7.0'
+    implementation 'nl.joery.animatedbottombar:library:1.1.0'
 }

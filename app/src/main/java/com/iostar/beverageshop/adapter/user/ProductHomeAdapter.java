@@ -20,13 +20,11 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
     private final List<Product> productList;
     private Context mContext;
     private IClickItemProductListener iClickItemProductListener;
-//    private FileConvertUtils fileConvertUtils;
 
     public ProductHomeAdapter(List<Product> productList, Context context, IClickItemProductListener listener) {
         this.productList = productList;
         this.mContext = context;
         this.iClickItemProductListener = listener;
-//        fileConvertUtils= new FileConvertUtils(this.mContext);
     }
 
     @NonNull

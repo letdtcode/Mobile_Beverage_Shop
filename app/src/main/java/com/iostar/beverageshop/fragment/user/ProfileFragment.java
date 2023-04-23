@@ -11,18 +11,18 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.R;
-import com.iostar.beverageshop.databinding.FragmentAccountBinding;
+import com.iostar.beverageshop.databinding.FragmentProfileBinding;
 import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.storage.DataLocalManager;
 
 
-public class AccountFragment extends Fragment {
-    private FragmentAccountBinding binding;
+public class ProfileFragment extends Fragment {
+    private FragmentProfileBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentAccountBinding.inflate(inflater, container, false);
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

@@ -18,4 +18,8 @@
     <string name="facebook_client_token">fd75d609f0de3abd859d3a174776faa6</string>
     <string name="imageview">ImageView</string>
     <string name="title_order">Order</string>
+    <string name="title_splashscreen">COFFEE</string>
+    <string name="subtitle_splashscreen">BEANS</string>
+    <string name="input_search_hint">Tìm kiếm</string>
+    <string name="category">Category</string>
 </resources>
