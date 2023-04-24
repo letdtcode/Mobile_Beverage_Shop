@@ -68,12 +68,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         style="@style/AppTabLayout"
         app:tabTextAppearance="@style/AppTabTextAppearance"
         app:tabMode="scrollable"
         app:tabGravity="center"
         android:overScrollMode="never"
-        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="tablayout"
