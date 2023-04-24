@@ -24,14 +24,24 @@ import com.iostar.beverageshop.fragment.user.order.OrderCanceledFragment;
 import com.iostar.beverageshop.fragment.user.order.OrderSuccessFragment;
 import com.iostar.beverageshop.fragment.user.order.OrderWaitingConfirmFragment;
 import com.iostar.beverageshop.fragment.user.order.OrderWaitingDeliveryFragment;
+import com.iostar.beverageshop.model.Order;
+import com.iostar.beverageshop.service.BaseAPIService;
+import com.iostar.beverageshop.service.IOrderService;
+import com.iostar.beverageshop.storage.DataLocalManager;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderFragment extends Fragment {
     private FragmentOrderBinding binding;
     private ArrayList<Fragment> fragmentOrderDetail;
     private ViewPagerOrderAdapter viewPagerOrderAdapter;
+    private List<Order> orderList = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +55,26 @@ public class OrderFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initial();
+        setUpData();
         setEvent();
+    }
+
+    private void setUpData() {
+        Long userId = DataLocalManager.getUser().getId();
+        BaseAPIService.createService(IOrderService.class).getAllListOrder(userId).enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                orderList = response.body();
+                if (orderList != null && orderList.size() > 0) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initial() {
@@ -55,17 +84,6 @@ public class OrderFragment extends Fragment {
         fragmentOrderDetail.add(new OrderSuccessFragment());
         fragmentOrderDetail.add(new OrderCanceledFragment());
 
-//        ViewPagerOrderAdapter viewPagerOrderAdapter = new ViewPagerOrderAdapter(this, fragmentOrderDetail);
-//        binding.viewPagerTabLayout.setAdapter(viewPagerOrderAdapter);
-////        binding.viewPagerTabLayout.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-////            @Override
-////            public void onPageSelected(int position) {
-////                switch (position) {
-////                    case 0:
-////                        binding.tabLayout.setsele
-////                }
-////            }
-////        });
         viewPagerOrderAdapter = new ViewPagerOrderAdapter(getActivity(), fragmentOrderDetail);
         binding.viewPagerTabLayout.setAdapter(viewPagerOrderAdapter);
         new TabLayoutMediator(binding.tabLayout, binding.viewPagerTabLayout, new TabLayoutMediator.TabConfigurationStrategy() {

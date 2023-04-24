@@ -14,8 +14,9 @@ public class Order implements Serializable {
     private BigDecimal totalPrice;
     private String discountCode;
     private Long userId;
+    private int status;
 
-    public Order(Long id, String nameCustomer, String phoneNumber, String address, int shipping, int payment, BigDecimal totalItemPrice, BigDecimal totalPrice, String discountCode, Long userId) {
+    public Order(Long id, String nameCustomer, String phoneNumber, String address, int shipping, int payment, BigDecimal totalItemPrice, BigDecimal totalPrice, String discountCode, Long userId, int status) {
         Id = id;
         this.nameCustomer = nameCustomer;
         this.phoneNumber = phoneNumber;
@@ -26,6 +27,7 @@ public class Order implements Serializable {
         this.totalPrice = totalPrice;
         this.discountCode = discountCode;
         this.userId = userId;
+        this.status = status;
     }
 
     public Long getId() {
@@ -106,5 +108,13 @@ public class Order implements Serializable {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
