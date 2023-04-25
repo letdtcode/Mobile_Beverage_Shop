@@ -17,6 +17,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.iostar.beverageshop.activity.user.CartActivity;
+import com.iostar.beverageshop.activity.user.CheckOutActivity;
 import com.iostar.beverageshop.adapter.ViewPagerOrderAdapter;
 import com.iostar.beverageshop.databinding.FragmentHomeBinding;
 import com.iostar.beverageshop.databinding.FragmentOrderBinding;
@@ -29,6 +30,7 @@ import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
 import com.iostar.beverageshop.storage.DataLocalManager;
 
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,10 @@ public class OrderFragment extends Fragment {
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 orderList = response.body();
                 if (orderList != null && orderList.size() > 0) {
-
+                    sendDataToOrderWaitingConfirm();
+                    sendDataToOrderWaitingDelivery();
+                    sendDataToOrderSuccess();
+                    sendDataToOrderCancel();
                 }
             }
 
@@ -75,6 +80,30 @@ public class OrderFragment extends Fragment {
 
             }
         });
+    }
+
+    private void sendDataToOrderCancel() {
+
+    }
+
+    private void sendDataToOrderSuccess() {
+
+    }
+
+    private void sendDataToOrderWaitingDelivery() {
+
+    }
+
+    private void sendDataToOrderWaitingConfirm() {
+        List<Order> orderListWaitingConfirm = new ArrayList();
+        for (Order item : orderList) {
+            if (item.getStatus() == 1) {
+                orderListWaitingConfirm.add(item);
+            }
+        }
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("orders_waiting_confirm", (Serializable) orderListWaitingConfirm);
+        getParentFragmentManager().setFragmentResult("toOrderWaitingConfirm", bundle);
     }
 
     private void initial() {
