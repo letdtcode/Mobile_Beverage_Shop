@@ -9,15 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.iostar.beverageshop.databinding.ItemCategoryHomeBinding;
 import com.iostar.beverageshop.databinding.ItemOrderWaitingConfirmBinding;
 import com.iostar.beverageshop.model.Order;
+import com.iostar.beverageshop.model.OrderItem;
 
 import java.util.List;
 
 public class OrderWaitingConfirmAdapter extends RecyclerView.Adapter<OrderWaitingConfirmAdapter.OrderWaitingConfirmViewHolder> {
 
-    private final List<Order> orderList;
+    private final List<OrderItem> orderItems;
 
-    public OrderWaitingConfirmAdapter(List<Order> orderList) {
-        this.orderList = orderList;
+    public OrderWaitingConfirmAdapter(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @NonNull
@@ -33,13 +34,23 @@ public class OrderWaitingConfirmAdapter extends RecyclerView.Adapter<OrderWaitin
 
     @Override
     public void onBindViewHolder(@NonNull OrderWaitingConfirmViewHolder holder, int position) {
-
+        OrderItem item = orderItems.get(position);
+        String toppings = "";
+        for (String name : item.getToppingsName()) {
+            toppings = toppings + name + "\n";
+        }
+        holder.binding.tvTitle.setText(item.getProductName());
+        holder.binding.tvToppings.setText(toppings);
+        holder.binding.tvSizeProduct.setText(item.getSizeName());
+        holder.binding.tvPrice.setText(item.getTotalPriceProduct().toString());
+        holder.binding.tvTotalPayment.setText(item.getTotalPriceItem().toString());
+        holder.binding.tvCount.setText(item.getQuantity().toString());
     }
 
     @Override
     public int getItemCount() {
-        if (orderList != null) {
-            return orderList.size();
+        if (orderItems != null) {
+            return orderItems.size();
         }
         return 0;
     }

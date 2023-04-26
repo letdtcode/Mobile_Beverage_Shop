@@ -26,6 +26,7 @@ import com.iostar.beverageshop.fragment.user.order.OrderSuccessFragment;
 import com.iostar.beverageshop.fragment.user.order.OrderWaitingConfirmFragment;
 import com.iostar.beverageshop.fragment.user.order.OrderWaitingDeliveryFragment;
 import com.iostar.beverageshop.model.Order;
+import com.iostar.beverageshop.model.OrderItem;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
 import com.iostar.beverageshop.storage.DataLocalManager;
@@ -43,7 +44,7 @@ public class OrderFragment extends Fragment {
     private FragmentOrderBinding binding;
     private ArrayList<Fragment> fragmentOrderDetail;
     private ViewPagerOrderAdapter viewPagerOrderAdapter;
-    private List<Order> orderList = null;
+    private List<OrderItem> orderItems = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,40 +64,64 @@ public class OrderFragment extends Fragment {
 
     private void setUpData() {
         Long userId = DataLocalManager.getUser().getId();
-        BaseAPIService.createService(IOrderService.class).getAllListOrder(userId).enqueue(new Callback<List<Order>>() {
+        BaseAPIService.createService(IOrderService.class).getAllListOrderItems(userId).enqueue(new Callback<List<OrderItem>>() {
             @Override
-            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                orderList = response.body();
-                if (orderList != null && orderList.size() > 0) {
+            public void onResponse(Call<List<OrderItem>> call, Response<List<OrderItem>> response) {
+                orderItems = response.body();
+                if (orderItems != null && orderItems.size() > 0) {
                     sendDataToOrderWaitingConfirm();
-                    sendDataToOrderWaitingDelivery();
-                    sendDataToOrderSuccess();
-                    sendDataToOrderCancel();
+//                    sendDataToOrderWaitingDelivery();
+//                    sendDataToOrderSuccess();
+//                    sendDataToOrderCancel();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Order>> call, Throwable t) {
+            public void onFailure(Call<List<OrderItem>> call, Throwable t) {
 
             }
         });
     }
 
     private void sendDataToOrderCancel() {
-
+        List<OrderItem> orderListCancel = new ArrayList();
+        for (OrderItem item : orderItems) {
+            if (item.getStatus() == 2) {
+                orderListCancel.add(item);
+            }
+        }
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("orders_cancel", (Serializable) orderListCancel);
+        getParentFragmentManager().setFragmentResult("toOrderCancel", bundle);
     }
 
     private void sendDataToOrderSuccess() {
-
+        List<OrderItem> orderListSuccess = new ArrayList();
+        for (OrderItem item : orderItems) {
+            if (item.getStatus() == 2) {
+                orderListSuccess.add(item);
+            }
+        }
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("orders_success", (Serializable) orderListSuccess);
+        getParentFragmentManager().setFragmentResult("toOrderSuccess", bundle);
     }
 
     private void sendDataToOrderWaitingDelivery() {
-
+        List<OrderItem> orderListWaitingDelivery = new ArrayList();
+        for (OrderItem item : orderItems) {
+            if (item.getStatus() == 2) {
+                orderListWaitingDelivery.add(item);
+            }
+        }
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("orders_waiting_delivery", (Serializable) orderListWaitingDelivery);
+        getParentFragmentManager().setFragmentResult("toOrderWaitingDelivery", bundle);
     }
 
     private void sendDataToOrderWaitingConfirm() {
-        List<Order> orderListWaitingConfirm = new ArrayList();
-        for (Order item : orderList) {
+        List<OrderItem> orderListWaitingConfirm = new ArrayList();
+        for (OrderItem item : orderItems) {
             if (item.getStatus() == 1) {
                 orderListWaitingConfirm.add(item);
             }

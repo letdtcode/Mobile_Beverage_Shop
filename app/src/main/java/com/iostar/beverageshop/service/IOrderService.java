@@ -1,6 +1,7 @@
 package com.iostar.beverageshop.service;
 
 import com.iostar.beverageshop.model.Order;
+import com.iostar.beverageshop.model.OrderItem;
 import com.iostar.beverageshop.model.request.CheckOutCartRequest;
 
 import java.util.List;
@@ -15,6 +16,6 @@ public interface IOrderService {
     @POST("client/order/checkout")
     Call<Order> checkOutInCart(@Body CheckOutCartRequest request);
 
-    @GET("client/orders")
-    Call<List<Order>> getAllListOrder(@Query("userId") Long userId);
+    @GET("client/orderItems")
+    Call<List<OrderItem>> getAllListOrderItems(@Query("userId") Long userId);
 }
