@@ -11,6 +11,7 @@ import com.iostar.beverageshop.adapter.user.order_detail.ODetailWaitingConfirmAd
 import com.iostar.beverageshop.databinding.ActivityOrderDetailBinding;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.model.OrderItem;
+import com.iostar.beverageshop.utils.constants.DELIVERY_METHOD;
 import com.iostar.beverageshop.utils.constants.ORDER_STATUS;
 
 import java.util.List;
@@ -52,15 +53,28 @@ public class OrderDetailActivity extends AppCompatActivity {
         binding.tvAddress.setText(orderCurrent.getAddress());
         binding.tvNameCus.setText(orderCurrent.getNameCustomer());
         binding.tvPhoneNumber.setText(orderCurrent.getPhoneNumber());
-        binding.tvMethodPayment.setText(orderCurrent.getAddress()); //
+        binding.tvMethodPayment.setText(setMethodPayment(orderCurrent.getPayment())); //
         binding.tvStatusOrder.setText(setStatusOrder(orderCurrent.getStatus()));
-        binding.tvSubtotalProduct.setText(orderCurrent.getAddress());
-        binding.tvSubTotalDelivery.setText(orderCurrent.getAddress());
-        binding.tvTotalPrice.setText(orderCurrent.getAddress());
+        binding.tvSubtotalProduct.setText(orderCurrent.getTotalItemPrice().toString());
+        binding.tvSubTotalDelivery.setText(String.valueOf(orderCurrent.getShipping()));
+        binding.tvTotalPrice.setText(orderCurrent.getTotalPrice().toString());
 
         adapter = new ODetailWaitingConfirmAdapter(orderItems);
         binding.rvOrderItem.setAdapter(adapter);
 
+    }
+
+    private String setMethodPayment(int payment) {
+        String methodPayment = "";
+        switch (payment) {
+            case 0:
+                methodPayment= DELIVERY_METHOD.FastShipping;
+                break;
+            case 1:
+                methodPayment= DELIVERY_METHOD.GetSchedule;
+                break;
+        }
+        return methodPayment;
     }
 
     private String setStatusOrder(int status) {
