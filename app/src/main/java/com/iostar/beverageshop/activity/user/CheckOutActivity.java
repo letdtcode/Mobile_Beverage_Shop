@@ -20,6 +20,7 @@ import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
 import com.iostar.beverageshop.storage.DataLocalManager;
 import com.iostar.beverageshop.utils.ToastUtils;
+import com.iostar.beverageshop.utils.constants.DELIVERY_METHOD;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -51,8 +52,6 @@ public class CheckOutActivity extends AppCompatActivity {
 
         initial();
         setEvent();
-
-
     }
 
     private void initial() {
@@ -65,8 +64,8 @@ public class CheckOutActivity extends AppCompatActivity {
 
 //        Adapter for spinner
         namePayMent = new ArrayList<>();
-        namePayMent.add("Giao hàng nhanh");
-        namePayMent.add("Nhận lịch giao hàng");
+        namePayMent.add(DELIVERY_METHOD.FastShipping);
+        namePayMent.add(DELIVERY_METHOD.GetSchedule);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(CheckOutActivity.this, com.google.android.material.R.layout.support_simple_spinner_dropdown_item, namePayMent);
         binding.spinnerMethodPayment.setAdapter(spinnerAdapter);
 

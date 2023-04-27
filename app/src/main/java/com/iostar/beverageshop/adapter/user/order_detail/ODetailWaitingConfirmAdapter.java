@@ -1,4 +1,4 @@
-package com.iostar.beverageshop.adapter.user;
+package com.iostar.beverageshop.adapter.user.order_detail;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -6,34 +6,32 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iostar.beverageshop.databinding.ItemCategoryHomeBinding;
-import com.iostar.beverageshop.databinding.ItemOrderWaitingConfirmBinding;
-import com.iostar.beverageshop.model.Order;
+import com.iostar.beverageshop.databinding.ItemOrderDetailWaitingConfirmBinding;
 import com.iostar.beverageshop.model.OrderItem;
 
 import java.util.List;
 
-public class OrderWaitingConfirmAdapter extends RecyclerView.Adapter<OrderWaitingConfirmAdapter.OrderWaitingConfirmViewHolder> {
+public class ODetailWaitingConfirmAdapter extends RecyclerView.Adapter<ODetailWaitingConfirmAdapter.OrderDetailWaitingConfirmViewHolder> {
 
     private final List<OrderItem> orderItems;
 
-    public OrderWaitingConfirmAdapter(List<OrderItem> orderItems) {
+    public ODetailWaitingConfirmAdapter(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
     @NonNull
     @Override
-    public OrderWaitingConfirmViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemOrderWaitingConfirmBinding binding = ItemOrderWaitingConfirmBinding.inflate(
+    public OrderDetailWaitingConfirmViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemOrderDetailWaitingConfirmBinding binding = ItemOrderDetailWaitingConfirmBinding.inflate(
                 LayoutInflater.from(parent.getContext()),
                 parent,
                 false
         );
-        return new OrderWaitingConfirmAdapter.OrderWaitingConfirmViewHolder(binding);
+        return new ODetailWaitingConfirmAdapter.OrderDetailWaitingConfirmViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull OrderWaitingConfirmViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OrderDetailWaitingConfirmViewHolder holder, int position) {
         OrderItem item = orderItems.get(position);
         String toppings = "";
         for (String name : item.getToppingsName()) {
@@ -55,13 +53,12 @@ public class OrderWaitingConfirmAdapter extends RecyclerView.Adapter<OrderWaitin
         return 0;
     }
 
-    public static class OrderWaitingConfirmViewHolder extends RecyclerView.ViewHolder {
-        private final ItemOrderWaitingConfirmBinding binding;
+    public static class OrderDetailWaitingConfirmViewHolder extends RecyclerView.ViewHolder {
+        private final ItemOrderDetailWaitingConfirmBinding binding;
 
-        public OrderWaitingConfirmViewHolder(ItemOrderWaitingConfirmBinding itemOrderWaitingConfirmBinding) {
-            super(itemOrderWaitingConfirmBinding.getRoot());
-            binding = itemOrderWaitingConfirmBinding;
+        public OrderDetailWaitingConfirmViewHolder(ItemOrderDetailWaitingConfirmBinding itemOrderDetailWaitingConfirmBinding) {
+            super(itemOrderDetailWaitingConfirmBinding.getRoot());
+            binding = itemOrderDetailWaitingConfirmBinding;
         }
     }
-
 }

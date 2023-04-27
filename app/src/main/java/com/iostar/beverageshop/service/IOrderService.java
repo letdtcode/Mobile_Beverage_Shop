@@ -17,5 +17,8 @@ public interface IOrderService {
     Call<Order> checkOutInCart(@Body CheckOutCartRequest request);
 
     @GET("client/orderItems")
-    Call<List<OrderItem>> getAllListOrderItems(@Query("userId") Long userId);
+    Call<List<OrderItem>> getAllListOrderItems(@Query("orderId") Long orderId);
+
+    @GET("client/orders")
+    Call<List<Order>> getAllListOrderOfUser(@Query("userId") Long userId);
 }

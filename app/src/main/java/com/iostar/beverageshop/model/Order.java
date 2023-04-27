@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class Order implements Serializable {
-    private Long Id;
+    private Long id;
     private String nameCustomer;
     private String phoneNumber;
     private String address;
@@ -17,7 +17,7 @@ public class Order implements Serializable {
     private int status;
 
     public Order(Long id, String nameCustomer, String phoneNumber, String address, int shipping, int payment, BigDecimal totalItemPrice, BigDecimal totalPrice, String discountCode, Long userId, int status) {
-        Id = id;
+        this.id = id;
         this.nameCustomer = nameCustomer;
         this.phoneNumber = phoneNumber;
         this.address = address;
@@ -31,11 +31,11 @@ public class Order implements Serializable {
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getNameCustomer() {

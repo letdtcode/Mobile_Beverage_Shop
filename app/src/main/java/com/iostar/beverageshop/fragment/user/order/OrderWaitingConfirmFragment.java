@@ -12,9 +12,9 @@ import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iostar.beverageshop.adapter.user.OrderWaitingConfirmAdapter;
+import com.iostar.beverageshop.adapter.user.order.OrderWaitingConfirmAdapter;
 import com.iostar.beverageshop.databinding.FragmentOrderWaitingConfirmBinding;
-import com.iostar.beverageshop.model.OrderItem;
+import com.iostar.beverageshop.model.Order;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import java.util.List;
 public class OrderWaitingConfirmFragment extends Fragment {
 
     private FragmentOrderWaitingConfirmBinding binding;
-    private List<OrderItem> orderItems;
+    private List<Order> orders;
     private OrderWaitingConfirmAdapter adapter;
 
     @Override
@@ -45,12 +45,20 @@ public class OrderWaitingConfirmFragment extends Fragment {
         getParentFragmentManager().setFragmentResultListener("toOrderWaitingConfirm", this, new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                orderItems = (List<OrderItem>) result.getSerializable("orders_waiting_confirm");
-                if (orderItems.size() > 0) {
-                    adapter = new OrderWaitingConfirmAdapter(orderItems);
+                orders = (List<Order>) result.getSerializable("orders_waiting_confirm");
+                if (orders.size() > 0) {
+                    adapter = new OrderWaitingConfirmAdapter(orders, getActivity());
                     binding.rvOrderWaitingConfirm.setAdapter(adapter);
                 }
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adapter != null) {
+            adapter.release();
+        }
     }
 }

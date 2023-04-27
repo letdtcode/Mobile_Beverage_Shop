@@ -44,7 +44,7 @@ public class OrderFragment extends Fragment {
     private FragmentOrderBinding binding;
     private ArrayList<Fragment> fragmentOrderDetail;
     private ViewPagerOrderAdapter viewPagerOrderAdapter;
-    private List<OrderItem> orderItems = null;
+    private List<Order> orders = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,11 +64,11 @@ public class OrderFragment extends Fragment {
 
     private void setUpData() {
         Long userId = DataLocalManager.getUser().getId();
-        BaseAPIService.createService(IOrderService.class).getAllListOrderItems(userId).enqueue(new Callback<List<OrderItem>>() {
+        BaseAPIService.createService(IOrderService.class).getAllListOrderOfUser(userId).enqueue(new Callback<List<Order>>() {
             @Override
-            public void onResponse(Call<List<OrderItem>> call, Response<List<OrderItem>> response) {
-                orderItems = response.body();
-                if (orderItems != null && orderItems.size() > 0) {
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                orders = response.body();
+                if (orders != null && orders.size() > 0) {
                     sendDataToOrderWaitingConfirm();
 //                    sendDataToOrderWaitingDelivery();
 //                    sendDataToOrderSuccess();
@@ -77,16 +77,16 @@ public class OrderFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<List<OrderItem>> call, Throwable t) {
+            public void onFailure(Call<List<Order>> call, Throwable t) {
 
             }
         });
     }
 
     private void sendDataToOrderCancel() {
-        List<OrderItem> orderListCancel = new ArrayList();
-        for (OrderItem item : orderItems) {
-            if (item.getStatus() == 2) {
+        List<Order> orderListCancel = new ArrayList();
+        for (Order item : orders) {
+            if (item.getStatus() == 0) {
                 orderListCancel.add(item);
             }
         }
@@ -96,9 +96,9 @@ public class OrderFragment extends Fragment {
     }
 
     private void sendDataToOrderSuccess() {
-        List<OrderItem> orderListSuccess = new ArrayList();
-        for (OrderItem item : orderItems) {
-            if (item.getStatus() == 2) {
+        List<Order> orderListSuccess = new ArrayList();
+        for (Order item : orders) {
+            if (item.getStatus() == 3) {
                 orderListSuccess.add(item);
             }
         }
@@ -108,8 +108,8 @@ public class OrderFragment extends Fragment {
     }
 
     private void sendDataToOrderWaitingDelivery() {
-        List<OrderItem> orderListWaitingDelivery = new ArrayList();
-        for (OrderItem item : orderItems) {
+        List<Order> orderListWaitingDelivery = new ArrayList();
+        for (Order item : orders) {
             if (item.getStatus() == 2) {
                 orderListWaitingDelivery.add(item);
             }
@@ -120,8 +120,8 @@ public class OrderFragment extends Fragment {
     }
 
     private void sendDataToOrderWaitingConfirm() {
-        List<OrderItem> orderListWaitingConfirm = new ArrayList();
-        for (OrderItem item : orderItems) {
+        List<Order> orderListWaitingConfirm = new ArrayList();
+        for (Order item : orders) {
             if (item.getStatus() == 1) {
                 orderListWaitingConfirm.add(item);
             }
