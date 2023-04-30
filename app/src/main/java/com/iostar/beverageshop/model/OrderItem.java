@@ -14,8 +14,9 @@ public class OrderItem implements Serializable {
     private BigDecimal totalPriceProduct;
     private BigDecimal totalPriceItem;
     private Integer status;
+    private String imgProduct;
 
-    public OrderItem(Long id, String productName, Long orderId, List<String> toppingsName, String sizeName, Integer quantity, BigDecimal totalPriceProduct, BigDecimal totalPriceItem, Integer status) {
+    public OrderItem(Long id, String productName, Long orderId, List<String> toppingsName, String sizeName, Integer quantity, BigDecimal totalPriceProduct, BigDecimal totalPriceItem, Integer status, String imgProduct) {
         Id = id;
         this.productName = productName;
         this.orderId = orderId;
@@ -25,6 +26,7 @@ public class OrderItem implements Serializable {
         this.totalPriceProduct = totalPriceProduct;
         this.totalPriceItem = totalPriceItem;
         this.status = status;
+        this.imgProduct = imgProduct;
     }
 
     public Long getId() {
@@ -97,5 +99,13 @@ public class OrderItem implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getImgProduct() {
+        return imgProduct;
+    }
+
+    public void setImgProduct(String imgProduct) {
+        this.imgProduct = imgProduct;
     }
 }

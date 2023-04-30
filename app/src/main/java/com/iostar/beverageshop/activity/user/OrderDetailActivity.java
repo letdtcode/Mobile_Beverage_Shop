@@ -59,7 +59,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         binding.tvSubTotalDelivery.setText(String.valueOf(orderCurrent.getShipping()));
         binding.tvTotalPrice.setText(orderCurrent.getTotalPrice().toString());
 
-        adapter = new ODetailWaitingConfirmAdapter(orderItems);
+        adapter = new ODetailWaitingConfirmAdapter(orderItems, OrderDetailActivity.this);
         binding.rvOrderItem.setAdapter(adapter);
 
     }
@@ -68,10 +68,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         String methodPayment = "";
         switch (payment) {
             case 0:
-                methodPayment= DELIVERY_METHOD.FastShipping;
+                methodPayment = DELIVERY_METHOD.FastShipping;
                 break;
             case 1:
-                methodPayment= DELIVERY_METHOD.GetSchedule;
+                methodPayment = DELIVERY_METHOD.GetSchedule;
                 break;
         }
         return methodPayment;

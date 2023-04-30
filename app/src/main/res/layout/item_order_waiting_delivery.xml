@@ -9,149 +9,130 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imgCoffee"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:contentDescription="@string/imageview"
-            android:src="@drawable/shooping_bg"
+        <TextView
+            android:id="@+id/titleOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Number"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:fontFamily="@font/manrope_semibold"
-            android:text="Tên sản phẩm"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/imgCoffee"
-            app:layout_constraintTop_toTopOf="@+id/imgCoffee" />
-
+            android:fontFamily="@font/manrope_semibold"/>
 
         <TextView
-            android:id="@+id/tvCount"
+            android:id="@+id/orderId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:fontFamily="@font/manrope_semibold"
-            android:text="1"
+            android:text="#303"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvX"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_semibold"
+            app:layout_constraintStart_toEndOf="@+id/titleOrder"
+            app:layout_constraintBottom_toBottomOf="@+id/titleOrder"/>
 
         <TextView
-            android:id="@+id/tvX"
+            android:id="@+id/tvNameCus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:fontFamily="@font/manrope_semibold"
-            android:text="x"
+            android:text="Tên khách hàng"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imgCoffee"
-            app:layout_constraintEnd_toStartOf="@+id/tvCount" />
-
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/manrope_semibold"
-            android:text="200.000"
-            android:textColor="@color/primaryColor"
-            app:layout_constraintBottom_toBottomOf="@+id/imgCoffee"
-            app:layout_constraintEnd_toEndOf="@+id/tvCount" />
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="?android:attr/dividerVertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgCoffee" />
+            app:layout_constraintStart_toStartOf="@+id/titleOrder"
+            app:layout_constraintTop_toBottomOf="@+id/titleOrder"/>
 
         <TextView
-            android:id="@+id/tvToppings"
+            android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/manrope_regular"
-            android:text="Thạch rau câu"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            android:text="Địa chỉ"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_semibold"
+            app:layout_constraintStart_toStartOf="@+id/titleOrder"
+            app:layout_constraintTop_toBottomOf="@+id/tvNameCus"/>
 
         <TextView
-            android:id="@+id/tvSizeProduct"
+            android:id="@+id/tvPhoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:fontFamily="@font/manrope_regular"
-            android:text="Size: M"
-            app:layout_constraintBottom_toBottomOf="@+id/tvToppings"
-            app:layout_constraintStart_toEndOf="@+id/tvToppings"
-            app:layout_constraintTop_toTopOf="@+id/tvToppings" />
+            android:text="Số điện thoại"
+            android:textColor="@color/black"
+            android:paddingBottom="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_semibold"
+            app:layout_constraintStart_toStartOf="@+id/titleOrder"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddress"/>
 
         <TextView
-            android:id="@+id/tvTotal"
+            android:id="@+id/tblTotalTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:fontFamily="@font/manrope_regular"
-            android:text="Tổng thanh toán:"
+            android:text="Tổng thanh toán :"
+            android:layout_marginStart="@dimen/_60sdp"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvToppings"
-            app:layout_constraintEnd_toStartOf="@+id/tvTotalPayment"
-            app:layout_constraintTop_toTopOf="@+id/tvToppings" />
+            app:layout_constraintStart_toEndOf="@id/titleOrder"
+            app:layout_constraintBottom_toBottomOf="@+id/titleOrder" />
 
         <TextView
-            android:id="@+id/tvTotalPayment"
+            android:id="@+id/tvTotalPriceOrder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/manrope_semibold"
             android:text="270.000"
+            android:layout_marginStart="@dimen/_5sdp"
             android:textColor="@color/primaryColor"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvToppings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvToppings" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="wrap_content"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="?android:attr/dividerVertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvToppings" />
+            app:layout_constraintStart_toEndOf="@+id/tblTotalTitle"
+            app:layout_constraintTop_toTopOf="@+id/tblTotalTitle"/>
 
         <TextView
+            android:id="@+id/statusOrder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/_40sdp"
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/manrope_semibold"
             android:text="Đang giao"
             android:textColor="@color/primaryColor"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tblTotalTitle" />
+
+        <!--        <Button-->
+        <!--            android:id="@+id/btnCancel"-->
+        <!--            style="@style/ButtonEnabled"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="55dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="16dp"-->
+        <!--            android:layout_marginBottom="16dp"-->
+        <!--            android:text="Hủy đơn hàng"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/statusOrder"/>-->
+
+        <TextView
+            android:id="@+id/tvDetailOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="Xem chi tiết"
+            android:layout_marginStart="@dimen/_125sdp"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-
-
+            app:layout_constraintBottom_toBottomOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

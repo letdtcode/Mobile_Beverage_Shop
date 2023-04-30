@@ -2,65 +2,69 @@ package com.iostar.beverageshop.fragment.user.order;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentResultListener;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.iostar.beverageshop.R;
+import com.iostar.beverageshop.adapter.user.order.OrderSuccessAdapter;
+import com.iostar.beverageshop.adapter.user.order.OrderWaitingConfirmAdapter;
+import com.iostar.beverageshop.databinding.FragmentOrderSuccessBinding;
+import com.iostar.beverageshop.databinding.FragmentOrderWaitingConfirmBinding;
+import com.iostar.beverageshop.model.Order;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OrderSuccessFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.List;
+
 public class OrderSuccessFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public OrderSuccessFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OrderSuccessFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrderSuccessFragment newInstance(String param1, String param2) {
-        OrderSuccessFragment fragment = new OrderSuccessFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private FragmentOrderSuccessBinding binding;
+    private List<Order> orders;
+    private OrderSuccessAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_success, container, false);
+        binding = FragmentOrderSuccessBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.rvOrderSuccess.setHasFixedSize(true);
+        binding.rvOrderSuccess.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        getDataOrderSuccess();
+    }
+
+    private void getDataOrderSuccess() {
+        getParentFragmentManager().setFragmentResultListener("toOrderSuccess", this, new FragmentResultListener() {
+            @Override
+            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+                orders = (List<Order>) result.getSerializable("orders_success");
+                if (orders.size() > 0) {
+                    adapter = new OrderSuccessAdapter(orders, getActivity());
+                    binding.rvOrderSuccess.setAdapter(adapter);
+                } else {
+                    binding.imgEmpty.setVisibility(View.VISIBLE);
+                    binding.tvTitle.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adapter != null) {
+            adapter.release();
+        }
     }
 }

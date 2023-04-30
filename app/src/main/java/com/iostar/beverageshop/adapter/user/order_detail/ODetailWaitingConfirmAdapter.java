@@ -1,11 +1,13 @@
 package com.iostar.beverageshop.adapter.user.order_detail;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.databinding.ItemOrderDetailWaitingConfirmBinding;
 import com.iostar.beverageshop.model.OrderItem;
 
@@ -14,9 +16,11 @@ import java.util.List;
 public class ODetailWaitingConfirmAdapter extends RecyclerView.Adapter<ODetailWaitingConfirmAdapter.OrderDetailWaitingConfirmViewHolder> {
 
     private final List<OrderItem> orderItems;
+    private Context mContext;
 
-    public ODetailWaitingConfirmAdapter(List<OrderItem> orderItems) {
+    public ODetailWaitingConfirmAdapter(List<OrderItem> orderItems, Context mContext) {
         this.orderItems = orderItems;
+        this.mContext = mContext;
     }
 
     @NonNull
@@ -43,6 +47,7 @@ public class ODetailWaitingConfirmAdapter extends RecyclerView.Adapter<ODetailWa
         holder.binding.tvPrice.setText(item.getTotalPriceProduct().toString());
         holder.binding.tvTotalPayment.setText(item.getTotalPriceItem().toString());
         holder.binding.tvCount.setText(item.getQuantity().toString());
+        Glide.with(mContext).load(item.getImgProduct()).into(holder.binding.imgCoffee);
     }
 
     @Override

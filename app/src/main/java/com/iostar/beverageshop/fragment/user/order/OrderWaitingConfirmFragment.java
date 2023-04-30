@@ -49,6 +49,9 @@ public class OrderWaitingConfirmFragment extends Fragment {
                 if (orders.size() > 0) {
                     adapter = new OrderWaitingConfirmAdapter(orders, getActivity());
                     binding.rvOrderWaitingConfirm.setAdapter(adapter);
+                } else {
+                    binding.imgEmpty.setVisibility(View.VISIBLE);
+                    binding.tvTitle.setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -70,9 +70,9 @@ public class OrderFragment extends Fragment {
                 orders = response.body();
                 if (orders != null && orders.size() > 0) {
                     sendDataToOrderWaitingConfirm();
-//                    sendDataToOrderWaitingDelivery();
-//                    sendDataToOrderSuccess();
-//                    sendDataToOrderCancel();
+                    sendDataToOrderWaitingDelivery();
+                    sendDataToOrderSuccess();
+                    sendDataToOrderCancel();
                 }
             }
 
