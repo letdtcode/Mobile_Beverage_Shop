@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface IOrderService {
@@ -33,4 +34,7 @@ public interface IOrderService {
 
     @GET("client/orders/cancel")
     Call<List<Order>> getListOrderCancelOfUser(@Query("userId") Long userId);
+
+    @PUT("staff/order/approve")
+    Call<Order> approveOrder(@Query("orderId") Long orderId, @Query("status") Integer status);
 }

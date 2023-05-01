@@ -1,6 +1,7 @@
 package com.iostar.beverageshop.fragment.user.order;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +9,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.adapter.user.order.OrderWaitingDeliveryAdapter;
 import com.iostar.beverageshop.databinding.FragmentOrderWaitingDeliveryBinding;
 import com.iostar.beverageshop.model.Order;
+import com.iostar.beverageshop.service.BaseAPIService;
+import com.iostar.beverageshop.service.IOrderService;
+import com.iostar.beverageshop.storage.DataLocalManager;
 
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrderWaitingDeliveryFragment extends Fragment {
     private FragmentOrderWaitingDeliveryBinding binding;
@@ -40,17 +47,36 @@ public class OrderWaitingDeliveryFragment extends Fragment {
     }
 
     private void getDataOrderWaitingConfirm() {
-        getParentFragmentManager().setFragmentResultListener("toOrderWaitingDelivery", this, new FragmentResultListener() {
+//        getParentFragmentManager().setFragmentResultListener("toOrderWaitingDelivery", this, new FragmentResultListener() {
+//            @Override
+//            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
+//                orders = (List<Order>) result.getSerializable("orders_waiting_delivery");
+//                if (orders.size() > 0) {
+//                    adapter = new OrderWaitingDeliveryAdapter(orders, getActivity());
+//                    binding.rvOrderWaitingDelivery.setAdapter(adapter);
+//                } else {
+//                    binding.imgEmpty.setVisibility(View.VISIBLE);
+//                    binding.tvTitle.setVisibility(View.VISIBLE);
+//                }
+//            }
+//        });
+        Long userId = DataLocalManager.getUser().getId();
+        BaseAPIService.createService(IOrderService.class).getListOrderWaitingDeliveryOfUser(userId).enqueue(new Callback<List<Order>>() {
             @Override
-            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-                orders = (List<Order>) result.getSerializable("orders_waiting_delivery");
-                if (orders.size() > 0) {
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                orders = response.body();
+                if (orders != null && orders.size() > 0) {
                     adapter = new OrderWaitingDeliveryAdapter(orders, getActivity());
                     binding.rvOrderWaitingDelivery.setAdapter(adapter);
                 } else {
                     binding.imgEmpty.setVisibility(View.VISIBLE);
                     binding.tvTitle.setVisibility(View.VISIBLE);
                 }
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                Log.e("orders_waiting_confirm", t.getMessage());
             }
         });
     }

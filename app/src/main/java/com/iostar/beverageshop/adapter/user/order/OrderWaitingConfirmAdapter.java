@@ -3,6 +3,7 @@ package com.iostar.beverageshop.adapter.user.order;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.iostar.beverageshop.activity.user.OrderDetailActivity;
 import com.iostar.beverageshop.activity.user.PersonalActivity;
 import com.iostar.beverageshop.databinding.ItemOrderWaitingConfirmBinding;
+import com.iostar.beverageshop.inteface.user.IOnApproveOrderClickListener;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.model.OrderItem;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
+import com.iostar.beverageshop.utils.ToastUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -30,10 +33,12 @@ public class OrderWaitingConfirmAdapter extends RecyclerView.Adapter<OrderWaitin
     private final List<Order> orders;
     private List<OrderItem> orderItemsOfOrderCLick = null;
     private Context mContext;
+    private IOnApproveOrderClickListener onApproveOrderClickListener;
 
-    public OrderWaitingConfirmAdapter(List<Order> orders, Context mContext) {
+    public OrderWaitingConfirmAdapter(List<Order> orders, Context mContext, IOnApproveOrderClickListener onApproveOrderClickListener) {
         this.orders = orders;
         this.mContext = mContext;
+        this.onApproveOrderClickListener = onApproveOrderClickListener;
     }
 
     @NonNull
@@ -81,7 +86,26 @@ public class OrderWaitingConfirmAdapter extends RecyclerView.Adapter<OrderWaitin
                 });
             }
         });
+        holder.binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Long orderId = Long.parseLong(holder.binding.orderId.getText().toString());
+                BaseAPIService.createService(IOrderService.class).approveOrder(orderId, 0).enqueue(new Callback<Order>() {
+                    @Override
+                    public void onResponse(Call<Order> call, Response<Order> response) {
+                        ToastUtils.showToastCustom(mContext, "Đã hủy đơn hàng");
+                    }
 
+                    @Override
+                    public void onFailure(Call<Order> call, Throwable t) {
+                        Log.e("cancel_order", t.getMessage());
+                    }
+                });
+                orders.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                onApproveOrderClickListener.onOrderClick();
+            }
+        });
     }
 
     @Override

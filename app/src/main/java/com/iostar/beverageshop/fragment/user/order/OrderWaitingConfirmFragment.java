@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentResultListener;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.adapter.user.order.OrderWaitingConfirmAdapter;
 import com.iostar.beverageshop.databinding.FragmentOrderWaitingConfirmBinding;
+import com.iostar.beverageshop.inteface.user.IOnApproveOrderClickListener;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
@@ -27,7 +27,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class OrderWaitingConfirmFragment extends Fragment {
+public class OrderWaitingConfirmFragment extends Fragment implements IOnApproveOrderClickListener {
 
     private FragmentOrderWaitingConfirmBinding binding;
     private List<Order> orders;
@@ -47,36 +47,21 @@ public class OrderWaitingConfirmFragment extends Fragment {
         binding.rvOrderWaitingConfirm.setHasFixedSize(true);
         binding.rvOrderWaitingConfirm.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         getDataOrderWaitingConfirm();
-
-        setEvent();
     }
 
-    private void setEvent() {
-//        binding.
+    private void setDataAdapter() {
+        adapter = new OrderWaitingConfirmAdapter(orders, getActivity(),this);
+        binding.rvOrderWaitingConfirm.setAdapter(adapter);
     }
 
     private void getDataOrderWaitingConfirm() {
-//        getParentFragmentManager().setFragmentResultListener("toOrderWaitingConfirm", this, new FragmentResultListener() {
-//            @Override
-//            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-//                orders = (List<Order>) result.getSerializable("orders_waiting_confirm");
-//                if (orders.size() > 0) {
-//                    adapter = new OrderWaitingConfirmAdapter(orders, getActivity());
-//                    binding.rvOrderWaitingConfirm.setAdapter(adapter);
-//                } else {
-//                    binding.imgEmpty.setVisibility(View.VISIBLE);
-//                    binding.tvTitle.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
         Long userId = DataLocalManager.getUser().getId();
         BaseAPIService.createService(IOrderService.class).getListOrderWaitingConfirmOfUser(userId).enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 orders = response.body();
                 if (orders != null && orders.size() > 0) {
-                    adapter = new OrderWaitingConfirmAdapter(orders, getActivity());
-                    binding.rvOrderWaitingConfirm.setAdapter(adapter);
+                    setDataAdapter();
                 } else {
                     binding.imgEmpty.setVisibility(View.VISIBLE);
                     binding.tvTitle.setVisibility(View.VISIBLE);
@@ -95,6 +80,14 @@ public class OrderWaitingConfirmFragment extends Fragment {
         super.onDestroy();
         if (adapter != null) {
             adapter.release();
+        }
+    }
+
+    @Override
+    public void onOrderClick() {
+        if (orders.size() == 0 || orders == null) {
+            binding.imgEmpty.setVisibility(View.VISIBLE);
+            binding.tvTitle.setVisibility(View.VISIBLE);
         }
     }
 }
