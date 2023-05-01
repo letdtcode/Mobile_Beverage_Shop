@@ -114,7 +114,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvChangeImage" />
 
             <EditText
-                android:id="@+id/edUsername"
+                android:id="@+id/edtUsername"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
@@ -140,7 +140,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@+id/tvProfileImage"
-                app:layout_constraintTop_toBottomOf="@+id/edUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/edtUsername" />
 
             <EditText
                 android:id="@+id/edtFirstName"

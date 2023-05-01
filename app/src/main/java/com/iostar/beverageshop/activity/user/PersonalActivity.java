@@ -122,7 +122,7 @@ public class PersonalActivity extends AppCompatActivity {
         } else {
             Glide.with(PersonalActivity.this).load(user.getAvatar()).into(binding.imgProfile);
         }
-        binding.edUsername.setText(user.getUserName());
+        binding.edtUsername.setText(user.getUserName());
         binding.edtFirstName.setText(user.getFirstName());
         binding.edtLastName.setText(user.getLastName());
         binding.edtEmail.setText(user.getMail());
@@ -150,29 +150,35 @@ public class PersonalActivity extends AppCompatActivity {
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressDialog.show();
+                callAPIUploadInfoProfile();
                 if (mUri != null) {
-                    mProgressDialog.show();
-                    callAPIUploadInfoProfile();
                     callAPIUploadImgProfile();
                 }
+//                mProgressDialog.dismiss();
             }
         });
     }
 
     private void callAPIUploadInfoProfile() {
         User userInMemory = DataLocalManager.getUser();
-        userInMemory.setUserName(binding.edUsername.getText().toString());
-        userInMemory.setFirstName(binding.edUsername.getText().toString());
-        userInMemory.setLastName(binding.edUsername.getText().toString());
-        userInMemory.setMail(binding.edUsername.getText().toString());
-        userInMemory.setPhone(binding.edUsername.getText().toString());
-        userInMemory.setAddress(binding.edUsername.getText().toString());
+        userInMemory.setUserName(binding.edtUsername.getText().toString());
+        userInMemory.setFirstName(binding.edtFirstName.getText().toString());
+        userInMemory.setLastName(binding.edtLastName.getText().toString());
+        userInMemory.setMail(binding.edtEmail.getText().toString());
+        userInMemory.setPhone(binding.edtNumberPhone.getText().toString());
+        userInMemory.setAddress(binding.edtAddress.getText().toString());
 
         JsonObject jsonReq = new Gson().toJsonTree(userInMemory).getAsJsonObject();
         BaseAPIService.createService(IUserService.class).updateInfoUser(userInMemory.getId(), jsonReq).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-
+                User user = response.body();
+                if (user != null) {
+                    DataLocalManager.saveUser(user);
+                }
+                mProgressDialog.dismiss();
+                ToastUtils.showToastCustom(PersonalActivity.this, "Cập nhật thành công");
             }
 
             @Override

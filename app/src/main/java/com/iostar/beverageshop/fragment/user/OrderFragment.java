@@ -58,78 +58,78 @@ public class OrderFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         initial();
-        setUpData();
+//        setUpData();
         setEvent();
     }
 
-    private void setUpData() {
-        Long userId = DataLocalManager.getUser().getId();
-        BaseAPIService.createService(IOrderService.class).getAllListOrderOfUser(userId).enqueue(new Callback<List<Order>>() {
-            @Override
-            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
-                orders = response.body();
-                if (orders != null && orders.size() > 0) {
-                    sendDataToOrderWaitingConfirm();
-                    sendDataToOrderWaitingDelivery();
-                    sendDataToOrderSuccess();
-                    sendDataToOrderCancel();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Order>> call, Throwable t) {
-
-            }
-        });
-    }
-
-    private void sendDataToOrderCancel() {
-        List<Order> orderListCancel = new ArrayList();
-        for (Order item : orders) {
-            if (item.getStatus() == 0) {
-                orderListCancel.add(item);
-            }
-        }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("orders_cancel", (Serializable) orderListCancel);
-        getParentFragmentManager().setFragmentResult("toOrderCancel", bundle);
-    }
-
-    private void sendDataToOrderSuccess() {
-        List<Order> orderListSuccess = new ArrayList();
-        for (Order item : orders) {
-            if (item.getStatus() == 3) {
-                orderListSuccess.add(item);
-            }
-        }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("orders_success", (Serializable) orderListSuccess);
-        getParentFragmentManager().setFragmentResult("toOrderSuccess", bundle);
-    }
-
-    private void sendDataToOrderWaitingDelivery() {
-        List<Order> orderListWaitingDelivery = new ArrayList();
-        for (Order item : orders) {
-            if (item.getStatus() == 2) {
-                orderListWaitingDelivery.add(item);
-            }
-        }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("orders_waiting_delivery", (Serializable) orderListWaitingDelivery);
-        getParentFragmentManager().setFragmentResult("toOrderWaitingDelivery", bundle);
-    }
-
-    private void sendDataToOrderWaitingConfirm() {
-        List<Order> orderListWaitingConfirm = new ArrayList();
-        for (Order item : orders) {
-            if (item.getStatus() == 1) {
-                orderListWaitingConfirm.add(item);
-            }
-        }
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("orders_waiting_confirm", (Serializable) orderListWaitingConfirm);
-        getParentFragmentManager().setFragmentResult("toOrderWaitingConfirm", bundle);
-    }
+//    private void setUpData() {
+//        Long userId = DataLocalManager.getUser().getId();
+//        BaseAPIService.createService(IOrderService.class).getAllListOrderOfUser(userId).enqueue(new Callback<List<Order>>() {
+//            @Override
+//            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+//                orders = response.body();
+//                if (orders != null && orders.size() > 0) {
+//                    sendDataToOrderWaitingConfirm();
+//                    sendDataToOrderWaitingDelivery();
+//                    sendDataToOrderSuccess();
+//                    sendDataToOrderCancel();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Order>> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+//
+//    private void sendDataToOrderCancel() {
+//        List<Order> orderListCancel = new ArrayList();
+//        for (Order item : orders) {
+//            if (item.getStatus() == 0) {
+//                orderListCancel.add(item);
+//            }
+//        }
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("orders_cancel", (Serializable) orderListCancel);
+//        getParentFragmentManager().setFragmentResult("toOrderCancel", bundle);
+//    }
+//
+//    private void sendDataToOrderSuccess() {
+//        List<Order> orderListSuccess = new ArrayList();
+//        for (Order item : orders) {
+//            if (item.getStatus() == 3) {
+//                orderListSuccess.add(item);
+//            }
+//        }
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("orders_success", (Serializable) orderListSuccess);
+//        getParentFragmentManager().setFragmentResult("toOrderSuccess", bundle);
+//    }
+//
+//    private void sendDataToOrderWaitingDelivery() {
+//        List<Order> orderListWaitingDelivery = new ArrayList();
+//        for (Order item : orders) {
+//            if (item.getStatus() == 2) {
+//                orderListWaitingDelivery.add(item);
+//            }
+//        }
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("orders_waiting_delivery", (Serializable) orderListWaitingDelivery);
+//        getParentFragmentManager().setFragmentResult("toOrderWaitingDelivery", bundle);
+//    }
+//
+//    private void sendDataToOrderWaitingConfirm() {
+//        List<Order> orderListWaitingConfirm = new ArrayList();
+//        for (Order item : orders) {
+//            if (item.getStatus() == 1) {
+//                orderListWaitingConfirm.add(item);
+//            }
+//        }
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("orders_waiting_confirm", (Serializable) orderListWaitingConfirm);
+//        getParentFragmentManager().setFragmentResult("toOrderWaitingConfirm", bundle);
+//    }
 
     private void initial() {
         fragmentOrderDetail = new ArrayList<>();
