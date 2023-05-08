@@ -38,7 +38,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imgCoffee"
+                android:id="@+id/imgProduct"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginStart="8dp"
@@ -51,25 +51,25 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvCategory"
+                android:id="@+id/tvProduct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/manrope_semibold"
-                android:text="Tên thể loại"
+                android:text="Tên sản phẩm"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/imgCoffee"
-                app:layout_constraintTop_toTopOf="@+id/imgCoffee" />
+                app:layout_constraintStart_toEndOf="@+id/imgProduct"
+                app:layout_constraintTop_toTopOf="@+id/imgProduct" />
 
             <TextView
-                android:id="@+id/tvTitle"
+                android:id="@+id/tvCategory"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên sản phẩm"
+                android:text="Tên thể loại"
                 app:layout_constraintBottom_toTopOf="@+id/tvPrice"
-                app:layout_constraintStart_toStartOf="@+id/tvCategory"
-                app:layout_constraintTop_toBottomOf="@+id/tvCategory" />
+                app:layout_constraintStart_toStartOf="@+id/tvProduct"
+                app:layout_constraintTop_toBottomOf="@+id/tvProduct" />
 
             <TextView
                 android:id="@+id/tvRating"
@@ -101,8 +101,8 @@
                 android:fontFamily="@font/manrope_extrabold"
                 android:text="Giá tiền"
                 android:textColor="@color/primaryColor"
-                app:layout_constraintBottom_toBottomOf="@+id/imgCoffee"
-                app:layout_constraintStart_toStartOf="@+id/tvCategory" />
+                app:layout_constraintBottom_toBottomOf="@+id/imgProduct"
+                app:layout_constraintStart_toStartOf="@+id/tvProduct" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

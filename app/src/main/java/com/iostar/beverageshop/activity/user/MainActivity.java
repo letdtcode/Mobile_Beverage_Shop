@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.fragment_container, new HomeFragment());
+        transaction.replace(binding.fragmentContainer.getId(), new HomeFragment());
         transaction.commit();
 
         binding.bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {

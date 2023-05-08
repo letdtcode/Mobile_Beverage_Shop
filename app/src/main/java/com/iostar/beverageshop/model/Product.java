@@ -1,8 +1,5 @@
 package com.iostar.beverageshop.model;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -14,8 +11,9 @@ public class Product implements Serializable {
     private Integer quantity;
     private String pathImage;
     private Long categoryId;
+    private Float rating;
 
-    public Product(Long id, String productName, BigDecimal priceDefault, String description, Integer quantity, String pathImage, Long categoryId) {
+    public Product(Long id, String productName, BigDecimal priceDefault, String description, Integer quantity, String pathImage, Long categoryId, Float rating) {
         this.id = id;
         this.productName = productName;
         this.priceDefault = priceDefault;
@@ -23,6 +21,7 @@ public class Product implements Serializable {
         this.quantity = quantity;
         this.pathImage = pathImage;
         this.categoryId = categoryId;
+        this.rating = rating;
     }
 
     public Long getId() {
@@ -79,5 +78,13 @@ public class Product implements Serializable {
 
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 }

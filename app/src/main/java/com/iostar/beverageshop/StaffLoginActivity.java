@@ -1,4 +1,4 @@
-package com.iostar.beverageshop.activity;
+package com.iostar.beverageshop;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,9 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.iostar.beverageshop.StaffLoginActivity;
-import com.iostar.beverageshop.activity.user.MainActivity;
-import com.iostar.beverageshop.databinding.ActivityLoginBinding;
+import com.iostar.beverageshop.activity.staff.StaffActivity;
+import com.iostar.beverageshop.databinding.ActivityStaffLoginBinding;
 import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.model.request.LoginRequest;
 import com.iostar.beverageshop.model.response.AuthResponse;
@@ -24,24 +23,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
-    private ActivityLoginBinding binding;
+public class StaffLoginActivity extends AppCompatActivity {
+    private ActivityStaffLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        binding = ActivityStaffLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setEvent();
     }
 
     private void setEvent() {
         binding.imgLogin.setOnClickListener(v -> login());
-        binding.tvRegister.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RegisterActivity.class)));
-        binding.tvLoginStaff.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, StaffLoginActivity.class);
-            startActivity(intent);
-        });
     }
 
     private void login() {
@@ -54,26 +48,32 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
                 if (response.body() == null) {
-                    ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
+                    ToastUtils.showToast(StaffLoginActivity.this, "Email or password is incorrect");
                     return;
                 }
-                if (!response.body().getAccessToken().equals("")) {
-                    AuthResponse authResponse = response.body();
-
+                Boolean checkValid = false;
+                AuthResponse authResponse = response.body();
+                for (String role : authResponse.getRoles()) {
+                    if (role.equals("ROLE_Admin")) {
+                        checkValid = true;
+                        break;
+                    }
+                }
+                if (!response.body().getAccessToken().equals("") && checkValid == true) {
                     DataLocalManager.saveAuthToken(authResponse);
                     Log.d("token", authResponse.toString());
 //                    Call API get UserInfo
                     saveInfoUser(authResponse.getUserId());
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    ToastUtils.showToast(LoginActivity.this, "Đăng nhập thành công");
+                    startActivity(new Intent(StaffLoginActivity.this, StaffActivity.class));
+                    ToastUtils.showToast(StaffLoginActivity.this, "Đăng nhập thành công");
                 } else {
-                    ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
+                    ToastUtils.showToast(StaffLoginActivity.this, "Email or password is incorrect");
                 }
             }
 
             @Override
             public void onFailure(Call<AuthResponse> call, Throwable t) {
-                ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
+                Log.e("login_staff", t.getMessage());
             }
         });
     }
@@ -85,15 +85,12 @@ public class LoginActivity extends AppCompatActivity {
                 User user = response.body();
                 if (user != null)
                     DataLocalManager.saveUser(user);
-                Log.e("img", DataLocalManager.getUser().getId().toString());
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                ToastUtils.showToast(LoginActivity.this, t.getMessage());
-                Log.d("error", t.getMessage());
+                Log.e("save_info_user", t.getMessage());
             }
         });
     }
-
 }

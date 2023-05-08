@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getAllProduct() {
-        BaseAPIService.createService(IProductService.class).getInfoAllProduct().enqueue(new Callback<List<Product>>() {
+        BaseAPIService.createService(IProductService.class).getInfoAllProductCurrentUse().enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productList = response.body();

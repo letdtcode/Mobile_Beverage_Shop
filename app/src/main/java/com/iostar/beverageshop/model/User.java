@@ -2,6 +2,7 @@ package com.iostar.beverageshop.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 public class User implements Serializable {
     private Long id;
@@ -24,7 +25,9 @@ public class User implements Serializable {
 
     private String avatar;
 
-    public User(Long id, String userName, String firstName, String lastName, Integer gender, String dateOfBirth, String mail, String address, String phone, String avatar) {
+    private List<String> roles;
+
+    public User(Long id, String userName, String firstName, String lastName, Integer gender, String dateOfBirth, String mail, String address, String phone, String avatar, List<String> roles) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
@@ -35,6 +38,7 @@ public class User implements Serializable {
         this.address = address;
         this.phone = phone;
         this.avatar = avatar;
+        this.roles = roles;
     }
 
     public Long getId() {
@@ -115,5 +119,13 @@ public class User implements Serializable {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 }
