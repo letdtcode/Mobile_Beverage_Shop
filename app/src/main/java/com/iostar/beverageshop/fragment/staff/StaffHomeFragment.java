@@ -33,6 +33,9 @@ public class StaffHomeFragment extends Fragment {
     private List<Category> categoryListAll;
     private ProductHomeStaffAdapter productAdapter;
 
+    private boolean isProductListAllLoaded = false;
+    private boolean isCategoryListAllLoaded = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,17 +51,15 @@ public class StaffHomeFragment extends Fragment {
         binding.rvStaffProduct.setHasFixedSize(true);
         binding.rvStaffProduct.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
 
-//        getAllCategories();
+        getAllCategories();
         getAllProduct();
-//        setAdapter();
-//        getInfoSizeOfProduct();
-//        getInfoTopping();
-//        setEvent();
     }
 
-    private void setAdapter() {
-        productAdapter = new ProductHomeStaffAdapter(productListAll, categoryListAll, getActivity());
-        binding.rvStaffProduct.setAdapter(productAdapter);
+    private void checkIfDataLoaded() {
+        if (isProductListAllLoaded && isCategoryListAllLoaded) {
+            productAdapter = new ProductHomeStaffAdapter(productListAll, categoryListAll, getActivity());
+            binding.rvStaffProduct.setAdapter(productAdapter);
+        }
     }
 
     private void getAllProduct() {
@@ -66,21 +67,8 @@ public class StaffHomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productListAll = response.body();
-//                getAllCategories();
-                BaseAPIService.createService(ICategoryService.class).getAllCategories().enqueue(new Callback<List<Category>>() {
-                    @Override
-                    public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                        categoryListAll = response.body();
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Category>> call, Throwable t) {
-                        Log.e("staff_get_cate", t.getMessage());
-                    }
-                });
-//                setAdapter();
-                productAdapter = new ProductHomeStaffAdapter(productListAll, categoryListAll, getActivity());
-                binding.rvStaffProduct.setAdapter(productAdapter);
+                isProductListAllLoaded = true;
+                checkIfDataLoaded();
             }
 
             @Override
@@ -95,6 +83,8 @@ public class StaffHomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 categoryListAll = response.body();
+                isCategoryListAllLoaded = true;
+                checkIfDataLoaded();
             }
 
             @Override
