@@ -2,7 +2,6 @@ package com.iostar.beverageshop.adapter.staff;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,6 +12,7 @@ import com.iostar.beverageshop.databinding.ItemStaffProductBinding;
 import com.iostar.beverageshop.inteface.staff.IOnItemProductListener;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
+import com.iostar.beverageshop.utils.constants.PRODUCT_STATUS;
 
 import java.util.List;
 
@@ -48,8 +48,9 @@ public class ProductHomeStaffAdapter extends RecyclerView.Adapter<ProductHomeSta
             return;
         }
         holder.binding.tvProduct.setText(product.getProductName());
-        holder.binding.tvPrice.setText(product.getPriceDefault().toString());
+        holder.binding.tvPrice.setText(product.getPriceDefault().toString()+" K");
         holder.binding.tvRating.setText(product.getRating().toString());
+        holder.binding.tvCountSold.setText(product.getSoldCount().toString());
         Glide.with(mContext).load(product.getPathImage()).into(holder.binding.imgProduct);
 
         Long categoryId = product.getCategoryId();
@@ -61,6 +62,14 @@ public class ProductHomeStaffAdapter extends RecyclerView.Adapter<ProductHomeSta
             }
         }
         holder.binding.tvCategory.setText(categoryName);
+        switch (product.getStatus()) {
+            case 0:
+                holder.binding.tvStatus.setText(PRODUCT_STATUS.STOP_SELLING);
+                break;
+            case 1:
+                holder.binding.tvStatus.setText(PRODUCT_STATUS.SELLING);
+                break;
+        }
         holder.binding.cardItemProduct.setOnClickListener(v -> iOnItemProductListener.onClickItemProduct(product));
     }
 

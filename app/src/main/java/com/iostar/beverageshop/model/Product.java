@@ -12,9 +12,10 @@ public class Product implements Serializable {
     private String pathImage;
     private Long categoryId;
     private Float rating;
+    private Integer soldCount;
     private Integer status;
 
-    public Product(Long id, String productName, BigDecimal priceDefault, String description, Integer quantity, String pathImage, Long categoryId, Float rating, Integer status) {
+    public Product(Long id, String productName, BigDecimal priceDefault, String description, Integer quantity, String pathImage, Long categoryId, Float rating, Integer soldCount, Integer status) {
         this.id = id;
         this.productName = productName;
         this.priceDefault = priceDefault;
@@ -23,6 +24,7 @@ public class Product implements Serializable {
         this.pathImage = pathImage;
         this.categoryId = categoryId;
         this.rating = rating;
+        this.soldCount = soldCount;
         this.status = status;
     }
 
@@ -88,6 +90,14 @@ public class Product implements Serializable {
 
     public void setRating(Float rating) {
         this.rating = rating;
+    }
+
+    public Integer getSoldCount() {
+        return soldCount;
+    }
+
+    public void setSoldCount(Integer soldCount) {
+        this.soldCount = soldCount;
     }
 
     public Integer getStatus() {
