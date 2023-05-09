@@ -28,6 +28,7 @@ import com.iostar.beverageshop.activity.user.PersonalActivity;
 import com.iostar.beverageshop.adapter.user.CategoryHomeAdapter;
 import com.iostar.beverageshop.adapter.user.ProductHomeAdapter;
 import com.iostar.beverageshop.databinding.FragmentHomeBinding;
+import com.iostar.beverageshop.inteface.user.IClickItemProductListener;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
@@ -188,6 +189,17 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+//    @Override
+//    public void onClickItemProduct(Product product) {
+//        Intent intent = new Intent(getActivity(), DetailProductActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("object_product", product);
+//        bundle.putSerializable("size_list", (Serializable) sizeList);
+//        bundle.putSerializable("topping_list", (Serializable) toppingList);
+//        intent.putExtras(bundle);
+//        startActivity(intent);
+//    }
 
 //    @Override
 //    public void onDestroy() {

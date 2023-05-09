@@ -1,5 +1,6 @@
 package com.iostar.beverageshop.fragment.staff;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iostar.beverageshop.DetailProductStaffActivity;
 import com.iostar.beverageshop.adapter.staff.ProductHomeStaffAdapter;
 import com.iostar.beverageshop.databinding.FragmentStaffHomeBinding;
+import com.iostar.beverageshop.inteface.staff.IOnItemProductListener;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.service.BaseAPIService;
@@ -27,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class StaffHomeFragment extends Fragment {
+public class StaffHomeFragment extends Fragment implements IOnItemProductListener {
     private FragmentStaffHomeBinding binding;
     private List<Product> productListAll;
     private List<Category> categoryListAll;
@@ -57,7 +60,7 @@ public class StaffHomeFragment extends Fragment {
 
     private void checkIfDataLoaded() {
         if (isProductListAllLoaded && isCategoryListAllLoaded) {
-            productAdapter = new ProductHomeStaffAdapter(productListAll, categoryListAll, getActivity());
+            productAdapter = new ProductHomeStaffAdapter(productListAll, categoryListAll, getActivity(), this);
             binding.rvStaffProduct.setAdapter(productAdapter);
         }
     }
@@ -92,5 +95,14 @@ public class StaffHomeFragment extends Fragment {
                 Log.e("staff_get_cate", t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onClickItemProduct(Product product) {
+        Intent intent = new Intent(getActivity(), DetailProductStaffActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_product", product);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

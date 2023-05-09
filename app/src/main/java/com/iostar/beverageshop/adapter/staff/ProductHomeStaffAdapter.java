@@ -2,6 +2,7 @@ package com.iostar.beverageshop.adapter.staff;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.databinding.ItemStaffProductBinding;
+import com.iostar.beverageshop.inteface.staff.IOnItemProductListener;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 
@@ -17,12 +19,14 @@ import java.util.List;
 public class ProductHomeStaffAdapter extends RecyclerView.Adapter<ProductHomeStaffAdapter.ProductHomeStaffViewHolder> {
     private final List<Product> productList;
     private final List<Category> categoryList;
+    private IOnItemProductListener iOnItemProductListener;
     private Context mContext;
 
-    public ProductHomeStaffAdapter(List<Product> productList, List<Category> categoryList, Context mContext) {
+    public ProductHomeStaffAdapter(List<Product> productList, List<Category> categoryList, Context mContext, IOnItemProductListener listener) {
         this.productList = productList;
         this.categoryList = categoryList;
         this.mContext = mContext;
+        this.iOnItemProductListener = listener;
     }
 
 
@@ -57,12 +61,7 @@ public class ProductHomeStaffAdapter extends RecyclerView.Adapter<ProductHomeSta
             }
         }
         holder.binding.tvCategory.setText(categoryName);
-//        holder.binding.cardViewProduct.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                iClickItemProductListener.onClickItemProduct(product);
-//            }
-//        });
+        holder.binding.cardItemProduct.setOnClickListener(v -> iOnItemProductListener.onClickItemProduct(product));
     }
 
     @Override

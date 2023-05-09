@@ -69,38 +69,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-<!--    <com.github.clans.fab.FloatingActionMenu-->
-<!--        android:id="@+id/menu"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginEnd="8dp"-->
-<!--        android:layout_marginBottom="8dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:menu_colorNormal="@color/primaryColor"-->
-<!--        app:menu_colorPressed="@color/primaryColor"-->
-<!--        app:menu_openDirection="up">-->
-
-<!--        <com.github.clans.fab.FloatingActionButton-->
-<!--            android:id="@+id/addProduct"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/product_icon"-->
-<!--            app:fab_colorNormal="@color/white"-->
-<!--            app:fab_colorPressed="@color/primaryColor"-->
-<!--            app:fab_label="Tambah data produk"-->
-<!--            app:fab_size="mini" />-->
-
-<!--        <com.github.clans.fab.FloatingActionButton-->
-<!--            android:id="@+id/addBanner"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/banner_icon"-->
-<!--            app:fab_colorNormal="@color/white"-->
-<!--            app:fab_colorPressed="@color/primaryColor"-->
-<!--            app:fab_label="Tambah info banner"-->
-<!--            app:fab_size="mini" />-->
-
-<!--    </com.github.clans.fab.FloatingActionMenu>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

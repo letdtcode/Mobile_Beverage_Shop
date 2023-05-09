@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -25,7 +26,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/parentLayout"
+        android:id="@+id/cardItemProduct"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:clickable="true"
@@ -103,6 +104,53 @@
                 android:textColor="@color/primaryColor"
                 app:layout_constraintBottom_toBottomOf="@+id/imgProduct"
                 app:layout_constraintStart_toStartOf="@+id/tvProduct" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tình trạng: "
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.599"
+                app:layout_constraintStart_toStartOf="@+id/tvProduct"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.241" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="còn hàng"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.844"
+                app:layout_constraintStart_toStartOf="@+id/tvProduct"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.241" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sold: "
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.524"
+                app:layout_constraintStart_toStartOf="@+id/tvPrice"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.78" />
+
+            <TextView
+                android:id="@+id/tvCountSold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.698"
+                app:layout_constraintStart_toStartOf="@+id/tvPrice"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.78" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
