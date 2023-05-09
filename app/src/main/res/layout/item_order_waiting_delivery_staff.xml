@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewClick"
+    android:layout_width="match_parent"
+    android:layout_marginBottom="8dp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/titleOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order Number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/manrope_semibold"/>
+
+        <TextView
+            android:id="@+id/orderId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="#303"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_semibold"
+            app:layout_constraintStart_toEndOf="@+id/titleOrder"
+            app:layout_constraintBottom_toBottomOf="@+id/titleOrder"/>
+
+        <TextView
+            android:id="@+id/tvNameCus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên khách hàng"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_semibold"
+            app:layout_constraintStart_toStartOf="@+id/titleOrder"
+            app:layout_constraintTop_toBottomOf="@+id/titleOrder"/>
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_semibold"
+            app:layout_constraintStart_toStartOf="@+id/titleOrder"
+            app:layout_constraintTop_toBottomOf="@+id/tvNameCus"/>
+
+        <TextView
+            android:id="@+id/tvPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại"
+            android:textColor="@color/black"
+            android:paddingBottom="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_semibold"
+            app:layout_constraintStart_toStartOf="@+id/titleOrder"
+            app:layout_constraintTop_toBottomOf="@+id/tvAddress"/>
+
+        <TextView
+            android:id="@+id/tblTotalTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="Tổng thanh toán :"
+            android:layout_marginStart="@dimen/_60sdp"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@id/titleOrder"
+            app:layout_constraintBottom_toBottomOf="@+id/titleOrder" />
+
+        <TextView
+            android:id="@+id/tvTotalPriceOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/manrope_semibold"
+            android:text="270.000"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:textColor="@color/primaryColor"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/tblTotalTitle"
+            app:layout_constraintTop_toTopOf="@+id/tblTotalTitle"/>
+
+        <TextView
+            android:id="@+id/statusOrder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/manrope_semibold"
+            android:text="Đang giao"
+            android:textColor="@color/primaryColor"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tblTotalTitle" />
+
+        <Button
+            android:id="@+id/btnToDelivery"
+            style="@style/ButtonEnabled"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Đã nhận hàng"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statusOrder"/>
+
+        <TextView
+            android:id="@+id/tvDetailOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_10sdp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="Xem chi tiết"
+            android:layout_marginStart="@dimen/_125sdp"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -14,6 +14,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface IOrderService {
+    //    Client
     @POST("client/order/checkout")
     Call<Order> checkOutInCart(@Body CheckOutCartRequest request);
 
@@ -35,6 +36,12 @@ public interface IOrderService {
     @GET("client/orders/cancel")
     Call<List<Order>> getListOrderCancelOfUser(@Query("userId") Long userId);
 
+    //    Staff
+
     @PUT("staff/order/approve")
     Call<Order> approveOrder(@Query("orderId") Long orderId, @Query("status") Integer status);
+
+    @GET("staff/orders")
+    Call<List<Order>> getListOrderByStatus(@Query("status") Integer status);
+
 }

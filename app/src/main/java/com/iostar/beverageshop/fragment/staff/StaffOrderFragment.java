@@ -1,66 +1,72 @@
 package com.iostar.beverageshop.fragment.staff;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.iostar.beverageshop.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StaffOrderFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
+import com.iostar.beverageshop.adapter.ViewPagerOrderAdapter;
+import com.iostar.beverageshop.databinding.FragmentStaffOrderBinding;
+import com.iostar.beverageshop.fragment.user.order.OrderCanceledFragment;
+import com.iostar.beverageshop.fragment.user.order.OrderSuccessFragment;
+import com.iostar.beverageshop.fragment.user.order.OrderWaitingConfirmFragment;
+import com.iostar.beverageshop.fragment.user.order.OrderWaitingDeliveryFragment;
+
+import java.util.ArrayList;
+
 public class StaffOrderFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public StaffOrderFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment StaffOrderFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static StaffOrderFragment newInstance(String param1, String param2) {
-        StaffOrderFragment fragment = new StaffOrderFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private FragmentStaffOrderBinding binding;
+    private ArrayList<Fragment> fragmentOrderDetail;
+    private ViewPagerOrderAdapter viewPagerOrderAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_staff_order, container, false);
+        binding = FragmentStaffOrderBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initial();
+//        setEvent();
+    }
+
+    private void initial() {
+        fragmentOrderDetail = new ArrayList<>();
+        fragmentOrderDetail.add(new OrderWaitingConfirmFragment());
+        fragmentOrderDetail.add(new OrderWaitingDeliveryFragment());
+        fragmentOrderDetail.add(new OrderSuccessFragment());
+        fragmentOrderDetail.add(new OrderCanceledFragment());
+
+        viewPagerOrderAdapter = new ViewPagerOrderAdapter(getActivity(), fragmentOrderDetail);
+        binding.viewPagerTabLayout.setAdapter(viewPagerOrderAdapter);
+        new TabLayoutMediator(binding.tabLayout, binding.viewPagerTabLayout, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                switch (position) {
+                    case 0:
+                        tab.setText("Chờ xác nhận");
+                        break;
+                    case 1:
+                        tab.setText("Đang giao");
+                        break;
+                    case 2:
+                        tab.setText("Đã nhận");
+                        break;
+                    case 3:
+                        tab.setText("Đã hủy");
+                        break;
+                }
+            }
+        }).attach();
     }
 }
