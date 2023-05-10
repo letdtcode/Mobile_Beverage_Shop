@@ -19,6 +19,9 @@ public interface IProductService {
     @GET("client/image/product")
     Call<ResponseBody> getImgPathProductByProductName(@Query("productName") String productName);
 
+    @GET("client/products-cate")
+    Call<List<Product>> getProductsByCategoryName(@Query("categoryName") String categoryName);
+
     //    Staff
     @GET("staff/products")
     Call<List<Product>> getInfoAllProduct();

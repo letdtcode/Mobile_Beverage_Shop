@@ -72,12 +72,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.Favori
             super(itemFavoriteBinding.getRoot());
             binding = itemFavoriteBinding;
 
-            binding.imgFavorite.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick(getAdapterPosition());
-                }
-            });
+            binding.imgFavorite.setOnClickListener(v -> listener.onItemClick(getAdapterPosition()));
         }
     }
 }

@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.activity.user.DetailProductActivity;
+import com.iostar.beverageshop.activity.user.ListProductActivity;
 import com.iostar.beverageshop.activity.user.PersonalActivity;
 import com.iostar.beverageshop.adapter.user.CategoryHomeAdapter;
 import com.iostar.beverageshop.adapter.user.ProductHomeAdapter;
@@ -141,6 +142,15 @@ public class HomeFragment extends Fragment {
                 categoryList = response.body();
                 categoryHomeAdapter = new CategoryHomeAdapter(categoryList, getActivity());
                 binding.rcvCategory.setAdapter(categoryHomeAdapter);
+                categoryHomeAdapter.setOnItemClickListener(new CategoryHomeAdapter.OnItemCategoryClickListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        String categoryName = categoryList.get(position).getCategoryName();
+                        Intent intent = new Intent(getActivity(), ListProductActivity.class);
+                        intent.putExtra("category_name", categoryName);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override

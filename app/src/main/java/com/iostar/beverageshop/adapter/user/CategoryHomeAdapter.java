@@ -2,6 +2,7 @@ package com.iostar.beverageshop.adapter.user;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,17 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
 
     private final List<Category> categoryList;
     private Context mContext;
+    private OnItemCategoryClickListener listener;
+
+    //    Interface
+    public interface OnItemCategoryClickListener {
+        void onItemClick(int position);
+    }
+
+    //    Method
+    public void setOnItemClickListener(OnItemCategoryClickListener clickListener) {
+        listener = clickListener;
+    }
 
     public CategoryHomeAdapter(List<Category> categoryList, Context mContext) {
         this.categoryList = categoryList;
@@ -31,7 +43,7 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
                 parent,
                 false
         );
-        return new CategoryHomeViewHolder(binding);
+        return new CategoryHomeViewHolder(binding, listener);
     }
 
     @Override
@@ -55,9 +67,11 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
     public static class CategoryHomeViewHolder extends RecyclerView.ViewHolder {
         private final ItemCategoryHomeBinding binding;
 
-        public CategoryHomeViewHolder(ItemCategoryHomeBinding itemCategoryHomeBinding) {
+        public CategoryHomeViewHolder(ItemCategoryHomeBinding itemCategoryHomeBinding, OnItemCategoryClickListener listener) {
             super(itemCategoryHomeBinding.getRoot());
             binding = itemCategoryHomeBinding;
+
+            binding.cardViewCategory.setOnClickListener(v -> listener.onItemClick(getAdapterPosition()));
         }
     }
 
