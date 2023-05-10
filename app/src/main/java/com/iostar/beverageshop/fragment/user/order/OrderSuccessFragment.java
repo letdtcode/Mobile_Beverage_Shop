@@ -48,19 +48,6 @@ public class OrderSuccessFragment extends Fragment {
     }
 
     private void getDataOrderSuccess() {
-//        getParentFragmentManager().setFragmentResultListener("toOrderSuccess", this, new FragmentResultListener() {
-//            @Override
-//            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-//                orders = (List<Order>) result.getSerializable("orders_success");
-//                if (orders.size() > 0) {
-//                    adapter = new OrderSuccessAdapter(orders, getActivity());
-//                    binding.rvOrderSuccess.setAdapter(adapter);
-//                } else {
-//                    binding.imgEmpty.setVisibility(View.VISIBLE);
-//                    binding.tvTitle.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
         Long userId = DataLocalManager.getUser().getId();
         BaseAPIService.createService(IOrderService.class).getListOrderSuccessOfUser(userId).enqueue(new Callback<List<Order>>() {
             @Override
@@ -80,6 +67,22 @@ public class OrderSuccessFragment extends Fragment {
                 Log.e("orders_waiting_confirm", t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.imgEmpty.setVisibility(View.INVISIBLE);
+        binding.tvTitle.setVisibility(View.INVISIBLE);
+        if (adapter != null) {
+            adapter.release();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDataOrderSuccess();
     }
 
     @Override

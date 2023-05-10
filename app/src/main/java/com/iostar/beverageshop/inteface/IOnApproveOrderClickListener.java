@@ -1,4 +1,4 @@
-package com.iostar.beverageshop.inteface.user;
+package com.iostar.beverageshop.inteface;
 
 public interface IOnApproveOrderClickListener {
     public void onOrderClick();

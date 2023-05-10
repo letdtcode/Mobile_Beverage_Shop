@@ -12,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iostar.beverageshop.adapter.staff.order.OrderSuccessStaffAdapter;
-import com.iostar.beverageshop.databinding.FragmentOrderSuccessStaffBinding;
+import com.iostar.beverageshop.adapter.staff.order.OrderCancelStaffAdapter;
+import com.iostar.beverageshop.databinding.FragmentOrderCancelStaffBinding;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
@@ -24,35 +24,35 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderSuccessStaffFragment extends Fragment {
-    private FragmentOrderSuccessStaffBinding binding;
+public class OrderCanceledStaffFragment extends Fragment {
+    private FragmentOrderCancelStaffBinding binding;
     private List<Order> orders;
-    private OrderSuccessStaffAdapter adapter;
+    private OrderCancelStaffAdapter adapter;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentOrderSuccessStaffBinding.inflate(inflater, container, false);
+        binding = FragmentOrderCancelStaffBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.rvOrderSuccess.setHasFixedSize(true);
-        binding.rvOrderSuccess.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-        getDataOrderSuccess();
+        binding.rvOrderCancel.setHasFixedSize(true);
+        binding.rvOrderCancel.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        getDataOrderCanceled();
     }
 
     private void setDataAdapter() {
-        adapter = new OrderSuccessStaffAdapter(orders, getActivity());
-        binding.rvOrderSuccess.setAdapter(adapter);
+        adapter = new OrderCancelStaffAdapter(orders, getActivity());
+        binding.rvOrderCancel.setAdapter(adapter);
     }
 
-    private void getDataOrderSuccess() {
-        BaseAPIService.createService(IOrderService.class).getListOrderByStatus(3).enqueue(new Callback<List<Order>>() {
+    private void getDataOrderCanceled() {
+        BaseAPIService.createService(IOrderService.class).getListOrderByStatus(0).enqueue(new Callback<List<Order>>() {
             @Override
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 orders = response.body();
@@ -66,7 +66,7 @@ public class OrderSuccessStaffFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Order>> call, Throwable t) {
-                Log.e("orders_waiting_confirm", t.getMessage());
+                Log.e("orders_canceled", t.getMessage());
             }
         });
     }
@@ -84,7 +84,7 @@ public class OrderSuccessStaffFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getDataOrderSuccess();
+        getDataOrderCanceled();
     }
 
     @Override

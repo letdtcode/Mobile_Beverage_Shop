@@ -1,11 +1,13 @@
 package com.iostar.beverageshop.adapter.user;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.databinding.ItemCategoryHomeBinding;
 import com.iostar.beverageshop.model.Category;
 
@@ -14,9 +16,11 @@ import java.util.List;
 public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapter.CategoryHomeViewHolder> {
 
     private final List<Category> categoryList;
+    private Context mContext;
 
-    public CategoryHomeAdapter(List<Category> categoryList) {
+    public CategoryHomeAdapter(List<Category> categoryList, Context mContext) {
         this.categoryList = categoryList;
+        this.mContext = mContext;
     }
 
     @NonNull
@@ -37,6 +41,7 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
             return;
         }
         holder.binding.tvCategory.setText(category.getCategoryName());
+        Glide.with(mContext).load(category.getPathImg()).into(holder.binding.imgCategory);
     }
 
     @Override
@@ -54,5 +59,9 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
             super(itemCategoryHomeBinding.getRoot());
             binding = itemCategoryHomeBinding;
         }
+    }
+
+    public void release() {
+        mContext = null;
     }
 }

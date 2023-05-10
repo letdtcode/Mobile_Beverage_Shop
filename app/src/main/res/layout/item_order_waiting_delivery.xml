@@ -123,6 +123,19 @@
         <!--            app:layout_constraintEnd_toEndOf="parent"-->
         <!--            app:layout_constraintTop_toBottomOf="@+id/statusOrder"/>-->
 
+        <Button
+            android:id="@+id/btnToDelivery"
+            style="@style/ButtonEnabled"
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Đã nhận hàng"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statusOrder"/>
+
         <TextView
             android:id="@+id/tvDetailOrder"
             android:layout_width="wrap_content"

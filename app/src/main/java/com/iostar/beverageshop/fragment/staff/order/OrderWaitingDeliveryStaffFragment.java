@@ -1,66 +1,106 @@
 package com.iostar.beverageshop.fragment.staff.order;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.iostar.beverageshop.R;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OrderWaitingDeliveryStaffFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class OrderWaitingDeliveryStaffFragment extends Fragment {
+import com.iostar.beverageshop.adapter.staff.order.OrderWaitingDeliveryStaffAdapter;
+import com.iostar.beverageshop.databinding.FragmentOrderWaitingDeliveryStaffBinding;
+import com.iostar.beverageshop.inteface.IOnApproveOrderClickListener;
+import com.iostar.beverageshop.model.Order;
+import com.iostar.beverageshop.service.BaseAPIService;
+import com.iostar.beverageshop.service.IOrderService;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-    public OrderWaitingDeliveryStaffFragment() {
-        // Required empty public constructor
-    }
+public class OrderWaitingDeliveryStaffFragment extends Fragment implements IOnApproveOrderClickListener {
+    private FragmentOrderWaitingDeliveryStaffBinding binding;
+    private List<Order> orders;
+    private OrderWaitingDeliveryStaffAdapter adapter;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OrderWaitingDeliveryStaffFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrderWaitingDeliveryStaffFragment newInstance(String param1, String param2) {
-        OrderWaitingDeliveryStaffFragment fragment = new OrderWaitingDeliveryStaffFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_waiting_delivery_staff, container, false);
+        binding = FragmentOrderWaitingDeliveryStaffBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.rvOrderWaitingDelivery.setHasFixedSize(true);
+        binding.rvOrderWaitingDelivery.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+        getDataOrderWaitingDelivery();
+    }
+
+    private void setDataAdapter() {
+        adapter = new OrderWaitingDeliveryStaffAdapter(orders, getActivity(), this);
+        binding.rvOrderWaitingDelivery.setAdapter(adapter);
+    }
+
+    private void getDataOrderWaitingDelivery() {
+        BaseAPIService.createService(IOrderService.class).getListOrderByStatus(2).enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                orders = response.body();
+                if (orders != null && orders.size() > 0) {
+                    setDataAdapter();
+                } else {
+                    binding.imgEmpty.setVisibility(View.VISIBLE);
+                    binding.tvTitle.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                Log.e("orders_waiting_delivery", t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.imgEmpty.setVisibility(View.INVISIBLE);
+        binding.tvTitle.setVisibility(View.INVISIBLE);
+        if (adapter != null) {
+            adapter.release();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDataOrderWaitingDelivery();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adapter != null) {
+            adapter.release();
+        }
+    }
+
+    @Override
+    public void onOrderClick() {
+        if (orders.size() == 0 || orders == null) {
+            binding.imgEmpty.setVisibility(View.VISIBLE);
+            binding.tvTitle.setVisibility(View.VISIBLE);
+        }
     }
 }

@@ -70,4 +70,8 @@ public class ProductHomeAdapter extends RecyclerView.Adapter<ProductHomeAdapter.
             binding = itemProductHomeBinding;
         }
     }
+
+    public void release() {
+        mContext = null;
+    }
 }

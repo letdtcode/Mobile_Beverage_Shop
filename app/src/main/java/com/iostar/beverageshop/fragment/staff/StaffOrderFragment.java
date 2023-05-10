@@ -13,10 +13,10 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.iostar.beverageshop.adapter.ViewPagerOrderAdapter;
 import com.iostar.beverageshop.databinding.FragmentStaffOrderBinding;
-import com.iostar.beverageshop.fragment.user.order.OrderCanceledFragment;
-import com.iostar.beverageshop.fragment.user.order.OrderSuccessFragment;
-import com.iostar.beverageshop.fragment.user.order.OrderWaitingConfirmFragment;
-import com.iostar.beverageshop.fragment.user.order.OrderWaitingDeliveryFragment;
+import com.iostar.beverageshop.fragment.staff.order.OrderCanceledStaffFragment;
+import com.iostar.beverageshop.fragment.staff.order.OrderSuccessStaffFragment;
+import com.iostar.beverageshop.fragment.staff.order.OrderWaitingConfirmStaffFragment;
+import com.iostar.beverageshop.fragment.staff.order.OrderWaitingDeliveryStaffFragment;
 
 import java.util.ArrayList;
 
@@ -42,10 +42,10 @@ public class StaffOrderFragment extends Fragment {
 
     private void initial() {
         fragmentOrderDetail = new ArrayList<>();
-        fragmentOrderDetail.add(new OrderWaitingConfirmFragment());
-        fragmentOrderDetail.add(new OrderWaitingDeliveryFragment());
-        fragmentOrderDetail.add(new OrderSuccessFragment());
-        fragmentOrderDetail.add(new OrderCanceledFragment());
+        fragmentOrderDetail.add(new OrderWaitingConfirmStaffFragment());
+        fragmentOrderDetail.add(new OrderWaitingDeliveryStaffFragment());
+        fragmentOrderDetail.add(new OrderSuccessStaffFragment());
+        fragmentOrderDetail.add(new OrderCanceledStaffFragment());
 
         viewPagerOrderAdapter = new ViewPagerOrderAdapter(getActivity(), fragmentOrderDetail);
         binding.viewPagerTabLayout.setAdapter(viewPagerOrderAdapter);

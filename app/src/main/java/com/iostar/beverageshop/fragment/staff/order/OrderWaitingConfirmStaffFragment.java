@@ -1,6 +1,7 @@
 package com.iostar.beverageshop.fragment.staff.order;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.adapter.staff.order.OrderWaitingConfirmStaffAdapter;
-import com.iostar.beverageshop.adapter.user.order.OrderWaitingConfirmAdapter;
 import com.iostar.beverageshop.databinding.FragmentOrderWaitingConfirmStaffBinding;
+import com.iostar.beverageshop.inteface.IOnApproveOrderClickListener;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
@@ -24,7 +25,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderWaitingConfirmStaffFragment extends Fragment {
+public class OrderWaitingConfirmStaffFragment extends Fragment implements IOnApproveOrderClickListener {
     private FragmentOrderWaitingConfirmStaffBinding binding;
     private List<Order> orders;
     private OrderWaitingConfirmStaffAdapter adapter;
@@ -47,7 +48,7 @@ public class OrderWaitingConfirmStaffFragment extends Fragment {
     }
 
     private void setDataAdapter() {
-        adapter = new OrderWaitingConfirmAdapter(orders, getActivity(), this);
+        adapter = new OrderWaitingConfirmStaffAdapter(orders, getActivity(), this);
         binding.rvOrderWaitingConfirm.setAdapter(adapter);
     }
 
@@ -66,8 +67,24 @@ public class OrderWaitingConfirmStaffFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Order>> call, Throwable t) {
-
+                Log.e("orders_waiting_confirm", t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adapter != null) {
+            adapter.release();
+        }
+    }
+
+    @Override
+    public void onOrderClick() {
+        if (orders.size() == 0 || orders == null) {
+            binding.imgEmpty.setVisibility(View.VISIBLE);
+            binding.tvTitle.setVisibility(View.VISIBLE);
+        }
     }
 }

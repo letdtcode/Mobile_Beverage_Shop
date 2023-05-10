@@ -36,6 +36,7 @@
 
             <TextView
                 android:id="@+id/tvNameUser"
+                android:text="username"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="start"

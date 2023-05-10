@@ -28,7 +28,6 @@ import com.iostar.beverageshop.activity.user.PersonalActivity;
 import com.iostar.beverageshop.adapter.user.CategoryHomeAdapter;
 import com.iostar.beverageshop.adapter.user.ProductHomeAdapter;
 import com.iostar.beverageshop.databinding.FragmentHomeBinding;
-import com.iostar.beverageshop.inteface.user.IClickItemProductListener;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
@@ -54,6 +53,7 @@ public class HomeFragment extends Fragment {
     private List<Category> categoryList;
     private List<Product> productList;
     private ProductHomeAdapter productHomeAdapter;
+    private CategoryHomeAdapter categoryHomeAdapter;
     private List<Size> sizeList;
     private List<Topping> toppingList;
 
@@ -139,7 +139,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
                 categoryList = response.body();
-                CategoryHomeAdapter categoryHomeAdapter = new CategoryHomeAdapter(categoryList);
+                categoryHomeAdapter = new CategoryHomeAdapter(categoryList, getActivity());
                 binding.rcvCategory.setAdapter(categoryHomeAdapter);
             }
 
@@ -190,22 +190,14 @@ public class HomeFragment extends Fragment {
         });
     }
 
-//    @Override
-//    public void onClickItemProduct(Product product) {
-//        Intent intent = new Intent(getActivity(), DetailProductActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("object_product", product);
-//        bundle.putSerializable("size_list", (Serializable) sizeList);
-//        bundle.putSerializable("topping_list", (Serializable) toppingList);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//    }
-
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//        if (productHomeAdapter != null) {
-//            productHomeAdapter.release();
-//        }
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (productHomeAdapter != null) {
+            productHomeAdapter.release();
+        }
+        if (categoryHomeAdapter != null) {
+            categoryHomeAdapter.release();
+        }
+    }
 }

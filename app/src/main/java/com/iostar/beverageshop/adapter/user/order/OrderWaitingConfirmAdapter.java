@@ -12,9 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.activity.user.OrderDetailActivity;
-import com.iostar.beverageshop.activity.user.PersonalActivity;
 import com.iostar.beverageshop.databinding.ItemOrderWaitingConfirmBinding;
-import com.iostar.beverageshop.inteface.user.IOnApproveOrderClickListener;
+import com.iostar.beverageshop.inteface.IOnApproveOrderClickListener;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.model.OrderItem;
 import com.iostar.beverageshop.service.BaseAPIService;

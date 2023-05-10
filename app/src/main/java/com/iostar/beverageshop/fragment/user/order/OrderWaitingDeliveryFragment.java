@@ -43,23 +43,10 @@ public class OrderWaitingDeliveryFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding.rvOrderWaitingDelivery.setHasFixedSize(true);
         binding.rvOrderWaitingDelivery.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-        getDataOrderWaitingConfirm();
+        getDataOrderWaitingDelivery();
     }
 
-    private void getDataOrderWaitingConfirm() {
-//        getParentFragmentManager().setFragmentResultListener("toOrderWaitingDelivery", this, new FragmentResultListener() {
-//            @Override
-//            public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle result) {
-//                orders = (List<Order>) result.getSerializable("orders_waiting_delivery");
-//                if (orders.size() > 0) {
-//                    adapter = new OrderWaitingDeliveryAdapter(orders, getActivity());
-//                    binding.rvOrderWaitingDelivery.setAdapter(adapter);
-//                } else {
-//                    binding.imgEmpty.setVisibility(View.VISIBLE);
-//                    binding.tvTitle.setVisibility(View.VISIBLE);
-//                }
-//            }
-//        });
+    private void getDataOrderWaitingDelivery() {
         Long userId = DataLocalManager.getUser().getId();
         BaseAPIService.createService(IOrderService.class).getListOrderWaitingDeliveryOfUser(userId).enqueue(new Callback<List<Order>>() {
             @Override
@@ -79,6 +66,22 @@ public class OrderWaitingDeliveryFragment extends Fragment {
                 Log.e("orders_waiting_confirm", t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        binding.imgEmpty.setVisibility(View.INVISIBLE);
+        binding.tvTitle.setVisibility(View.INVISIBLE);
+        if (adapter != null) {
+            adapter.release();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getDataOrderWaitingDelivery();
     }
 
     @Override

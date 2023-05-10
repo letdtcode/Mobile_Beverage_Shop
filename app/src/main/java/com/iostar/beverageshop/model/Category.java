@@ -6,6 +6,14 @@ public class Category implements Serializable {
     private Long id;
     private String categoryName;
     private String description;
+    private String pathImg;
+
+    public Category(Long id, String categoryName, String description, String pathImg) {
+        this.id = id;
+        this.categoryName = categoryName;
+        this.description = description;
+        this.pathImg = pathImg;
+    }
 
     public Long getId() {
         return id;
@@ -29,5 +37,13 @@ public class Category implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPathImg() {
+        return pathImg;
+    }
+
+    public void setPathImg(String pathImg) {
+        this.pathImg = pathImg;
     }
 }

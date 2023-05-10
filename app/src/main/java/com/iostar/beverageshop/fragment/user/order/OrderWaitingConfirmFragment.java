@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.adapter.user.order.OrderWaitingConfirmAdapter;
 import com.iostar.beverageshop.databinding.FragmentOrderWaitingConfirmBinding;
-import com.iostar.beverageshop.inteface.user.IOnApproveOrderClickListener;
+import com.iostar.beverageshop.inteface.IOnApproveOrderClickListener;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
