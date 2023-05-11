@@ -16,42 +16,42 @@ import com.iostar.beverageshop.fragment.staff.StaffOrderFragment;
 import nl.joery.animatedbottombar.AnimatedBottomBar;
 
 public class StaffActivity extends AppCompatActivity {
-    private ActivityStaffBinding binding;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = ActivityStaffBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        initialView();
-    }
-
-    private void initialView() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        transaction.replace(binding.fragmentContainer.getId(), new StaffHomeFragment());
-        transaction.commit();
-
-        binding.bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
-            @Override
-            public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NonNull AnimatedBottomBar.Tab newtab) {
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                switch (newtab.getId()) {
-                    case R.id.tab_home:
-                        transaction.replace(binding.fragmentContainer.getId(), new StaffHomeFragment());
-                        break;
-                    case R.id.tab_order:
-                        transaction.replace(binding.fragmentContainer.getId(), new StaffOrderFragment());
-                        break;
-                }
-                transaction.commit();
-            }
-
-            @Override
-            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
-
-            }
-        });
-    }
+//    private ActivityStaffBinding binding;
+//
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        binding = ActivityStaffBinding.inflate(getLayoutInflater());
+//        setContentView(binding.getRoot());
+//        initialView();
+//    }
+//
+//    private void initialView() {
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//
+//        transaction.replace(binding.fragmentContainer.getId(), new StaffHomeFragment());
+//        transaction.commit();
+//
+//        binding.bottomBar.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+//            @Override
+//            public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NonNull AnimatedBottomBar.Tab newtab) {
+//                FragmentTransaction transaction = fragmentManager.beginTransaction();
+//                switch (newtab.getId()) {
+//                    case R.id.tab_home:
+//                        transaction.replace(binding.fragmentContainer.getId(), new StaffHomeFragment());
+//                        break;
+//                    case R.id.tab_order:
+//                        transaction.replace(binding.fragmentContainer.getId(), new StaffOrderFragment());
+//                        break;
+//                }
+//                transaction.commit();
+//            }
+//
+//            @Override
+//            public void onTabReselected(int i, @NonNull AnimatedBottomBar.Tab tab) {
+//
+//            }
+//        });
+//    }
 }
