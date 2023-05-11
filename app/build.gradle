@@ -70,4 +70,7 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:3.7.0'
     implementation 'nl.joery.animatedbottombar:library:1.1.0'
+
+    implementation 'me.relex:circleindicator:2.1.6'
+
 }

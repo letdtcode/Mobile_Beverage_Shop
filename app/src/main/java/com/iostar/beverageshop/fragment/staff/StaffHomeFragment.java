@@ -31,78 +31,78 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class StaffHomeFragment extends Fragment implements IOnItemProductListener {
-//    private FragmentStaffHomeBinding binding;
-//    private List<Product> productListAll;
-//    private List<Category> categoryListAll;
-//    private ProductHomeStaffAdapter productAdapter;
-//
-//    private boolean isProductListAllLoaded = false;
-//    private boolean isCategoryListAllLoaded = false;
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        binding = FragmentStaffHomeBinding.inflate(inflater, container, false);
-//        return binding.getRoot();
-//    }
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        productListAll = new ArrayList<>();
-//        categoryListAll = new ArrayList<>();
-//        binding.rvStaffProduct.setHasFixedSize(true);
-//        binding.rvStaffProduct.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
-//
-//        getAllCategories();
-//        getAllProduct();
-//    }
-//
-//    private void checkIfDataLoaded() {
-//        if (isProductListAllLoaded && isCategoryListAllLoaded) {
-//            productAdapter = new ProductHomeStaffAdapter(productListAll, categoryListAll, getActivity(), this);
-//            binding.rvStaffProduct.setAdapter(productAdapter);
-//        }
-//    }
-//
-//    private void getAllProduct() {
-//        BaseAPIService.createService(IProductService.class).getInfoAllProduct().enqueue(new Callback<List<Product>>() {
-//            @Override
-//            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
-//                productListAll = response.body();
-//                isProductListAllLoaded = true;
-//                checkIfDataLoaded();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Product>> call, Throwable t) {
-//                Log.e("staff_get_product", t.getMessage());
-//            }
-//        });
-//    }
-//
-//    private void getAllCategories() {
-//        BaseAPIService.createService(ICategoryService.class).getAllCategories().enqueue(new Callback<List<Category>>() {
-//            @Override
-//            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-//                categoryListAll = response.body();
-//                isCategoryListAllLoaded = true;
-//                checkIfDataLoaded();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Category>> call, Throwable t) {
-//                Log.e("staff_get_cate", t.getMessage());
-//            }
-//        });
-//    }
-//
-//    @Override
-//    public void onClickItemProduct(Product product) {
-//        Intent intent = new Intent(getActivity(), DetailProductStaffActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("object_product", product);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-//    }
+    private FragmentStaffHomeBinding binding;
+    private List<Product> productListAll;
+    private List<Category> categoryListAll;
+    private ProductHomeStaffAdapter productAdapter;
+
+    private boolean isProductListAllLoaded = false;
+    private boolean isCategoryListAllLoaded = false;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentStaffHomeBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        productListAll = new ArrayList<>();
+        categoryListAll = new ArrayList<>();
+        binding.rvStaffProduct.setHasFixedSize(true);
+        binding.rvStaffProduct.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
+
+        getAllCategories();
+        getAllProduct();
+    }
+
+    private void checkIfDataLoaded() {
+        if (isProductListAllLoaded && isCategoryListAllLoaded) {
+            productAdapter = new ProductHomeStaffAdapter(productListAll, categoryListAll, getActivity(), this);
+            binding.rvStaffProduct.setAdapter(productAdapter);
+        }
+    }
+
+    private void getAllProduct() {
+        BaseAPIService.createService(IProductService.class).getInfoAllProduct().enqueue(new Callback<List<Product>>() {
+            @Override
+            public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
+                productListAll = response.body();
+                isProductListAllLoaded = true;
+                checkIfDataLoaded();
+            }
+
+            @Override
+            public void onFailure(Call<List<Product>> call, Throwable t) {
+                Log.e("staff_get_product", t.getMessage());
+            }
+        });
+    }
+
+    private void getAllCategories() {
+        BaseAPIService.createService(ICategoryService.class).getAllCategories().enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                categoryListAll = response.body();
+                isCategoryListAllLoaded = true;
+                checkIfDataLoaded();
+            }
+
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                Log.e("staff_get_cate", t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void onClickItemProduct(Product product) {
+        Intent intent = new Intent(getActivity(), DetailProductStaffActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_product", product);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

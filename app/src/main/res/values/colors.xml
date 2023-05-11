@@ -15,6 +15,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primaryColor">#E3B37A</color>
+    <color name="gray">#94938E</color>
 
     <color name="color_selected_bottom_nav">#C28E79</color>
 </resources>

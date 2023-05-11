@@ -8,11 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.iostar.beverageshop.NotificationFragment;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.databinding.ActivityMainBinding;
 import com.iostar.beverageshop.fragment.user.FavoriteFragment;
 import com.iostar.beverageshop.fragment.user.HomeFragment;
-import com.iostar.beverageshop.fragment.user.OrderFragment;
 import com.iostar.beverageshop.fragment.user.ProfileFragment;
 
 import nl.joery.animatedbottombar.AnimatedBottomBar;
@@ -46,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
                         transaction.replace(R.id.fragment_container, new HomeFragment());
                         break;
 
-                    case R.id.tab_order:
-                        transaction.replace(R.id.fragment_container, new OrderFragment());
-                        break;
-
                     case R.id.tab_favorite:
                         transaction.replace(R.id.fragment_container, new FavoriteFragment());
+                        break;
+
+                    case R.id.tab_notification:
+                        transaction.replace(R.id.fragment_container, new NotificationFragment());
                         break;
 
                     case R.id.tab_profile:

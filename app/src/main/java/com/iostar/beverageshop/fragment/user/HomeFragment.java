@@ -4,6 +4,8 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +28,11 @@ import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.activity.user.DetailProductActivity;
 import com.iostar.beverageshop.activity.user.ListProductActivity;
 import com.iostar.beverageshop.activity.user.PersonalActivity;
+import com.iostar.beverageshop.adapter.BannerAdapter;
 import com.iostar.beverageshop.adapter.user.CategoryHomeAdapter;
 import com.iostar.beverageshop.adapter.user.ProductHomeAdapter;
 import com.iostar.beverageshop.databinding.FragmentHomeBinding;
+import com.iostar.beverageshop.model.Banner;
 import com.iostar.beverageshop.model.Category;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.model.Size;
@@ -44,6 +48,8 @@ import com.iostar.beverageshop.storage.DataLocalManager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,23 +64,23 @@ public class HomeFragment extends Fragment {
     private List<Size> sizeList;
     private List<Topping> toppingList;
 
-    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == RESULT_OK) {
-                        Intent intent = result.getData();
-                        String imgAvatarCallBack = intent.getStringExtra("data_result");
-                        loadImgAvatarUser(imgAvatarCallBack);
-                    }
-                }
+    private List<Banner> bannerList;
+    private BannerAdapter bannerAdapter;
+    private Timer timer;
+
+    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                Intent intent = result.getData();
+                String imgAvatarCallBack = intent.getStringExtra("data_result");
+                loadImgAvatarUser(imgAvatarCallBack);
             }
-    );
+        }
+    });
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
@@ -89,11 +95,58 @@ public class HomeFragment extends Fragment {
         binding.rcvProduct.setHasFixedSize(true);
         binding.rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
+        initialBanner();
         getAllCategories();
         getAllProduct();
         getInfoSizeOfProduct();
         getInfoTopping();
         setEvent();
+    }
+
+    private void initialBanner() {
+        bannerAdapter = new BannerAdapter(getActivity(), getListBanner());
+        binding.pagerBanner.setAdapter(bannerAdapter);
+        binding.circleIndicator.setViewPager(binding.pagerBanner);
+        bannerAdapter.registerDataSetObserver(binding.circleIndicator.getDataSetObserver());
+        autoSlideBanner();
+    }
+
+    private void autoSlideBanner() {
+        if (bannerList == null || bannerList.isEmpty() || binding.pagerBanner == null) {
+            return;
+        }
+        if (timer == null) {
+            timer = new Timer();
+        }
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int currentItem = binding.pagerBanner.getCurrentItem();
+                        int totalItem = bannerList.size() - 1;
+                        if (currentItem < totalItem) {
+                            currentItem++;
+                            binding.pagerBanner.setCurrentItem(currentItem);
+                        } else {
+                            binding.pagerBanner.setCurrentItem(0);
+                        }
+                    }
+                });
+            }
+        }, 500, 3000);
+    }
+
+    private List<Banner> getListBanner() {
+        bannerList = new ArrayList<>();
+        bannerList.add(new Banner(R.drawable.banner1));
+        bannerList.add(new Banner(R.drawable.banner2));
+        bannerList.add(new Banner(R.drawable.banner3));
+        bannerList.add(new Banner(R.drawable.banner4));
+        bannerList.add(new Banner(R.drawable.banner5));
+        bannerList.add(new Banner(R.drawable.banner6));
+        return bannerList;
     }
 
     private void setEvent() {
@@ -208,6 +261,10 @@ public class HomeFragment extends Fragment {
         }
         if (categoryHomeAdapter != null) {
             categoryHomeAdapter.release();
+        }
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
         }
     }
 }

@@ -37,11 +37,17 @@ public class DataLocalManager {
         return authResponse;
     }
 
+    public static void deleteInfo() {
+        DataLocalManager.getInstance().mySharedPreference.putStringValue(KEY_USER, null);
+        DataLocalManager.getInstance().mySharedPreference.putStringValue(KEY_AUTH_TOKEN, null);
+    }
+
     public static void saveUser(User user) {
         Gson gson = new Gson();
         String jsonUser = gson.toJson(user);
         DataLocalManager.getInstance().mySharedPreference.putStringValue(KEY_USER, jsonUser);
     }
+
     public static User getUser() {
         String jsonUser = DataLocalManager.getInstance().mySharedPreference.getStringValue(KEY_USER);
         Gson gson = new Gson();

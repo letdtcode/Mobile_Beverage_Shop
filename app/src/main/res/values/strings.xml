@@ -12,7 +12,7 @@
     <string name="title_productmanage">Product Management</string>
     <string name="title_changepass">Change password</string>
     <string name="title_billmanage">Bill Management</string>
-    <string name="title_logout">Logout</string>
+    <string name="title_logout">Đăng Xuất</string>
     <string name="facebook_app_id">1143565013258952</string>
     <string name="fb_login_protocol_scheme">fb1143565013258952</string>
     <string name="facebook_client_token">fd75d609f0de3abd859d3a174776faa6</string>
@@ -22,4 +22,8 @@
     <string name="subtitle_splashscreen">BEANS</string>
     <string name="input_search_hint">Tìm kiếm</string>
     <string name="category">Category</string>
+    <string name="contact_switchboard">18006936</string>
+    <string name="contact_email">hi@thecoffehouse.com</string>
+    <string name="contatc_website">http://www.thecofehouse.com</string>
+    <string name="contact_facebook">facebook.com/TheCoffe.House.2014</string>
 </resources>
