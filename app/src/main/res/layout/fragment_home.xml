@@ -36,11 +36,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
-            app:cardCornerRadius="20dp"
             android:layout_marginEnd="16dp"
+            app:cardCornerRadius="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/edSearch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/edSearch">
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
                 android:layout_width="40dp"
@@ -48,27 +49,27 @@
                 android:src="@drawable/user_icon" />
         </androidx.cardview.widget.CardView>
 
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rvBanner"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/edSearch" />-->
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+        <!--            android:id="@+id/rvBanner"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/edSearch" />-->
 
-<!--        <androidx.viewpager2.widget.ViewPager2-->
-<!--            android:id="@+id/pagerBanner"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="@dimen/_140sdp"-->
-<!--            android:layout_marginStart="8dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="8dp"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/edSearch"/>-->
+        <!--        <androidx.viewpager2.widget.ViewPager2-->
+        <!--            android:id="@+id/pagerBanner"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="@dimen/_140sdp"-->
+        <!--            android:layout_marginStart="8dp"-->
+        <!--            android:layout_marginTop="16dp"-->
+        <!--            android:layout_marginEnd="8dp"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/edSearch"/>-->
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pagerBanner"
@@ -79,19 +80,31 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edSearch"/>
+            app:layout_constraintTop_toBottomOf="@+id/edSearch" />
 
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/circle_indicator"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_23sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center_horizontal"
             app:ci_drawable="@drawable/custom_indicator_selected"
             app:ci_drawable_unselected="@drawable/custom_indicator_unselected"
-            app:layout_constraintTop_toBottomOf="@+id/pagerBanner"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:gravity="center_horizontal"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pagerBanner" />
+
+        <TextView
+            android:id="@+id/tvAllCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="Xem thêm"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintBottom_toTopOf="@+id/rcvCategory"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvCategory"
@@ -105,6 +118,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/circle_indicator" />
 
+        <TextView
+            android:id="@+id/tvAllProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/manrope_regular"
+            android:text="Xem thêm"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp"
+            app:layout_constraintTop_toBottomOf="@+id/rcvCategory"
+            app:layout_constraintBottom_toTopOf="@+id/rcvProduct"
+            app:layout_constraintEnd_toEndOf="parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvProduct"
             android:layout_width="match_parent"
@@ -115,7 +141,7 @@
             android:overScrollMode="never"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rcvCategory" />
+            app:layout_constraintTop_toBottomOf="@+id/tvAllProduct" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

@@ -2,23 +2,22 @@ package com.iostar.beverageshop.adapter.user;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.iostar.beverageshop.databinding.ItemCategoryHomeBinding;
+import com.iostar.beverageshop.databinding.ItemCategoryShowAllBinding;
 import com.iostar.beverageshop.model.Category;
 
 import java.util.List;
 
-public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapter.CategoryHomeViewHolder> {
-
+public class CategoyViewAllAdapter extends RecyclerView.Adapter<CategoyViewAllAdapter.CategoryViewAllViewHolder> {
     private final List<Category> categoryList;
     private Context mContext;
-    private OnItemCategoryClickListener listener;
+
+    private CategoryHomeAdapter.OnItemCategoryClickListener listener;
 
     //    Interface
     public interface OnItemCategoryClickListener {
@@ -26,33 +25,33 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
     }
 
     //    Method
-    public void setOnItemClickListener(OnItemCategoryClickListener clickListener) {
+    public void setOnItemClickListener(CategoryHomeAdapter.OnItemCategoryClickListener clickListener) {
         listener = clickListener;
     }
 
-    public CategoryHomeAdapter(List<Category> categoryList, Context mContext) {
+    public CategoyViewAllAdapter(List<Category> categoryList, Context mContext) {
         this.categoryList = categoryList;
         this.mContext = mContext;
     }
 
     @NonNull
     @Override
-    public CategoryHomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemCategoryHomeBinding binding = ItemCategoryHomeBinding.inflate(
+    public CategoryViewAllViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemCategoryShowAllBinding binding = ItemCategoryShowAllBinding.inflate(
                 LayoutInflater.from(parent.getContext()),
                 parent,
                 false
         );
-        return new CategoryHomeViewHolder(binding, listener);
+        return new CategoyViewAllAdapter.CategoryViewAllViewHolder(binding,listener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryHomeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewAllViewHolder holder, int position) {
         Category category = categoryList.get(position);
         if (category == null) {
             return;
         }
-        holder.binding.tvCategory.setText(category.getCategoryName());
+        holder.binding.tvCategoryName.setText(category.getCategoryName());
         Glide.with(mContext).load(category.getPathImg()).into(holder.binding.imgCategory);
     }
 
@@ -64,12 +63,12 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
         return 0;
     }
 
-    public static class CategoryHomeViewHolder extends RecyclerView.ViewHolder {
-        private final ItemCategoryHomeBinding binding;
+    public static class CategoryViewAllViewHolder extends RecyclerView.ViewHolder {
+        private final ItemCategoryShowAllBinding binding;
 
-        public CategoryHomeViewHolder(ItemCategoryHomeBinding itemCategoryHomeBinding, OnItemCategoryClickListener listener) {
-            super(itemCategoryHomeBinding.getRoot());
-            binding = itemCategoryHomeBinding;
+        public CategoryViewAllViewHolder(ItemCategoryShowAllBinding itemCategoryShowAllBinding, CategoryHomeAdapter.OnItemCategoryClickListener listener) {
+            super(itemCategoryShowAllBinding.getRoot());
+            binding = itemCategoryShowAllBinding;
 
             binding.cardViewCategory.setOnClickListener(v -> listener.onItemClick(getAdapterPosition()));
         }
@@ -77,6 +76,6 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
 
     public void release() {
         mContext = null;
-        listener = null;
     }
+
 }

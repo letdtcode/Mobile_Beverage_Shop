@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.iostar.beverageshop.NotificationFragment;
+import com.iostar.beverageshop.fragment.user.NotificationFragment;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.databinding.ActivityMainBinding;
 import com.iostar.beverageshop.fragment.user.FavoriteFragment;

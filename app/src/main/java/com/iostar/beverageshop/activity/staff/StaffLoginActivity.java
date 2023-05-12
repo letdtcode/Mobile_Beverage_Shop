@@ -1,4 +1,4 @@
-package com.iostar.beverageshop;
+package com.iostar.beverageshop.activity.staff;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.iostar.beverageshop.activity.staff.StaffActivity;
 import com.iostar.beverageshop.databinding.ActivityStaffLoginBinding;
 import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.model.request.LoginRequest;

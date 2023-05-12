@@ -72,5 +72,5 @@ dependencies {
     implementation 'nl.joery.animatedbottombar:library:1.1.0'
 
     implementation 'me.relex:circleindicator:2.1.6'
-
+    implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.9.0'
 }

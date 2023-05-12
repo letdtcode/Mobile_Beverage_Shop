@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F6FA"
-    tools:context=".activity.user.ListProductActivity">
+    tools:context=".activity.user.ShowAllCategoryActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -28,11 +28,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvNameCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_semibold"
-            android:text="Loại sản phẩm"
+            android:text="Danh mục"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/imgBack"
@@ -60,7 +59,7 @@
             android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvListProduct"
+                android:id="@+id/rcvCategoryViewAll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -95,7 +94,7 @@
         android:layout_marginBottom="@dimen/_35sdp"
         android:fontFamily="@font/manrope_semibold"
         android:gravity="center"
-        android:text="Hiện tại danh mục này chưa có sản phẩm :'(("
+        android:text="Hiện tại chưa có danh mục nào hết :'("
         android:textColor="@color/black"
         android:textSize="18sp"
         android:visibility="invisible"

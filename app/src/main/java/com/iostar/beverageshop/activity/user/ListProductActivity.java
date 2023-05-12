@@ -48,6 +48,7 @@ public class ListProductActivity extends AppCompatActivity {
 
     private void initial() {
         String categoryName = getIntent().getStringExtra("category_name");
+        binding.tvNameCategory.setText(categoryName);
         BaseAPIService.createService(IProductService.class).getProductsByCategoryName(categoryName).enqueue(new Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {

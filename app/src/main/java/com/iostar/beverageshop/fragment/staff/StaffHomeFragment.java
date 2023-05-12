@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.iostar.beverageshop.DetailProductStaffActivity;
+import com.iostar.beverageshop.activity.staff.DetailProductStaffActivity;
 import com.iostar.beverageshop.adapter.staff.ProductHomeStaffAdapter;
 import com.iostar.beverageshop.databinding.FragmentStaffHomeBinding;
 import com.iostar.beverageshop.inteface.staff.IOnItemProductListener;

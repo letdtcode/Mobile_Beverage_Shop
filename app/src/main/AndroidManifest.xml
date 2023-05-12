@@ -28,14 +28,35 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".OrderActivity"
+            android:name=".ShowAllProductActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ContactActivity"
+            android:name=".ChangePasswordActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.user.ShowAllCategoryActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.user.OrderActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.user.ContactActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -49,14 +70,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".DetailProductStaffActivity"
+            android:name=".activity.staff.DetailProductStaffActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".StaffLoginActivity"
+            android:name=".activity.staff.StaffLoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -1,7 +1,5 @@
 package com.iostar.beverageshop.fragment.user;
 
-import static android.app.Activity.RESULT_OK;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,10 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.R;
+import com.iostar.beverageshop.ShowAllProductActivity;
+import com.iostar.beverageshop.activity.user.ShowAllCategoryActivity;
 import com.iostar.beverageshop.activity.user.DetailProductActivity;
 import com.iostar.beverageshop.activity.user.ListProductActivity;
 import com.iostar.beverageshop.activity.user.PersonalActivity;
@@ -43,6 +39,7 @@ import com.iostar.beverageshop.service.ICategoryService;
 import com.iostar.beverageshop.service.IProductService;
 import com.iostar.beverageshop.service.ISizeService;
 import com.iostar.beverageshop.service.IToppingService;
+import com.iostar.beverageshop.service.IUserService;
 import com.iostar.beverageshop.storage.DataLocalManager;
 
 import java.io.Serializable;
@@ -68,16 +65,16 @@ public class HomeFragment extends Fragment {
     private BannerAdapter bannerAdapter;
     private Timer timer;
 
-    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if (result.getResultCode() == RESULT_OK) {
-                Intent intent = result.getData();
-                String imgAvatarCallBack = intent.getStringExtra("data_result");
-                loadImgAvatarUser(imgAvatarCallBack);
-            }
-        }
-    });
+//    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+//        @Override
+//        public void onActivityResult(ActivityResult result) {
+//            if (result.getResultCode() == RESULT_OK) {
+//                Intent intent = result.getData();
+//                String imgAvatarCallBack = intent.getStringExtra("data_result");
+//                loadImgAvatarUser(imgAvatarCallBack);
+//            }
+//        }
+//    });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -96,11 +93,41 @@ public class HomeFragment extends Fragment {
         binding.rcvProduct.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
         initialBanner();
+        reloadInfoUser();
         getAllCategories();
         getAllProduct();
         getInfoSizeOfProduct();
         getInfoTopping();
         setEvent();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        reloadInfoUser();
+    }
+
+    private void reloadInfoUser() {
+        Long userId = DataLocalManager.getUser().getId();
+        BaseAPIService.createService(IUserService.class).getInfoUserById(userId).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                User user = response.body();
+                if (user != null)
+                    DataLocalManager.saveUser(user);
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("error", t.getMessage());
+            }
+        });
+        String avatarUrl = DataLocalManager.getUser().getAvatar();
+        if (avatarUrl == null || avatarUrl.equals("")) {
+            Glide.with(getActivity()).load(R.drawable.avatar_default).into(binding.imgProfile);
+        } else {
+            Glide.with(getActivity()).load(avatarUrl).into(binding.imgProfile);
+        }
     }
 
     private void initialBanner() {
@@ -158,19 +185,31 @@ public class HomeFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("object_user", user);
                 intent.putExtras(bundle);
-//                startActivity(intent);
-                mActivityResultLauncher.launch(intent);
+                startActivity(intent);
+//                mActivityResultLauncher.launch(intent);
+            }
+        });
+        binding.tvAllCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ShowAllCategoryActivity.class));
+            }
+        });
+        binding.tvAllProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ShowAllProductActivity.class));
             }
         });
     }
 
-    private void loadImgAvatarUser(String avatarUrl) {
-        if (avatarUrl == null || avatarUrl == "") {
-            Glide.with(getActivity()).load(R.drawable.avatar_default).into(binding.imgProfile);
-        } else {
-            Glide.with(getActivity()).load(avatarUrl).into(binding.imgProfile);
-        }
-    }
+//    private void loadImgAvatarUser(String avatarUrl) {
+//        if (avatarUrl == null || avatarUrl == "") {
+//            Glide.with(getActivity()).load(R.drawable.avatar_default).into(binding.imgProfile);
+//        } else {
+//            Glide.with(getActivity()).load(avatarUrl).into(binding.imgProfile);
+//        }
+//    }
 
     private void getAllProduct() {
         BaseAPIService.createService(IProductService.class).getInfoAllProductCurrentUse().enqueue(new Callback<List<Product>>() {

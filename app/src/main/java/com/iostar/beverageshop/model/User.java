@@ -1,13 +1,14 @@
 package com.iostar.beverageshop.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.List;
 
 public class User implements Serializable {
     private Long id;
 
     private String userName;
+
+    private String password;
 
     private String firstName;
 
@@ -27,9 +28,18 @@ public class User implements Serializable {
 
     private List<String> roles;
 
-    public User(Long id, String userName, String firstName, String lastName, Integer gender, String dateOfBirth, String mail, String address, String phone, String avatar, List<String> roles) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public User(Long id, String userName, String password, String firstName, String lastName, Integer gender, String dateOfBirth, String mail, String address, String phone, String avatar, List<String> roles) {
         this.id = id;
         this.userName = userName;
+        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;

@@ -135,9 +135,9 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                startActivity(new Intent(PersonalActivity.this, MainActivity.class));
-                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
-                intent.putExtra("data_result", DataLocalManager.getUser().getAvatar());
-                setResult(RESULT_OK, intent);
+//                Intent intent = new Intent(PersonalActivity.this, MainActivity.class);
+//                intent.putExtra("data_result", DataLocalManager.getUser().getAvatar());
+//                setResult(RESULT_OK, intent);
                 finish();
             }
         });

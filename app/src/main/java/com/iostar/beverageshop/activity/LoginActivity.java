@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.iostar.beverageshop.StaffLoginActivity;
+import com.iostar.beverageshop.activity.staff.StaffLoginActivity;
 import com.iostar.beverageshop.activity.user.MainActivity;
 import com.iostar.beverageshop.databinding.ActivityLoginBinding;
 import com.iostar.beverageshop.model.User;
@@ -85,7 +85,6 @@ public class LoginActivity extends AppCompatActivity {
                 User user = response.body();
                 if (user != null)
                     DataLocalManager.saveUser(user);
-                Log.e("img", DataLocalManager.getUser().getId().toString());
             }
 
             @Override

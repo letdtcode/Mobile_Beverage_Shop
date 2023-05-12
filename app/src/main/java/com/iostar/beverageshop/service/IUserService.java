@@ -26,4 +26,7 @@ public interface IUserService {
     @Multipart
     @PUT("client/user/img/{id}")
     Call<User> updateImageUser(@Part MultipartBody.Part file, @Path("id") Long id);
+
+    @PUT("client/user/changepass")
+    Call<User> changePassword(@Query("mail") String mail, @Query("newPass") String newPass);
 }

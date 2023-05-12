@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F6FA"
-    tools:context=".activity.user.ListProductActivity">
+    tools:context=".ShowAllProductActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -28,11 +28,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvNameCategory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/manrope_semibold"
-            android:text="Loại sản phẩm"
+            android:text="Danh sách sản phẩm"
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/imgBack"
@@ -42,6 +41,19 @@
             app:layout_constraintTop_toTopOf="@+id/imgBack"
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_8sdp"
+        android:background="@drawable/bg_search_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/nestedScrollView"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:queryHint="Tìm kiếm sản phẩm"
+        app:iconifiedByDefault="false"/>
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
@@ -53,7 +65,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -95,7 +107,7 @@
         android:layout_marginBottom="@dimen/_35sdp"
         android:fontFamily="@font/manrope_semibold"
         android:gravity="center"
-        android:text="Hiện tại danh mục này chưa có sản phẩm :'(("
+        android:text="Hiện tại chưa có sản phẩm nào hết :'("
         android:textColor="@color/black"
         android:textSize="18sp"
         android:visibility="invisible"

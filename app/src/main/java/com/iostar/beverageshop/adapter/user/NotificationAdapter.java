@@ -1,4 +1,4 @@
-package com.iostar.beverageshop.adapter;
+package com.iostar.beverageshop.adapter.user;
 
 import android.content.Context;
 import android.view.LayoutInflater;
