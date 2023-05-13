@@ -1,5 +1,6 @@
 package com.iostar.beverageshop.service;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.iostar.beverageshop.model.Notification;
 
@@ -33,5 +34,5 @@ public interface INotificationService {
     Call<Notification> createNotification(@Part MultipartBody.Part file, @Part("model") RequestBody jsonBody);
 
     @PUT("staff/notifications/changestatus")
-    Call<List<Notification>> updateStatus(@Body JsonObject jsonListNotification);
+    Call<List<Notification>> updateStatus(@Body JsonArray jsonListNotification);
 }

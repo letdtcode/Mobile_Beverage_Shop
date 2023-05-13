@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.iostar.beverageshop.adapter.staff.NotificationStaffAdapter;
 import com.iostar.beverageshop.adapter.user.ProductHomeAdapter;
@@ -22,6 +23,8 @@ import com.iostar.beverageshop.model.request.LoginRequest;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.INotificationService;
 import com.iostar.beverageshop.utils.ToastUtils;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +58,12 @@ public class StaffShowAllNotificationFragment extends Fragment {
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                JsonObject jsonNotificationList = new Gson().toJsonTree(notificationList).getAsJsonObject();
+//                JsonObject jsonNotificationList = new Gson().toJsonTree(notificationList).getAsJsonObject();
+                JsonArray jsonNotificationList = new JsonArray();
+                for (Notification item : notificationList) {
+                    JsonObject itemObject = new Gson().toJsonTree(item).getAsJsonObject();
+                    jsonNotificationList.add(itemObject);
+                }
                 BaseAPIService.createService(INotificationService.class).updateStatus(jsonNotificationList).enqueue(new Callback<List<Notification>>() {
                     @Override
                     public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
