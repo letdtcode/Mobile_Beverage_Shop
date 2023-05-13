@@ -1,4 +1,4 @@
-package com.iostar.beverageshop.fragment.staff;
+package com.iostar.beverageshop.fragment.staff.notification;
 
 import android.content.res.Resources;
 import android.os.Bundle;

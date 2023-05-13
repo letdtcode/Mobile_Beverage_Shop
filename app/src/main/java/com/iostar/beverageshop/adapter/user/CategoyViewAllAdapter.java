@@ -70,7 +70,7 @@ public class CategoyViewAllAdapter extends RecyclerView.Adapter<CategoyViewAllAd
             super(itemCategoryShowAllBinding.getRoot());
             binding = itemCategoryShowAllBinding;
 
-            binding.cardViewCategory.setOnClickListener(v -> listener.onItemClick(getAdapterPosition()));
+            binding.cardViewCategory.setOnClickListener(v -> listener.onItemClick(getBindingAdapterPosition()));
         }
     }
 

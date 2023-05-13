@@ -1,17 +1,18 @@
 package com.iostar.beverageshop.activity.staff;
 
+import android.os.Bundle;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.os.Bundle;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.iostar.beverageshop.fragment.staff.StaffShowAllNotificationFragment;
 import com.iostar.beverageshop.adapter.ViewPagerAdapter;
 import com.iostar.beverageshop.databinding.ActivityStaffNotifiManageBinding;
-import com.iostar.beverageshop.fragment.staff.StaffAddNotificationFragment;
+import com.iostar.beverageshop.fragment.staff.notification.StaffAddNotificationFragment;
+import com.iostar.beverageshop.fragment.staff.notification.StaffShowAllNotificationFragment;
 
 import java.util.ArrayList;
 
@@ -26,8 +27,18 @@ public class StaffNotifiManageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityStaffNotifiManageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        
+
         initial();
+        setEvent();
+    }
+
+    private void setEvent() {
+        binding.imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initial() {

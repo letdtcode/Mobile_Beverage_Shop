@@ -100,8 +100,8 @@ public class OrderWaitingConfirmStaffAdapter extends RecyclerView.Adapter<OrderW
                         Log.e("acceptToDelivery", t.getMessage());
                     }
                 });
-                orders.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
+                orders.remove(holder.getBindingAdapterPosition());
+                notifyItemRemoved(holder.getBindingAdapterPosition());
                 onApproveOrderClickListener.onOrderClick();
             }
         });
@@ -121,8 +121,8 @@ public class OrderWaitingConfirmStaffAdapter extends RecyclerView.Adapter<OrderW
                         Log.e("canceled_order", t.getMessage());
                     }
                 });
-                orders.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
+                orders.remove(holder.getBindingAdapterPosition());
+                notifyItemRemoved(holder.getBindingAdapterPosition());
                 onApproveOrderClickListener.onOrderClick();
             }
         });

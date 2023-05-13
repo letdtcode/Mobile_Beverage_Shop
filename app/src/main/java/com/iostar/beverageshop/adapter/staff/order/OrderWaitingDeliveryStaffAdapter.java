@@ -101,8 +101,8 @@ public class OrderWaitingDeliveryStaffAdapter extends RecyclerView.Adapter<Order
                         Log.e("canceled_order", t.getMessage());
                     }
                 });
-                orders.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
+                orders.remove(holder.getBindingAdapterPosition());
+                notifyItemRemoved(holder.getBindingAdapterPosition());
                 onApproveOrderClickListener.onOrderClick();
             }
         });

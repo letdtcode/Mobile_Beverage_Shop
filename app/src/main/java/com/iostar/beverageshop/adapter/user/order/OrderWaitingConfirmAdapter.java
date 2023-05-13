@@ -100,8 +100,8 @@ public class OrderWaitingConfirmAdapter extends RecyclerView.Adapter<OrderWaitin
                         Log.e("cancel_order", t.getMessage());
                     }
                 });
-                orders.remove(holder.getAdapterPosition());
-                notifyItemRemoved(holder.getAdapterPosition());
+                orders.remove(holder.getBindingAdapterPosition());
+                notifyItemRemoved(holder.getBindingAdapterPosition());
                 onApproveOrderClickListener.onOrderClick();
             }
         });

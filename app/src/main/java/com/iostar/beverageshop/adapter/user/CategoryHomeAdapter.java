@@ -1,6 +1,7 @@
 package com.iostar.beverageshop.adapter.user;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +72,7 @@ public class CategoryHomeAdapter extends RecyclerView.Adapter<CategoryHomeAdapte
             super(itemCategoryHomeBinding.getRoot());
             binding = itemCategoryHomeBinding;
 
-            binding.cardViewCategory.setOnClickListener(v -> listener.onItemClick(getAdapterPosition()));
+            binding.cardViewCategory.setOnClickListener(v -> listener.onItemClick(getBindingAdapterPosition()));
         }
     }
 

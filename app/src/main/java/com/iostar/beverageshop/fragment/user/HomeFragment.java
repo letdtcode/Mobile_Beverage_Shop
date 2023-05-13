@@ -65,17 +65,6 @@ public class HomeFragment extends Fragment {
     private BannerAdapter bannerAdapter;
     private Timer timer;
 
-//    private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-//        @Override
-//        public void onActivityResult(ActivityResult result) {
-//            if (result.getResultCode() == RESULT_OK) {
-//                Intent intent = result.getData();
-//                String imgAvatarCallBack = intent.getStringExtra("data_result");
-//                loadImgAvatarUser(imgAvatarCallBack);
-//            }
-//        }
-//    });
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
@@ -202,14 +191,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-//    private void loadImgAvatarUser(String avatarUrl) {
-//        if (avatarUrl == null || avatarUrl == "") {
-//            Glide.with(getActivity()).load(R.drawable.avatar_default).into(binding.imgProfile);
-//        } else {
-//            Glide.with(getActivity()).load(avatarUrl).into(binding.imgProfile);
-//        }
-//    }
 
     private void getAllProduct() {
         BaseAPIService.createService(IProductService.class).getInfoAllProductCurrentUse().enqueue(new Callback<List<Product>>() {
