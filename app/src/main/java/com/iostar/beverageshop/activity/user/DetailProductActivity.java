@@ -1,6 +1,5 @@
 package com.iostar.beverageshop.activity.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.adapter.user.SizeDetailAdapter;
 import com.iostar.beverageshop.adapter.user.ToppingDetailAdapter;
 import com.iostar.beverageshop.databinding.ActivityDetailProductBinding;
-import com.iostar.beverageshop.fragment.user.HomeFragment;
 import com.iostar.beverageshop.inteface.user.IOnSizeClickListener;
 import com.iostar.beverageshop.inteface.user.IOnToppingCheckedListener;
 import com.iostar.beverageshop.model.CartItem;
@@ -63,9 +61,6 @@ public class DetailProductActivity extends AppCompatActivity implements IOnSizeC
         binding.imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(DetailProductActivity.this, MainActivity.class);
-//                intent.putExtra()
-//                startActivity(new Intent(DetailProductActivity.this, MainActivity.class));
                 finish();
             }
         });

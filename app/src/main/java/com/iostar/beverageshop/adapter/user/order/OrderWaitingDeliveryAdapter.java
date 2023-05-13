@@ -3,6 +3,7 @@ package com.iostar.beverageshop.adapter.user.order;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.activity.user.OrderDetailActivity;
 import com.iostar.beverageshop.databinding.ItemOrderWaitingDeliveryBinding;
+import com.iostar.beverageshop.inteface.IOnApproveOrderClickListener;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.model.OrderItem;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
+import com.iostar.beverageshop.utils.ToastUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -29,10 +32,12 @@ public class OrderWaitingDeliveryAdapter extends RecyclerView.Adapter<OrderWaiti
     private final List<Order> orders;
     private List<OrderItem> orderItemsOfOrderCLick = null;
     private Context mContext;
+    private IOnApproveOrderClickListener onApproveOrderClickListener;
 
-    public OrderWaitingDeliveryAdapter(List<Order> orders, Context mContext) {
+    public OrderWaitingDeliveryAdapter(List<Order> orders, Context mContext, IOnApproveOrderClickListener onApproveOrderClickListener) {
         this.orders = orders;
         this.mContext = mContext;
+        this.onApproveOrderClickListener = onApproveOrderClickListener;
     }
 
     @NonNull
@@ -80,6 +85,27 @@ public class OrderWaitingDeliveryAdapter extends RecyclerView.Adapter<OrderWaiti
                 });
             }
         });
+
+        holder.binding.btnToSuccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Long orderId = Long.parseLong(holder.binding.orderId.getText().toString());
+                BaseAPIService.createService(IOrderService.class).approveOrder(orderId, 3).enqueue(new Callback<Order>() {
+                    @Override
+                    public void onResponse(Call<Order> call, Response<Order> response) {
+                        ToastUtils.showToastCustom(mContext, "Bạn đã nhận hàng");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Order> call, Throwable t) {
+                        Log.e("success_order", t.getMessage());
+                    }
+                });
+                orders.remove(holder.getBindingAdapterPosition());
+                notifyItemRemoved(holder.getBindingAdapterPosition());
+                onApproveOrderClickListener.onOrderClick();
+            }
+        });
     }
 
     @Override
@@ -89,7 +115,6 @@ public class OrderWaitingDeliveryAdapter extends RecyclerView.Adapter<OrderWaiti
         }
         return 0;
     }
-
 
     public static class OrderWaitingDeliveryViewHolder extends RecyclerView.ViewHolder {
         private final ItemOrderWaitingDeliveryBinding binding;

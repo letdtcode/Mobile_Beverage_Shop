@@ -54,10 +54,9 @@ public class ShowAllProductActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
                 productList = response.body();
-                if (productList != null && productList.size() != 0) {
-                    productViewAllAdapter = new ProductViewAllAdapter(productList, ShowAllProductActivity.this);
-                    binding.rvListProduct.setAdapter(productViewAllAdapter);
-                } else {
+                productViewAllAdapter = new ProductViewAllAdapter(productList, ShowAllProductActivity.this);
+                binding.rvListProduct.setAdapter(productViewAllAdapter);
+                if (productList == null || productList.size() == 0) {
                     binding.imgEmpty.setVisibility(View.VISIBLE);
                     binding.tvTitle.setVisibility(View.VISIBLE);
                 }
@@ -91,8 +90,16 @@ public class ShowAllProductActivity extends AppCompatActivity {
                 filteredList.add(product);
             }
         }
+        if (nameProduct.equals("") && productList.size() == 0) {
+            binding.tvNoProductSearch.setVisibility(View.GONE);
+            binding.imgEmpty.setVisibility(View.VISIBLE);
+            binding.tvTitle.setVisibility(View.VISIBLE);
+            return;
+        }
         if (filteredList.isEmpty()) {
             binding.tvNoProductSearch.setVisibility(View.VISIBLE);
+            binding.imgEmpty.setVisibility(View.GONE);
+            binding.tvTitle.setVisibility(View.GONE);
             productViewAllAdapter.setFilteredList(filteredList);
         } else {
             binding.tvNoProductSearch.setVisibility(View.GONE);

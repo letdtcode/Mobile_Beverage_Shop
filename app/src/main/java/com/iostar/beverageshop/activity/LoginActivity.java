@@ -47,7 +47,9 @@ public class LoginActivity extends AppCompatActivity {
     private void login() {
         String email = binding.edtEmail.getText().toString().trim();
         String password = binding.edtPassword.getText().toString().trim();
-
+        if (!checkValid(email, password)) {
+            return;
+        }
         LoginRequest loginRequest = new LoginRequest(email, password);
         JsonObject jsonReq = new Gson().toJsonTree(loginRequest).getAsJsonObject();
         BaseAPIService.createService(IAuthService.class).login(jsonReq).enqueue(new Callback<AuthResponse>() {
@@ -76,6 +78,18 @@ public class LoginActivity extends AppCompatActivity {
                 ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
             }
         });
+    }
+
+    private boolean checkValid(String email, String password) {
+        if (email.isEmpty()) {
+            binding.edtEmail.setError("Vui lòng nhập email");
+            return false;
+        }
+        if (password.isEmpty()) {
+            binding.edtEmail.setError("Vui lòng nhập password");
+            return false;
+        }
+        return true;
     }
 
     private void saveInfoUser(Long id) {

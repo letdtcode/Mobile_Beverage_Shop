@@ -1,18 +1,16 @@
 package com.iostar.beverageshop.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.databinding.ActivityRegisterBinding;
-import com.iostar.beverageshop.model.request.LoginRequest;
 import com.iostar.beverageshop.model.request.RegisterRequest;
 import com.iostar.beverageshop.model.response.AuthResponse;
 import com.iostar.beverageshop.service.BaseAPIService;
@@ -44,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         binding.tvlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
             }
         });
     }

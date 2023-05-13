@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iostar.beverageshop.adapter.user.order.OrderWaitingDeliveryAdapter;
 import com.iostar.beverageshop.databinding.FragmentOrderWaitingDeliveryBinding;
+import com.iostar.beverageshop.inteface.IOnApproveOrderClickListener;
 import com.iostar.beverageshop.model.Order;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IOrderService;
@@ -25,7 +26,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderWaitingDeliveryFragment extends Fragment {
+public class OrderWaitingDeliveryFragment extends Fragment implements IOnApproveOrderClickListener {
     private FragmentOrderWaitingDeliveryBinding binding;
     private List<Order> orders;
     private OrderWaitingDeliveryAdapter adapter;
@@ -36,6 +37,11 @@ public class OrderWaitingDeliveryFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentOrderWaitingDeliveryBinding.inflate(inflater, container, false);
         return binding.getRoot();
+    }
+
+    private void setDataAdapter() {
+        adapter = new OrderWaitingDeliveryAdapter(orders, getActivity(), this);
+        binding.rvOrderWaitingDelivery.setAdapter(adapter);
     }
 
     @Override
@@ -53,8 +59,7 @@ public class OrderWaitingDeliveryFragment extends Fragment {
             public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
                 orders = response.body();
                 if (orders != null && orders.size() > 0) {
-                    adapter = new OrderWaitingDeliveryAdapter(orders, getActivity());
-                    binding.rvOrderWaitingDelivery.setAdapter(adapter);
+                    setDataAdapter();
                 } else {
                     binding.imgEmpty.setVisibility(View.VISIBLE);
                     binding.tvTitle.setVisibility(View.VISIBLE);
@@ -89,6 +94,14 @@ public class OrderWaitingDeliveryFragment extends Fragment {
         super.onDestroy();
         if (adapter != null) {
             adapter.release();
+        }
+    }
+
+    @Override
+    public void onOrderClick() {
+        if (orders.size() == 0 || orders == null) {
+            binding.imgEmpty.setVisibility(View.VISIBLE);
+            binding.tvTitle.setVisibility(View.VISIBLE);
         }
     }
 }

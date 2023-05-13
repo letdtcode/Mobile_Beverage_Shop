@@ -1,6 +1,7 @@
 package com.iostar.beverageshop.adapter.user;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 

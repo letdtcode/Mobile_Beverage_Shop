@@ -3,6 +3,7 @@ package com.iostar.beverageshop.activity.staff;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,11 +36,21 @@ public class StaffLoginActivity extends AppCompatActivity {
 
     private void setEvent() {
         binding.imgLogin.setOnClickListener(v -> login());
+        binding.tvLoginClient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void login() {
         String email = binding.edtEmail.getText().toString().trim();
         String password = binding.edtPassword.getText().toString().trim();
+
+        if (!checkValid(email, password)) {
+            return;
+        }
 
         LoginRequest loginRequest = new LoginRequest(email, password);
         JsonObject jsonReq = new Gson().toJsonTree(loginRequest).getAsJsonObject();
@@ -61,6 +72,7 @@ public class StaffLoginActivity extends AppCompatActivity {
                 if (!response.body().getAccessToken().equals("") && checkValid == true) {
                     DataLocalManager.saveAuthToken(authResponse);
                     Log.d("token", authResponse.toString());
+
 //                    Call API get UserInfo
                     saveInfoUser(authResponse.getUserId());
                     startActivity(new Intent(StaffLoginActivity.this, StaffActivity.class));
@@ -75,6 +87,18 @@ public class StaffLoginActivity extends AppCompatActivity {
                 Log.e("login_staff", t.getMessage());
             }
         });
+    }
+
+    private boolean checkValid(String email, String password) {
+        if (email.isEmpty()) {
+            binding.edtEmail.setError("Vui lòng nhập email");
+            return false;
+        }
+        if (password.isEmpty()) {
+            binding.edtEmail.setError("Vui lòng nhập password");
+            return false;
+        }
+        return true;
     }
 
     private void saveInfoUser(Long id) {

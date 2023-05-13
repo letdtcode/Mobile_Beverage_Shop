@@ -52,7 +52,7 @@ public class NotificationFragment extends Fragment {
     }
 
     private void getAllNotifications() {
-        BaseAPIService.createService(INotificationService.class).getAllNotifications().enqueue(new Callback<List<Notification>>() {
+        BaseAPIService.createService(INotificationService.class).getNotificationByStatus(1).enqueue(new Callback<List<Notification>>() {
             @Override
             public void onResponse(Call<List<Notification>> call, Response<List<Notification>> response) {
                 notificationList = response.body();
