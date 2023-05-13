@@ -76,12 +76,6 @@ public class CheckOutActivity extends AppCompatActivity {
 //        Set Up Data For Another View
         binding.edAddress.setText(DataLocalManager.getUser().getAddress());
         binding.tvSubtotalProduct.setText(totalPrice.toString());
-
-//        Integer shipping = Integer.valueOf(binding.tvSubTotalDelivery.getText().toString());
-//        Log.e("shipping", shipping.toString());
-//        BigDecimal totalPay = totalPrice.add(BigDecimal.valueOf(shipping));
-//        binding.tvTotalPayment.setText(totalPay.toString());
-//        binding.tvTotalPrice.setText(totalPay.toString());
     }
 
     private void setUpTotalPay() {

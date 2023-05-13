@@ -1,4 +1,4 @@
-package com.iostar.beverageshop.fragment.user;
+package com.iostar.beverageshop.fragment.staff;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.iostar.beverageshop.activity.user.ChangePasswordActivity;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.activity.LoginActivity;
+import com.iostar.beverageshop.activity.staff.StaffNotifiManageActivity;
+import com.iostar.beverageshop.activity.user.ChangePasswordActivity;
 import com.iostar.beverageshop.activity.user.ContactActivity;
-import com.iostar.beverageshop.activity.user.OrderActivity;
 import com.iostar.beverageshop.activity.user.PersonalActivity;
-import com.iostar.beverageshop.databinding.FragmentProfileBinding;
+import com.iostar.beverageshop.databinding.FragmentStaffProfileBinding;
 import com.iostar.beverageshop.model.User;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IUserService;
@@ -28,13 +28,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileFragment extends Fragment {
-    private FragmentProfileBinding binding;
+public class StaffProfileFragment extends Fragment {
+    private FragmentStaffProfileBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        binding = FragmentStaffProfileBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -77,16 +77,17 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getActivity(), ContactActivity.class));
             }
         });
-        binding.itemBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), OrderActivity.class));
-            }
-        });
+
         binding.itemChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity(), ChangePasswordActivity.class));
+            }
+        });
+        binding.itemNotiManage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), StaffNotifiManageActivity.class));
             }
         });
     }

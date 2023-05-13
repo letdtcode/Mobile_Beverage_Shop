@@ -1,4 +1,4 @@
-package com.iostar.beverageshop;
+package com.iostar.beverageshop.activity.user;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,7 +14,6 @@ import com.iostar.beverageshop.databinding.ActivityShowAllProductBinding;
 import com.iostar.beverageshop.model.Product;
 import com.iostar.beverageshop.service.BaseAPIService;
 import com.iostar.beverageshop.service.IProductService;
-import com.iostar.beverageshop.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,9 +92,10 @@ public class ShowAllProductActivity extends AppCompatActivity {
             }
         }
         if (filteredList.isEmpty()) {
-            ToastUtils.showToast(this, "Không tìm thấy dữ liệu");
+            binding.tvNoProductSearch.setVisibility(View.VISIBLE);
             productViewAllAdapter.setFilteredList(filteredList);
         } else {
+            binding.tvNoProductSearch.setVisibility(View.GONE);
             productViewAllAdapter.setFilteredList(filteredList);
         }
     }

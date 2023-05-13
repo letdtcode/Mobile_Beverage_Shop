@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/tab_home"
+        android:id="@+id/tab_home_staff"
         android:icon="@drawable/home_icon"
         android:title="Trang chủ" />
     <item
-        android:id="@+id/tab_order"
+        android:id="@+id/tab_order_staff"
         android:icon="@drawable/order_icon"
         android:title="Đơn hàng" />
+    <item
+        android:id="@+id/tab_statistical_staff"
+        android:icon="@drawable/statistical_icon"
+        android:title="Thống kê" />
+    <item
+        android:id="@+id/tab_profile_staff"
+        android:icon="@drawable/profile_icon"
+        android:title="Profile" />
 </menu>

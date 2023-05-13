@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.iostar.beverageshop.adapter.ViewPagerOrderAdapter;
+import com.iostar.beverageshop.adapter.ViewPagerAdapter;
 import com.iostar.beverageshop.databinding.FragmentStaffOrderBinding;
 import com.iostar.beverageshop.fragment.staff.order.OrderCanceledStaffFragment;
 import com.iostar.beverageshop.fragment.staff.order.OrderSuccessStaffFragment;
@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class StaffOrderFragment extends Fragment {
     private FragmentStaffOrderBinding binding;
     private ArrayList<Fragment> fragmentOrderDetail;
-    private ViewPagerOrderAdapter viewPagerOrderAdapter;
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,8 +47,8 @@ public class StaffOrderFragment extends Fragment {
         fragmentOrderDetail.add(new OrderSuccessStaffFragment());
         fragmentOrderDetail.add(new OrderCanceledStaffFragment());
 
-        viewPagerOrderAdapter = new ViewPagerOrderAdapter(getActivity(), fragmentOrderDetail);
-        binding.viewPagerTabLayout.setAdapter(viewPagerOrderAdapter);
+        viewPagerAdapter = new ViewPagerAdapter(getActivity(), fragmentOrderDetail);
+        binding.viewPagerTabLayout.setAdapter(viewPagerAdapter);
         new TabLayoutMediator(binding.tabLayout, binding.viewPagerTabLayout, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

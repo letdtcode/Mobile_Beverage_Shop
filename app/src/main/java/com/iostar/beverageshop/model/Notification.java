@@ -11,11 +11,12 @@ public class Notification implements Serializable {
 
     private String pathImgDescription;
 
-    public Notification(Long id, String title, String content, String pathImgDescription) {
-        Id = id;
+    private Integer status;
+
+    public Notification(String title, String content, Integer status) {
         this.title = title;
         this.content = content;
-        this.pathImgDescription = pathImgDescription;
+        this.status = status;
     }
 
     public Long getId() {
@@ -48,5 +49,13 @@ public class Notification implements Serializable {
 
     public void setPathImgDescription(String pathImgDescription) {
         this.pathImgDescription = pathImgDescription;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

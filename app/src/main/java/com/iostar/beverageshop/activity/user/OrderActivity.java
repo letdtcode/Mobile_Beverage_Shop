@@ -10,22 +10,19 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
-import com.iostar.beverageshop.adapter.ViewPagerOrderAdapter;
+import com.iostar.beverageshop.adapter.ViewPagerAdapter;
 import com.iostar.beverageshop.databinding.ActivityOrderBinding;
 import com.iostar.beverageshop.fragment.user.order.OrderCanceledFragment;
 import com.iostar.beverageshop.fragment.user.order.OrderSuccessFragment;
 import com.iostar.beverageshop.fragment.user.order.OrderWaitingConfirmFragment;
 import com.iostar.beverageshop.fragment.user.order.OrderWaitingDeliveryFragment;
-import com.iostar.beverageshop.model.Order;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderActivity extends AppCompatActivity {
     private ActivityOrderBinding binding;
     private ArrayList<Fragment> fragmentOrderDetail;
-    private ViewPagerOrderAdapter viewPagerOrderAdapter;
-    private List<Order> orders = null;
+    private ViewPagerAdapter viewPagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +56,8 @@ public class OrderActivity extends AppCompatActivity {
         fragmentOrderDetail.add(new OrderSuccessFragment());
         fragmentOrderDetail.add(new OrderCanceledFragment());
 
-        viewPagerOrderAdapter = new ViewPagerOrderAdapter(OrderActivity.this, fragmentOrderDetail);
-        binding.viewPagerTabLayout.setAdapter(viewPagerOrderAdapter);
+        viewPagerAdapter = new ViewPagerAdapter(OrderActivity.this, fragmentOrderDetail);
+        binding.viewPagerTabLayout.setAdapter(viewPagerAdapter);
         new TabLayoutMediator(binding.tabLayout, binding.viewPagerTabLayout, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {

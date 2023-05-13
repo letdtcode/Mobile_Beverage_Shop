@@ -1,4 +1,4 @@
-package com.iostar.beverageshop;
+package com.iostar.beverageshop.activity.user;
 
 import android.os.Bundle;
 import android.util.Log;

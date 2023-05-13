@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.iostar.beverageshop.R;
+import com.iostar.beverageshop.fragment.staff.StaffProfileFragment;
+import com.iostar.beverageshop.fragment.staff.StaffStatisticalFragment;
 import com.iostar.beverageshop.databinding.ActivityStaffBinding;
 import com.iostar.beverageshop.fragment.staff.StaffHomeFragment;
 import com.iostar.beverageshop.fragment.staff.StaffOrderFragment;
@@ -38,11 +40,17 @@ public class StaffActivity extends AppCompatActivity {
             public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NonNull AnimatedBottomBar.Tab newtab) {
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
                 switch (newtab.getId()) {
-                    case R.id.tab_home:
+                    case R.id.tab_home_staff:
                         transaction.replace(binding.fragmentContainer.getId(), new StaffHomeFragment());
                         break;
-                    case R.id.tab_order:
+                    case R.id.tab_order_staff:
                         transaction.replace(binding.fragmentContainer.getId(), new StaffOrderFragment());
+                        break;
+                    case R.id.tab_statistical_staff:
+                        transaction.replace(binding.fragmentContainer.getId(), new StaffStatisticalFragment());
+                        break;
+                    case R.id.tab_profile_staff:
+                        transaction.replace(binding.fragmentContainer.getId(), new StaffProfileFragment());
                         break;
                 }
                 transaction.commit();

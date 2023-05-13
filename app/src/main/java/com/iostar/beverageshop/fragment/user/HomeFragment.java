@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.iostar.beverageshop.R;
-import com.iostar.beverageshop.ShowAllProductActivity;
+import com.iostar.beverageshop.activity.user.ShowAllProductActivity;
 import com.iostar.beverageshop.activity.user.ShowAllCategoryActivity;
 import com.iostar.beverageshop.activity.user.DetailProductActivity;
 import com.iostar.beverageshop.activity.user.ListProductActivity;
