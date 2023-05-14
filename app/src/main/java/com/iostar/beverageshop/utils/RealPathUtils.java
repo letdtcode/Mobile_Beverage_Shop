@@ -1,7 +1,5 @@
 package com.iostar.beverageshop.utils;
 
-import static android.provider.DocumentsContract.*;
-
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
@@ -9,12 +7,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
 import androidx.loader.content.CursorLoader;
 
 public class RealPathUtils {
-
     public static String getRealPath(Context context, Uri fileUri) {
         String realPath;
         // SDK < API11
@@ -80,10 +78,10 @@ public class RealPathUtils {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
         // DocumentProvider
-        if (isKitKat && isDocumentUri(context, uri)) {
+        if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
             // ExternalStorageProvider
             if (isExternalStorageDocument(uri)) {
-                final String docId = getDocumentId(uri);
+                final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
 
@@ -96,15 +94,14 @@ public class RealPathUtils {
             // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
 
-                final String id = getDocumentId(uri);
+                final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
                 return getDataColumn(context, contentUri, null, null);
             }
             // MediaProvider
             else if (isMediaDocument(uri)) {
-                final String docId = getDocumentId(uri);
+                final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
 
@@ -207,4 +204,5 @@ public class RealPathUtils {
     public static boolean isGooglePhotosUri(Uri uri) {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
+
 }

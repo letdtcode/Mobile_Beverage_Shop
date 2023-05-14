@@ -12,9 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.iostar.beverageshop.activity.user.ChangePasswordActivity;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.activity.LoginActivity;
+import com.iostar.beverageshop.activity.user.ChangePasswordActivity;
 import com.iostar.beverageshop.activity.user.ContactActivity;
 import com.iostar.beverageshop.activity.user.OrderActivity;
 import com.iostar.beverageshop.activity.user.PersonalActivity;

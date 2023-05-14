@@ -38,8 +38,7 @@ public class DataLocalManager {
     }
 
     public static void deleteInfo() {
-        DataLocalManager.getInstance().mySharedPreference.putStringValue(KEY_USER, null);
-        DataLocalManager.getInstance().mySharedPreference.putStringValue(KEY_AUTH_TOKEN, null);
+        DataLocalManager.getInstance().mySharedPreference.removeAll();
     }
 
     public static void saveUser(User user) {
@@ -55,4 +54,9 @@ public class DataLocalManager {
         return user;
     }
 
+    public boolean isLoggedIn() {
+        String jsonUser = DataLocalManager.getInstance().mySharedPreference.getStringValue(KEY_USER);
+        String jsonAuthToken = DataLocalManager.getInstance().mySharedPreference.getStringValue(KEY_AUTH_TOKEN);
+        return jsonUser != null && jsonAuthToken != null;
+    }
 }

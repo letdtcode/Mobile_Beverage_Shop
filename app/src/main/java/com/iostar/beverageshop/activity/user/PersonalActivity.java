@@ -24,6 +24,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.hbisoft.pickit.PickiT;
+import com.hbisoft.pickit.PickiTCallbacks;
 import com.iostar.beverageshop.R;
 import com.iostar.beverageshop.databinding.ActivityPersonalBinding;
 import com.iostar.beverageshop.model.User;
@@ -36,6 +38,7 @@ import com.iostar.beverageshop.utils.ToastUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -44,11 +47,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PersonalActivity extends AppCompatActivity {
+public class PersonalActivity extends AppCompatActivity implements PickiTCallbacks {
     private static final int MY_REQUEST_CODE = 113;
     private ActivityPersonalBinding binding;
     private Uri mUri = null;
     private ProgressDialog mProgressDialog;
+    private String pathAvatar;
+
+    private PickiT pickiT;
 
     private final ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -100,6 +106,9 @@ public class PersonalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPersonalBinding.inflate(getLayoutInflater());
+
+        pickiT = new PickiT(this, this, this);
+
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setMessage("Please wait ...");
         setContentView(binding.getRoot());
@@ -116,8 +125,7 @@ public class PersonalActivity extends AppCompatActivity {
         User user = (User) bundle.get("object_user");
 
         String avatarUrl = user.getAvatar();
-        if (avatarUrl == null || avatarUrl == "")
-        {
+        if (avatarUrl == null || avatarUrl == "") {
             Glide.with(PersonalActivity.this).load(R.drawable.avatar_default).into(binding.imgProfile);
         } else {
             Glide.with(PersonalActivity.this).load(user.getAvatar()).into(binding.imgProfile);
@@ -151,8 +159,8 @@ public class PersonalActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mProgressDialog.show();
-                callAPIUploadInfoProfile();
                 if (mUri != null) {
+                    pickiT.getPath(mUri, Build.VERSION.SDK_INT);
                     callAPIUploadImgProfile();
                 }
 //                mProgressDialog.dismiss();
@@ -189,9 +197,12 @@ public class PersonalActivity extends AppCompatActivity {
     }
 
     private void callAPIUploadImgProfile() {
-        String strRealPath = RealPathUtils.getRealPath(this, mUri);
-        Log.e("RealPath", strRealPath);
-        File file = new File(strRealPath);
+//        String strRealPath = RealPathUtils.getRealPath(this, mUri);
+        Log.e("RealPath", pathAvatar);
+        if (pathAvatar == null) {
+            return;
+        }
+        File file = new File(pathAvatar);
 
         RequestBody requestBodyAvatar = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part multipartBodyAvatar = MultipartBody.Part.createFormData("file", file.getName(), requestBodyAvatar);
@@ -247,4 +258,29 @@ public class PersonalActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void PickiTonUriReturned() {
+
+    }
+
+    @Override
+    public void PickiTonStartListener() {
+
+    }
+
+    @Override
+    public void PickiTonProgressUpdate(int progress) {
+
+    }
+
+    @Override
+    public void PickiTonCompleteListener(String path, boolean wasDriveFile, boolean wasUnknownProvider, boolean wasSuccessful, String Reason) {
+        pathAvatar = path;
+        return;
+    }
+
+    @Override
+    public void PickiTonMultipleCompleteListener(ArrayList<String> paths, boolean wasSuccessful, String Reason) {
+
+    }
 }

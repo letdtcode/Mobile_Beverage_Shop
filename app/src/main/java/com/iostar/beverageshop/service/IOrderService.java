@@ -21,9 +21,6 @@ public interface IOrderService {
     @GET("client/orderItems")
     Call<List<OrderItem>> getAllListOrderItems(@Query("orderId") Long orderId);
 
-//    @GET("client/orders")
-//    Call<List<Order>> getAllListOrderOfUser(@Query("userId") Long userId);
-
     @GET("client/orders/waiting-confirm")
     Call<List<Order>> getListOrderWaitingConfirmOfUser(@Query("userId") Long userId);
 

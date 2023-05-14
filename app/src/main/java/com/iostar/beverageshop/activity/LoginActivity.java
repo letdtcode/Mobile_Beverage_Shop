@@ -26,13 +26,20 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
+    private AuthResponse authResponse;
+    private User userCurrent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+//        initial();
         setEvent();
+    }
+
+    private void initial() {
+//        DataLocalManager.deleteInfo();
     }
 
     private void setEvent() {
@@ -60,14 +67,25 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 if (!response.body().getAccessToken().equals("")) {
-                    AuthResponse authResponse = response.body();
-
+                    authResponse = response.body();
                     DataLocalManager.saveAuthToken(authResponse);
-                    Log.d("token", authResponse.toString());
-//                    Call API get UserInfo
                     saveInfoUser(authResponse.getUserId());
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    ToastUtils.showToast(LoginActivity.this, "Đăng nhập thành công");
+//                    BaseAPIService.createService(IUserService.class).getInfoUserById(authResponse.getUserId()).enqueue(new Callback<User>() {
+//                        @Override
+//                        public void onResponse(Call<User> call, Response<User> response) {
+//                            User user = response.body();
+//                            if (response.isSuccessful() && user != null) {
+//                                saveInfoUser(authResponse, user);
+//                                ToastUtils.showToast(LoginActivity.this, "Đăng nhập thành công");
+//                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<User> call, Throwable t) {
+//                            Log.d("error", t.getMessage());
+//                        }
+//                    });
                 } else {
                     ToastUtils.showToast(LoginActivity.this, "Email or password is incorrect");
                 }
@@ -86,24 +104,26 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
         if (password.isEmpty()) {
-            binding.edtEmail.setError("Vui lòng nhập password");
+            binding.edtPassword.setError("Vui lòng nhập password");
             return false;
         }
         return true;
     }
 
-    private void saveInfoUser(Long id) {
-        BaseAPIService.createService(IUserService.class).getInfoUserById(id).enqueue(new Callback<User>() {
+    private void saveInfoUser(Long userId) {
+        BaseAPIService.createService(IUserService.class).getInfoUserById(userId).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 User user = response.body();
-                if (user != null)
+                if (user != null && response.isSuccessful()) {
                     DataLocalManager.saveUser(user);
+                    ToastUtils.showToast(LoginActivity.this, "Đăng nhập thành công");
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }
             }
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                ToastUtils.showToast(LoginActivity.this, t.getMessage());
                 Log.d("error", t.getMessage());
             }
         });

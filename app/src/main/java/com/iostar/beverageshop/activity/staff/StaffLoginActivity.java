@@ -75,8 +75,8 @@ public class StaffLoginActivity extends AppCompatActivity {
 
 //                    Call API get UserInfo
                     saveInfoUser(authResponse.getUserId());
-                    startActivity(new Intent(StaffLoginActivity.this, StaffActivity.class));
                     ToastUtils.showToast(StaffLoginActivity.this, "Đăng nhập thành công");
+                    startActivity(new Intent(StaffLoginActivity.this, StaffActivity.class));
                 } else {
                     ToastUtils.showToast(StaffLoginActivity.this, "Email or password is incorrect");
                 }
@@ -95,7 +95,7 @@ public class StaffLoginActivity extends AppCompatActivity {
             return false;
         }
         if (password.isEmpty()) {
-            binding.edtEmail.setError("Vui lòng nhập password");
+            binding.edtPassword.setError("Vui lòng nhập password");
             return false;
         }
         return true;
